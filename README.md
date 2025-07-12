@@ -11,7 +11,6 @@ A modern, production-ready template for building full-stack React applications u
 - 📦 Asset bundling and optimization
 - 🔄 Data loading and mutations
 - 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
 - 📖 [React Router docs](https://reactrouter.com/)
 
 ## Getting Started
@@ -80,7 +79,7 @@ Make sure to deploy the output of `npm run build`
 
 ## Styling
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+This template comes with css already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
 
 ---
 

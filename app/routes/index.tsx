@@ -1,13 +1,17 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { makeStyles } from '@griffel/react';
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
+const useStyles = makeStyles({
+  root: {
+    color: 'blue',
+  },
+});
 
 export default function Home() {
-  return <Welcome />;
+  const classes = useStyles();
+
+  return (
+    <>
+      <h1>Home</h1>
+    </>
+  );
 }

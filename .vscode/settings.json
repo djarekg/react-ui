@@ -146,5 +146,6 @@
   "apollographql.devTools.serverPort": 7095,
   "[xml]": {
     "editor.defaultFormatter": "redhat.vscode-xml"
-  }
+  },
+  "cSpell.words": ["griffel", "isbot"]
 }
