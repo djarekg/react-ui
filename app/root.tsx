@@ -8,6 +8,7 @@ import {
 } from 'react-router';
 import styles from '@/styles/styles.css?url';
 import type { Route } from '@/+types/app/+types/root.js';
+import Header from '@/components/layout/header.js';
 
 export const links: Route.LinksFunction = () => [
   {
@@ -41,6 +42,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <Header />
         <main>{children}</main>
         <ScrollRestoration />
         <Scripts />

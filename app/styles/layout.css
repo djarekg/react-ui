@@ -66,8 +66,7 @@ body {
 
 a {
   color: var(--cui-color-text);
-  text-decoration: none;
-  font-weight: var(--cui-font-weight-semibold);
+  font-weight: var(--cui-font-weight-normal);
   transition: color 0.2s ease-in-out;
 
   &:hover {
