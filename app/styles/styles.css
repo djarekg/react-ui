@@ -1,7 +1,6 @@
-@import "./theme.css";
-@import "./variables.css";
-@import "./reset.css";
-@import "./layout.css";
+@import "./_base.css";
+@import "./_reset.css";
+@import "./_layout.css";
 
 :root {
   --cui-font-inter: "League Spartan", sans-serif;

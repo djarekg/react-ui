@@ -147,5 +147,6 @@
   "[xml]": {
     "editor.defaultFormatter": "redhat.vscode-xml"
   },
-  "cSpell.words": ["griffel", "isbot"]
+  "cSpell.words": ["griffel", "isbot", "presetenv"],
+  "postcssense.cssPath": "app/styles/styles.css"
 }

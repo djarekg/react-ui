@@ -9,6 +9,8 @@ import {
 import styles from '@/styles/styles.css?url';
 import type { Route } from '@/+types/app/+types/root.js';
 import Header from '@/components/layout/header.js';
+import { FluentProvider, teamsDarkTheme } from '@fluentui/react-components';
+import { fontFamilyBase } from '@/styles/common.js';
 
 export const links: Route.LinksFunction = () => [
   {
@@ -32,6 +34,8 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+teamsDarkTheme.fontFamilyBase = fontFamilyBase;
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -42,8 +46,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <Header />
-        <main>{children}</main>
+        <FluentProvider theme={teamsDarkTheme}>
+          <Header />
+          <main>{children}</main>
+        </FluentProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

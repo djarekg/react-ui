@@ -1,0 +1,5 @@
+/* @import "@fluentui/common-styles/src/common"; */
+
+:root {
+  --app-header-height: 60px;
+}

@@ -1,8 +1,0 @@
-:root {
-  --app-header-height: 60px;
-
-  @media (prefers-color-scheme: light) {
-    --cui-color-background: var(--cui-color-white);
-    --cui-color-text: var(--cui-color-slate-950);
-  }
-}

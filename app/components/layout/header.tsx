@@ -1,10 +1,12 @@
-import { makeStyles } from '@griffel/react';
+import { makeStyles, tokens } from '@fluentui/react-components';
 
 const useStyles = makeStyles({
   header: {
     padding: '20px',
     color: 'white',
     textAlign: 'center',
+    fontWeight: tokens.fontWeightSemibold,
+    fontSize: tokens.fontSizeBase400,
   },
   nav: {
     display: 'flex',
@@ -12,6 +14,7 @@ const useStyles = makeStyles({
 
     '& ul': {
       display: 'flex',
+      alignItems: 'center',
       gap: '20px',
     },
   },
