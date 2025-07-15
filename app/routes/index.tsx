@@ -1,25 +1,9 @@
-import { makeStyles, tokens } from '@fluentui/react-components';
-
-const useStyles = makeStyles({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 'calc(100% - var(--app-header-height))',
-  },
-  title: {
-    fontSize: tokens.fontSizeHero1000,
-    fontWeight: tokens.fontWeightSemibold,
-  },
-});
+import './index.css';
 
 export default function Home() {
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
-      <span className={classes.title}>Home</span>
+    <div className="app-home-root">
+      <span className="app-home-title app-brand-text-color">Home</span>
     </div>
   );
 }

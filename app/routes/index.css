@@ -1,0 +1,12 @@
+.app-home-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - var(--app-header-height));
+}
+
+.app-home-title {
+  font-size: 15rem;
+  font-weight: 600;
+}

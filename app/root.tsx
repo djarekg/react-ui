@@ -9,8 +9,10 @@ import {
 import styles from '@/styles/styles.css?url';
 import type { Route } from '@/+types/app/+types/root.js';
 import Header from '@/components/layout/header.js';
-import { FluentProvider, teamsDarkTheme } from '@fluentui/react-components';
-import { fontFamilyBase } from '@/styles/common.js';
+import { CacheProvider } from '@emotion/react';
+import Box from '@mui/material/Box';
+import AppTheme from './styles/theme.js';
+import createEmotionCache from './createCache.js';
 
 export const links: Route.LinksFunction = () => [
   {
@@ -26,15 +28,13 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
+    href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap',
   },
   {
     rel: 'stylesheet',
     href: styles,
   },
 ];
-
-teamsDarkTheme.fontFamilyBase = fontFamilyBase;
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -46,10 +46,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <FluentProvider theme={teamsDarkTheme}>
-          <Header />
-          <main>{children}</main>
-        </FluentProvider>
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -57,8 +54,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+const cache = createEmotionCache();
+
 export default function App() {
-  return <Outlet />;
+  if (typeof window !== 'undefined') {
+    return (
+      <CacheProvider value={cache}>
+        <AppTheme>
+          <Header />
+          <main>
+            <Outlet />
+          </main>
+        </AppTheme>
+      </CacheProvider>
+    );
+  }
+  return (
+    <AppTheme>
+      <Header />
+      <Outlet />
+    </AppTheme>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -76,14 +92,14 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
+    <Box component="main" sx={{ pt: 8, p: 2, maxWidth: 'lg', mx: 'auto' }}>
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <Box component="pre" sx={{ width: '100%', p: 2, overflowX: 'auto' }}>
           <code>{stack}</code>
-        </pre>
+        </Box>
       )}
-    </main>
+    </Box>
   );
 }
