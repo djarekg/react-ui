@@ -3,6 +3,7 @@ import {
   Links,
   Meta,
   Outlet,
+  redirect,
   Scripts,
   ScrollRestoration,
 } from 'react-router';
@@ -13,6 +14,23 @@ import { CacheProvider } from '@emotion/react';
 import Box from '@mui/material/Box';
 import AppTheme from './styles/theme.js';
 import createEmotionCache from './createCache.js';
+import { AuthProvider, useAuthContext } from '@/auth/auth.js';
+import { getAuthSession } from '@/routes/auth/auth-session.js';
+
+export const loader = async ({ request }: Route.LoaderArgs) => {
+  const { isAuthenticated } = await getAuthSession(request);
+
+  // If the user is not logged in and tries to access `/protected`, we redirect
+  // them to `/login` with a `from` parameter that allows login to redirect back
+  // to this page upon successful authentication
+  if (!isAuthenticated) {
+    const params = new URLSearchParams();
+    params.set('from', new URL(request.url).pathname);
+    return redirect('/signin?' + params.toString());
+  }
+
+  return null;
+};
 
 export const links: Route.LinksFunction = () => [
   {
@@ -36,9 +54,9 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -52,7 +70,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
-}
+};
 
 const cache = createEmotionCache();
 
@@ -61,14 +79,17 @@ export default function App() {
     return (
       <CacheProvider value={cache}>
         <AppTheme>
-          <Header />
-          <main>
-            <Outlet />
-          </main>
+          <AuthProvider>
+            <Header />
+            <main>
+              <Outlet />
+            </main>
+          </AuthProvider>
         </AppTheme>
       </CacheProvider>
     );
   }
+
   return (
     <AppTheme>
       <Header />
@@ -77,7 +98,7 @@ export default function App() {
   );
 }
 
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+export const ErrorBoundary = ({ error }: Route.ErrorBoundaryProps) => {
   let message = 'Oops!';
   let details = 'An unexpected error occurred.';
   let stack: string | undefined;
@@ -102,4 +123,4 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       )}
     </Box>
   );
-}
+};

@@ -3,11 +3,73 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch Program",
+      "program": "${workspaceFolder}/app/entry.server.tsx",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "runtimeArgs": ["--loader", "ts-node/esm"],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "presentation": {
+        "hidden": false,
+        "group": "3",
+        "order": 1
+      }
+    },
+    {
+      "name": "Launch server",
+      "cwd": "${workspaceFolder}",
+      "request": "launch",
+      "type": "node-terminal",
+      "noDebug": false,
+      "command": "npm run dev",
+      "skipFiles": ["<node_internals>/**"],
+      "sourceMaps": true,
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "presentation": {
+        "hidden": false,
+        "group": "3",
+        "order": 2
+      }
+    },
+    {
+      "name": "Launch client (edge)",
+      "type": "msedge",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "webRoot": "${workspaceFolder}",
+      "url": "http://localhost:5173/",
+      // "userDataDir": "${workspaceFolder}/.out/edge/apps",
+      "internalConsoleOptions": "openOnSessionStart",
+      "sourceMaps": true,
+      "smartStep": true,
+      "presentation": {
+        "hidden": false,
+        "group": "3",
+        "order": 3
+      }
+    },
+    {
       "name": "react-router dev",
       "type": "msedge",
       "request": "launch",
       "preLaunchTask": "npm: dev",
       "url": "http://localhost:5173/"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug Full Stack",
+      "configurations": [
+        "Launch Program",
+        "Launch server",
+        "Launch client (edge)"
+      ],
+      "stopAll": true
     }
   ]
 }

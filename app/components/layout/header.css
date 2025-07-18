@@ -1,9 +1,5 @@
 .app-header {
   padding: 20px;
-  color: white;
-  text-align: center;
-  font-weight: "theme.typography.fontWeightMedium";
-  font-size: "theme.typography.body1.fontSize";
 
   a,
   nav {
