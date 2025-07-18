@@ -1,4 +1,3 @@
-import { getSession } from '@/session.server.js';
 import { createContext, useContext, useState } from 'react';
 
 interface AuthProvider {

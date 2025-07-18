@@ -66,6 +66,7 @@
       "name": "Debug Full Stack",
       "configurations": [
         "Launch Program",
+        // "react-router dev"
         "Launch server",
         "Launch client (edge)"
       ],

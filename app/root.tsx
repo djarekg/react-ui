@@ -15,15 +15,16 @@ import Box from '@mui/material/Box';
 import AppTheme from './styles/theme.js';
 import createEmotionCache from './createCache.js';
 import { AuthProvider, useAuthContext } from '@/auth/auth.js';
-import { getAuthSession } from '@/routes/auth/auth-session.js';
+import { getAuthSession } from '@/auth/auth-session.js';
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
   const { isAuthenticated } = await getAuthSession(request);
+  const { pathname } = new URL(request.url);
 
   // If the user is not logged in and tries to access `/protected`, we redirect
   // them to `/login` with a `from` parameter that allows login to redirect back
-  // to this page upon successful authentication
-  if (!isAuthenticated) {
+  // to this page upon successful authentication.
+  if (!isAuthenticated && !/\/signin/.test(pathname)) {
     const params = new URLSearchParams();
     params.set('from', new URL(request.url).pathname);
     return redirect('/signin?' + params.toString());
