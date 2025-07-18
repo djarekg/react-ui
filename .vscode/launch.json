@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Program",
+      "name": "Launch server-side",
       "program": "${workspaceFolder}/app/entry.server.tsx",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
@@ -15,12 +15,12 @@
       "sourceMaps": true,
       "presentation": {
         "hidden": false,
-        "group": "3",
+        "group": "2",
         "order": 1
       }
     },
     {
-      "name": "Launch server",
+      "name": "Launch client-side",
       "cwd": "${workspaceFolder}",
       "request": "launch",
       "type": "node-terminal",
@@ -32,45 +32,41 @@
       "internalConsoleOptions": "openOnSessionStart",
       "presentation": {
         "hidden": false,
-        "group": "3",
+        "group": "2",
         "order": 2
       }
     },
     {
-      "name": "Launch client (edge)",
+      "name": "Launch Edge",
       "type": "msedge",
       "request": "launch",
       "cwd": "${workspaceFolder}",
       "webRoot": "${workspaceFolder}",
       "url": "http://localhost:5173/",
-      // "userDataDir": "${workspaceFolder}/.out/edge/apps",
       "internalConsoleOptions": "openOnSessionStart",
       "sourceMaps": true,
       "smartStep": true,
       "presentation": {
         "hidden": false,
-        "group": "3",
+        "group": "2",
         "order": 3
       }
-    },
-    {
-      "name": "react-router dev",
-      "type": "msedge",
-      "request": "launch",
-      "preLaunchTask": "npm: dev",
-      "url": "http://localhost:5173/"
     }
   ],
   "compounds": [
     {
-      "name": "Debug Full Stack",
+      "name": "Debug app",
       "configurations": [
-        "Launch Program",
-        // "react-router dev"
-        "Launch server",
-        "Launch client (edge)"
+        "Launch server-side",
+        "Launch client-side",
+        "Launch Edge"
       ],
-      "stopAll": true
+      "stopAll": true,
+      "presentation": {
+        "hidden": false,
+        "group": "1",
+        "order": 1
+      }
     }
   ]
 }
