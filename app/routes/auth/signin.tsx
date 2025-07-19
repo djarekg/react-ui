@@ -1,7 +1,9 @@
-import { useAuthContext } from '@/auth/auth.js';
 import { getAuthSession } from '@/auth/auth-session.js';
+import { useAuthContext } from '@/auth/auth.js';
 import { commitSession, getSession } from '@/session.server.js';
-import type { FormEvent, MouseEvent } from 'react';
+import { LoginOutlined, PasswordRounded, PersonOutlineRounded } from '@mui/icons-material';
+import { Button, InputAdornment, TextField } from '@mui/material';
+import type { MouseEvent } from 'react';
 import {
   redirect,
   useFetcher,
@@ -9,6 +11,7 @@ import {
   useNavigate,
   type ActionFunctionArgs,
 } from 'react-router';
+import './signin.css';
 
 export const loader = async ({ request }: ActionFunctionArgs) => {
   const { isAuthenticated } = await getAuthSession(request);
@@ -73,14 +76,43 @@ export default function Signin() {
   };
 
   return (
-    <div>
-      <h2>Sign In</h2>
+    <div className="signin-container">
       <form>
-        <label>
-          Username:
-          <input type="text" name="username" required />
-        </label>
-        <button onClick={handleSignin}>Sign In</button>
+        <h2>Sign In</h2>
+        <TextField
+          variant="outlined"
+          name="username"
+          label="Username"
+          required
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <PersonOutlineRounded />
+                </InputAdornment>
+              ),
+            },
+          }}
+        />
+        <TextField
+          variant="outlined"
+          name="password"
+          label="Password"
+          type="password"
+          required
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <PasswordRounded />
+                </InputAdornment>
+              ),
+            },
+          }}
+        />
+        <Button variant="outlined" endIcon={<LoginOutlined />} onClick={handleSignin}>
+          Sign In
+        </Button>
       </form>
     </div>
   );

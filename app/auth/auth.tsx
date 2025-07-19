@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, use, useState } from 'react';
 
 interface AuthProvider {
   isAuthenticated: boolean;
@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
  * This context provides access to the authentication state and methods
  * for signing in and signing out.
  */
-const AuthContext = createContext<AuthProvider>(null!);
+const AuthContext = createContext<AuthProvider>({} as AuthProvider);
 
 /**
  * Custom hook to access the authentication context.
@@ -88,5 +88,5 @@ const AuthContext = createContext<AuthProvider>(null!);
  * @returns {AuthProvider} The authentication context value.
  */
 export const useAuthContext = () => {
-  return useContext(AuthContext);
+  return use(AuthContext);
 };

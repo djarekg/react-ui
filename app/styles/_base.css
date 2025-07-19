@@ -7,40 +7,11 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
-
-  /* The gradient doesn't behave well in high contrast, so get rid of it. */
-  @media screen and (-ms-high-contrast: active), screen and (forced-colors: active) {
-    background: transparent;
-  }
 }
 
 /* Border box everywhere */
 html {
-  box-sizing: border-box;
-  font-size: 62.5%; /* 62.5% of 16px = 10px */
-}
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-/* Buttons */
-button {
-  background: transparent;
-  border: none;
-}
-
-/* Remove dotted outline added by MWF's main.css */
-body [contentEditable="true"]:focus,
-body [tabindex]:focus,
-body area[href]:focus,
-body button:focus,
-body iframe:focus,
-body input:focus,
-body select:focus,
-body textarea:focus {
-  outline: none;
+  font-size: 62.5%;
 }
 
 a {

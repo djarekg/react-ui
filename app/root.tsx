@@ -1,3 +1,10 @@
+import type { Route } from '@/+types/app/+types/root.js';
+import { getAuthSession } from '@/auth/auth-session.js';
+import { AuthProvider, useAuthContext } from '@/auth/auth.js';
+import Header from '@/components/layout/header.js';
+import styles from '@/styles/styles.css?url';
+import { CacheProvider } from '@emotion/react';
+import Box from '@mui/material/Box';
 import {
   isRouteErrorResponse,
   Links,
@@ -6,23 +13,17 @@ import {
   redirect,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from 'react-router';
-import styles from '@/styles/styles.css?url';
-import type { Route } from '@/+types/app/+types/root.js';
-import Header from '@/components/layout/header.js';
-import { CacheProvider } from '@emotion/react';
-import Box from '@mui/material/Box';
-import AppTheme from './styles/theme.js';
 import createEmotionCache from './createCache.js';
-import { AuthProvider, useAuthContext } from '@/auth/auth.js';
-import { getAuthSession } from '@/auth/auth-session.js';
+import AppTheme from './styles/theme.js';
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
   const { isAuthenticated } = await getAuthSession(request);
   const { pathname } = new URL(request.url);
 
   // If the user is not logged in and tries to access `/protected`, we redirect
-  // them to `/login` with a `from` parameter that allows login to redirect back
+  // them to `/signin` with a `from` parameter that allows signin to redirect back
   // to this page upon successful authentication.
   if (!isAuthenticated && !/\/signin/.test(pathname)) {
     const params = new URLSearchParams();
@@ -30,7 +31,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
     return redirect('/signin?' + params.toString());
   }
 
-  return null;
+  return { isAuthenticated };
 };
 
 export const links: Route.LinksFunction = () => [
@@ -76,12 +77,14 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 const cache = createEmotionCache();
 
 export default function App() {
+  const { isAuthenticated } = useLoaderData<typeof loader>();
+
   if (typeof window !== 'undefined') {
     return (
       <CacheProvider value={cache}>
         <AppTheme>
           <AuthProvider>
-            <Header />
+            <Header isAuthenticated={isAuthenticated} />
             <main>
               <Outlet />
             </main>
@@ -93,7 +96,7 @@ export default function App() {
 
   return (
     <AppTheme>
-      <Header />
+      <Header isAuthenticated={isAuthenticated} />
       <Outlet />
     </AppTheme>
   );

@@ -3,6 +3,7 @@ import { type RouteConfig, index, prefix, route } from '@react-router/dev/routes
 export default [
   index('routes/index.tsx'),
   route('signin', 'routes/auth/signin.tsx'),
+  route('signout', 'routes/auth/signout.tsx'),
   ...prefix('users', [
     index('routes/users/index.tsx'),
     ...prefix(':id', [
