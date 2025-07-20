@@ -19,3 +19,12 @@ a {
   color: inherit;
   font-weight: 400;
 }
+
+/* input {
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, 0) inset;
+  }
+  &:autofill {
+    box-shadow: 0 0 0 100px rgba(0, 0, 0, 0) inset;
+  }
+} */

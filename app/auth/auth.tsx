@@ -1,9 +1,10 @@
 import { createContext, use, useState } from 'react';
+import { isNullOrEmpty } from '@/core/utils/string.js';
 
 interface AuthProvider {
   isAuthenticated: boolean;
   username: null | string;
-  signin(username: string): Promise<boolean>;
+  signin(username: string, password: string): Promise<boolean>;
   signout(): Promise<void>;
 }
 
@@ -18,8 +19,13 @@ const fakeAuthProvider: AuthProvider = {
    * Simulates signing in a user by setting the username and authentication status.
    * In a real application, this would involve API calls to authenticate the user.
    */
-  async signin(username: string) {
+  async signin(username: string, password: string) {
     await new Promise((r) => setTimeout(r, 500)); // fake delay
+
+    if (isNullOrEmpty(username) || isNullOrEmpty(password)) {
+      return false;
+    }
+
     fakeAuthProvider.isAuthenticated = true;
     fakeAuthProvider.username = username;
     return true; // Simulate successful sign-in
@@ -51,10 +57,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
    * Simulates signing in a user by calling the fakeAuthProvider's signin method,
    * updating the username and authentication status, and optionally calling a callback.
    */
-  const signin = async (newUsername: string) => {
-    const result = await fakeAuthProvider.signin(newUsername);
-    setUsername(newUsername);
-    setIsAuthenticated(true);
+  const signin = async (newUsername: string, password: string) => {
+    const result = await fakeAuthProvider.signin(newUsername, password);
+
+    if (result) {
+      setUsername(newUsername);
+    }
+
+    setIsAuthenticated(result);
+
     return result;
   };
 

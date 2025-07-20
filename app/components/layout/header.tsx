@@ -1,12 +1,13 @@
 import { useAuthContext } from '@/auth/auth.js';
-import { LogoutOutlined } from '@mui/icons-material';
+import { LogoutOutlined, PersonOutlineRounded } from '@mui/icons-material';
 import PersonOutlineOutlined from '@mui/icons-material/PersonOutlineOutlined';
 import { Avatar, ListItemIcon, Menu, MenuItem } from '@mui/material';
 import { useState, type MouseEvent } from 'react';
-import { NavLink, useLoaderData, type LoaderFunctionArgs } from 'react-router';
+import { NavLink } from 'react-router';
 import './header.css';
 
 const ProfileMenu = () => {
+  const { username } = useAuthContext();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -15,11 +16,10 @@ const ProfileMenu = () => {
 
   return (
     <>
-      <Avatar sx={{ width: 32, height: 32 }} onClick={handleClick}>
-        <PersonOutlineOutlined />
+      <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main' }} onClick={handleClick}>
+        <PersonOutlineRounded />
       </Avatar>
       <Menu
-        id="profile-menu"
         anchorEl={anchorEl}
         open={open}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}

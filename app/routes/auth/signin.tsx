@@ -59,7 +59,8 @@ export default function Signin() {
     // Get the username from the form data and signin.
     const formData = new FormData(e.currentTarget.closest('form') as HTMLFormElement);
     const username = formData.get('username') as string;
-    const isSignedIn = await auth.signin(username);
+    const password = formData.get('password') as string;
+    const isSignedIn = await auth.signin(username, password);
 
     if (isSignedIn) {
       // If sign-in is successful, submit the form data to the action so
