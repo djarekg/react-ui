@@ -1,48 +1,6 @@
-import { useAuthContext } from '@/auth/auth.js';
-import { LogoutOutlined, PersonOutlineRounded } from '@mui/icons-material';
-import PersonOutlineOutlined from '@mui/icons-material/PersonOutlineOutlined';
-import { Avatar, ListItemIcon, Menu, MenuItem } from '@mui/material';
-import { useState, type MouseEvent } from 'react';
+import ProfileMenu from '@/components/profile-menu/profile-menu.js';
 import { NavLink } from 'react-router';
 import './header.css';
-
-const ProfileMenu = () => {
-  const { username } = useAuthContext();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-
-  const handleClick = (e: MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
-  const handleClose = () => setAnchorEl(null);
-
-  return (
-    <>
-      <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main' }} onClick={handleClick}>
-        <PersonOutlineRounded />
-      </Avatar>
-      <Menu
-        anchorEl={anchorEl}
-        open={open}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        onClose={handleClose}
-        onClick={handleClose}
-      >
-        <MenuItem>
-          <ListItemIcon>
-            <PersonOutlineOutlined />
-          </ListItemIcon>
-          <NavLink to="/profile">Profile</NavLink>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <LogoutOutlined />
-          </ListItemIcon>
-          <NavLink to="/signout">Signout</NavLink>
-        </MenuItem>
-      </Menu>
-    </>
-  );
-};
 
 type HeaderProps = {
   isAuthenticated: boolean;
