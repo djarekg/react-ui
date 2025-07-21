@@ -1,7 +1,9 @@
 import type { Route } from '@/+types/app/+types/root.js';
 import { getAuthSession } from '@/auth/auth-session.js';
-import { AuthProvider, useAuthContext } from '@/auth/auth.js';
+import { AuthProvider } from '@/auth/auth.js';
 import Header from '@/components/layout/header.js';
+import { SidenavProvider } from '@/components/sidenav/sidenav-provider.js';
+import Sidenav from '@/components/sidenav/sidenav.js';
 import styles from '@/styles/styles.css?url';
 import { CacheProvider } from '@emotion/react';
 import Box from '@mui/material/Box';
@@ -74,32 +76,38 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+const AppContent = () => {
+  const { isAuthenticated } = useLoaderData<typeof loader>();
+
+  return (
+    <CacheProvider value={cache}>
+      <AppTheme>
+        <AuthProvider>
+          <SidenavProvider>
+            <Header isAuthenticated={isAuthenticated} />
+            <main>
+              <Sidenav />
+              <Outlet />
+            </main>
+          </SidenavProvider>
+        </AuthProvider>
+      </AppTheme>
+    </CacheProvider>
+  );
+};
+
 const cache = createEmotionCache();
 
 export default function App() {
-  const { isAuthenticated } = useLoaderData<typeof loader>();
-
   if (typeof window !== 'undefined') {
     return (
       <CacheProvider value={cache}>
-        <AppTheme>
-          <AuthProvider>
-            <Header isAuthenticated={isAuthenticated} />
-            <main>
-              <Outlet />
-            </main>
-          </AuthProvider>
-        </AppTheme>
+        <AppContent />
       </CacheProvider>
     );
   }
 
-  return (
-    <AppTheme>
-      <Header isAuthenticated={isAuthenticated} />
-      <Outlet />
-    </AppTheme>
-  );
+  return <AppContent />;
 }
 
 export const ErrorBoundary = ({ error }: Route.ErrorBoundaryProps) => {

@@ -8,7 +8,8 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.insertSpaces": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
+    "source.fixAll": "explicit",
+    "source.organizeImports": true
   },
   "editor.codeActions.triggerOnFocusChange": true,
 

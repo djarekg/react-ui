@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Typography } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from 'react';
 
 const theme = createTheme({
   cssVariables: true,
