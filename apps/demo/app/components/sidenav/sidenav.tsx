@@ -28,16 +28,36 @@ export default function Sidenav() {
       onClose={setOpenFalse}
       variant="temporary"
       sx={DRAWER_SX}
-      className={styles.appSidenav}
-    >
-      <List component="nav" className={styles.appSidenavList}>
-        <NavListItem to="/" icon={<HomeOutlined />} label="Home" />
+      className={styles.appSidenav}>
+      <header>
+        <h1 className={styles.appSidenavTitle}>React UI</h1>
+      </header>
+      <List
+        component="nav"
+        className={styles.appSidenavList}>
+        <NavListItem
+          to="/"
+          icon={<HomeOutlined />}
+          label="Home"
+        />
         {/* <Divider /> */}
-        <NavListItem to="/users" icon={<PeopleOutlineRounded />} label="Users" />
+        <NavListItem
+          to="/users"
+          icon={<PeopleOutlineRounded />}
+          label="Users"
+        />
         {/* <Divider /> */}
-        <NavListItem to="/customers" icon={<PeopleOutlineRounded />} label="Customers" />
+        <NavListItem
+          to="/customers"
+          icon={<PeopleOutlineRounded />}
+          label="Customers"
+        />
         {/* <Divider /> */}
-        <NavListItem to="/admin/settings" icon={<SettingsOutlined />} label="Settings" />
+        <NavListItem
+          to="/admin/settings"
+          icon={<SettingsOutlined />}
+          label="Settings"
+        />
       </List>
     </Drawer>
   );

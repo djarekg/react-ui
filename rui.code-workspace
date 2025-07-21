@@ -45,6 +45,7 @@
     "javascript.preferences.importModuleSpecifier": "shortest",
     "javascript.preferences.importModuleSpecifierEnding": "auto",
     "javascript.suggest.completeJSDocs": true,
+    "javascript.preferences.quoteStyle": "single",
     "[javascript]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -68,7 +69,7 @@
     "typescript.tsserver.experimental.enableProjectDiagnostics": true,
     "typescript.updateImportsOnFileMove.enabled": "prompt",
     "typescript.preferences.quoteStyle": "single",
-    "javascript.preferences.quoteStyle": "single",
+     "typescript.preferences.autoImportSpecifierExcludeRegexes": ["^@mui/[^/]+$"]
 
     "[typescript]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"

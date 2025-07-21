@@ -1,17 +1,25 @@
+import css from '@eslint/css';
 import js from '@eslint/js';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
-import pluginReact from 'eslint-plugin-react';
 import json from '@eslint/json';
 import markdown from '@eslint/markdown';
-import css from '@eslint/css';
+import pluginReact from 'eslint-plugin-react';
 import { defineConfig } from 'eslint/config';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default defineConfig([
   {
     files: ['**/*.{js,mjs,ts,jsx,tsx}'],
     plugins: { js },
     extends: ['js/recommended'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [{ regex: '^@mui/[^/]+$' }],
+        },
+      ],
+    },
   },
   {
     files: ['**/*.{js,mjs,ts,jsx,tsx}'],
@@ -20,6 +28,14 @@ export default defineConfig([
       globals: globals.browser,
     },
     extends: ['plugin:react/jsx-runtime'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [{ regex: '^@mui/[^/]+$' }],
+        },
+      ],
+    },
   },
   tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
