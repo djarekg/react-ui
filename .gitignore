@@ -1,6 +1,19 @@
+# Package Manager
+node_modules
+
+# Build
+dist
+
+# Apple Files
 .DS_Store
-/node_modules/
+
+# Browser
+.out
 
 # React Router
-/.react-router/
-/build/
+.react-router
+build
+
+# Prisma
+*.db
+**/prisma/generated

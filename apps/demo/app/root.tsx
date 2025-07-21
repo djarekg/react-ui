@@ -1,10 +1,12 @@
 import type { Route } from '@/+types/app/+types/root.js';
 import { getAuthSession } from '@/auth/auth-session.js';
 import { AuthProvider } from '@/auth/auth.js';
+import { clientConfig, createApolloClient } from '@/client/create-apollo-client.js';
 import Header from '@/components/layout/header.js';
 import { SidenavProvider } from '@/components/sidenav/sidenav-provider.js';
 import Sidenav from '@/components/sidenav/sidenav.js';
 import styles from '@/styles/styles.css?url';
+import { ApolloProvider } from '@apollo/client/react';
 import { CacheProvider } from '@emotion/react';
 import Box from '@mui/material/Box';
 import {
@@ -60,10 +62,15 @@ export const links: Route.LinksFunction = () => [
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+        />
         <Meta />
         <Links />
       </head>
@@ -82,15 +89,17 @@ const AppContent = () => {
   return (
     <CacheProvider value={cache}>
       <AppTheme>
-        <AuthProvider>
-          <SidenavProvider>
-            <Header isAuthenticated={isAuthenticated} />
-            <main>
-              <Sidenav />
-              <Outlet />
-            </main>
-          </SidenavProvider>
-        </AuthProvider>
+        <ApolloProvider client={createApolloClient(clientConfig)}>
+          <AuthProvider>
+            <SidenavProvider>
+              <Header isAuthenticated={isAuthenticated} />
+              <main>
+                <Sidenav />
+                <Outlet />
+              </main>
+            </SidenavProvider>
+          </AuthProvider>
+        </ApolloProvider>
       </AppTheme>
     </CacheProvider>
   );
@@ -125,11 +134,15 @@ export const ErrorBoundary = ({ error }: Route.ErrorBoundaryProps) => {
   }
 
   return (
-    <Box component="main" sx={{ pt: 8, p: 2, maxWidth: 'lg', mx: 'auto' }}>
+    <Box
+      component="main"
+      sx={{ pt: 8, p: 2, maxWidth: 'lg', mx: 'auto' }}>
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
-        <Box component="pre" sx={{ width: '100%', p: 2, overflowX: 'auto' }}>
+        <Box
+          component="pre"
+          sx={{ width: '100%', p: 2, overflowX: 'auto' }}>
           <code>{stack}</code>
         </Box>
       )}
