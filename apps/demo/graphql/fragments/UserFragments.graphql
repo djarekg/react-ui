@@ -1,0 +1,17 @@
+fragment UserParts on User {
+  id
+  firstName
+  lastName
+  email
+  phone
+  streetAddress
+  streetAddress2
+  city
+  state {
+    id
+    name
+  }
+  zip
+  role
+  dateCreated
+}

@@ -3,8 +3,25 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch api",
+      "cwd": "${workspaceFolder}/apps/api",
+      "request": "launch",
+      "type": "node-terminal",
+      "noDebug": false,
+      "command": "pnpm run dev",
+      "skipFiles": ["**/<node_internals>/**"],
+      "sourceMaps": true,
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "presentation": {
+        "hidden": false,
+        "group": "2",
+        "order": 4
+      }
+    },
+    {
       "name": "Launch server-side",
-      "program": "${workspaceFolder}/app/entry.server.tsx",
+      "program": "${workspaceFolder}/apps/demo/app/entry.server.tsx",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
@@ -21,7 +38,7 @@
     },
     {
       "name": "Launch client-side",
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/apps/demo",
       "request": "launch",
       "type": "node-terminal",
       "noDebug": false,
@@ -40,8 +57,8 @@
       "name": "Launch Edge",
       "type": "msedge",
       "request": "launch",
-      "cwd": "${workspaceFolder}",
-      "webRoot": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/apps/demo",
+      "webRoot": "${workspaceFolder}/apps/demo",
       "url": "http://localhost:5173/",
       "internalConsoleOptions": "openOnSessionStart",
       "sourceMaps": true,
@@ -57,7 +74,8 @@
     {
       "name": "Debug app",
       "configurations": [
-        "Launch server-side",
+        "Launch api",
+        // "Launch server-side",
         "Launch client-side",
         "Launch Edge"
       ],

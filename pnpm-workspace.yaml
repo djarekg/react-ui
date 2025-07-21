@@ -1,2 +1,14 @@
+packages:
+  - apps/*
+
 onlyBuiltDependencies:
+  - '@apollo/protobufjs'
+  - '@prisma/client'
+  - '@prisma/engines'
   - esbuild
+  - prisma
+
+publicHoistPattern:
+  - esbuild
+  - typescript
+  - typegraphql-prisma
