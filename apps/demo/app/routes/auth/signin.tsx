@@ -1,8 +1,12 @@
 import { getAuthSession } from '@/auth/auth-session.js';
 import { useAuthContext } from '@/auth/auth.js';
 import { commitSession, getSession } from '@/session.server.js';
-import { LoginOutlined, PasswordRounded, PersonOutlineRounded } from '@mui/icons-material';
-import { Button, InputAdornment, TextField } from '@mui/material';
+import LoginOutlined from '@mui/icons-material/LoginOutlined';
+import PasswordRounded from '@mui/icons-material/PasswordRounded';
+import PersonOutlineRounded from '@mui/icons-material/PersonOutlineRounded';
+import Button from '@mui/material/Button';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
 import type { MouseEvent } from 'react';
 import {
   redirect,
@@ -111,7 +115,10 @@ export default function Signin() {
             },
           }}
         />
-        <Button variant="outlined" endIcon={<LoginOutlined />} onClick={handleSignin}>
+        <Button
+          variant="outlined"
+          endIcon={<LoginOutlined />}
+          onClick={handleSignin}>
           Sign In
         </Button>
       </form>

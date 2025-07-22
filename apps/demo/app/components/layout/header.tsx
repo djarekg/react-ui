@@ -1,7 +1,7 @@
 import ProfileMenu from '@/components/profile-menu/profile-menu.js';
 import { useSidenavContext } from '@/components/sidenav/sidenav-provider.js';
-import { MenuRounded } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import MenuRounded from '@mui/icons-material/MenuRounded';
+import IconButton from '@mui/material/IconButton';
 import { NavLink } from 'react-router';
 import './header.css';
 
@@ -17,7 +17,7 @@ export default function Header({ isAuthenticated }: HeaderProps) {
       <nav>
         {isAuthenticated && (
           <IconButton
-            color="primary"
+            // color="primary"
             size="large"
             onClick={toggleOpen}>
             <MenuRounded />

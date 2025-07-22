@@ -35,12 +35,11 @@ body {
   & > main {
     display: flex;
     flex-direction: column;
-    flex: 1 0 100%;
-    min-height: calc(100% - var(--app-header-height));
-    height: calc(100% - var(--app-header-height));
+    height: calc(100vh - var(--app-header-height) - 40px);
     min-width: 100%;
     width: 100%;
-    margin-block-start: calc(var(--app-header-height) + 1.25rem);
-    padding-inline: 1.25rem;
+    margin-block-start: calc(var(--app-header-height) + 20px);
+    margin-block-end: 20px;
+    padding-inline: 2rem;
   }
 }

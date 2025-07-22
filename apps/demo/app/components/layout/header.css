@@ -1,4 +1,5 @@
 .app-header {
+  box-sizing: border-box;
   padding: 20px;
 
   a,

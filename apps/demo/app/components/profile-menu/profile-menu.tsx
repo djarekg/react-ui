@@ -1,5 +1,10 @@
-import { LogoutOutlined, PersonOutlineOutlined, PersonOutlineRounded } from '@mui/icons-material';
-import { Avatar, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import LogoutOutlined from '@mui/icons-material/LogoutOutlined';
+import PersonOutlineOutlined from '@mui/icons-material/PersonOutlineOutlined';
+import PersonOutlineRounded from '@mui/icons-material/PersonOutlineRounded';
+import IconButton from '@mui/material/IconButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import { useState, type MouseEvent } from 'react';
 import { NavLink } from 'react-router';
 
@@ -11,17 +16,16 @@ export default function ProfileMenu() {
 
   return (
     <>
-      <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main' }} onClick={handleClick}>
+      <IconButton onClick={handleClick}>
         <PersonOutlineRounded />
-      </Avatar>
+      </IconButton>
       <Menu
         anchorEl={anchorEl}
         open={open}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         onClose={handleClose}
-        onClick={handleClose}
-      >
+        onClick={handleClose}>
         <MenuItem>
           <ListItemIcon>
             <PersonOutlineOutlined />

@@ -4,8 +4,6 @@ import { ApolloLink } from '@apollo/client/link/core';
 import { onError } from '@apollo/client/link/error';
 import { HttpLink } from '@apollo/client/link/http';
 import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
-// import { connectApolloClientToVSCodeDevTools } from '@apollo/client-devtools-vscode';
-// import { assert } from '@cui/core';
 import { sha256 } from 'crypto-hash';
 
 // import { BadRequestError } from '../errors.js';
@@ -104,16 +102,13 @@ export const createApolloClient = ({
   });
 
   // if (import.meta.env.DEV) {
-  //   const { onCleanup } = connectApolloClientToVSCodeDevTools(
-  //     client,
-  //     'ws://localhost:7095',
-  //   );
+  //   const { onCleanup } = connectApolloClientToVSCodeDevTools(client, 'ws://localhost:7095');
 
   //   onCleanup(reason => {
   //     console.log(
   //       'disconnected',
   //       reason,
-  //       /* Referencing client here prevents in from getting garabage collected */ client.version,
+  //       /* Referencing client here prevents in from getting garabage collected */ client.version
   //     );
   //   });
   // }

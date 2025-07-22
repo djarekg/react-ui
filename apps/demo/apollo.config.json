@@ -3,7 +3,7 @@
     "includes": ["./graphql/**/*.graphql"],
     "service": {
       "name": "@rui/api",
-      "localSchemaFile": "../apps/api/prisma/schema.graphql"
+      "localSchemaFile": "../api/prisma/schema.graphql"
     }
   }
 }

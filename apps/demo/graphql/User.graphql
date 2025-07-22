@@ -1,3 +1,9 @@
+query getUsers {
+  users {
+    ...UserParts
+  }
+}
+
 query getUserByUserName($username: String!) {
   user(where: { email: $username }) {
     ...UserParts

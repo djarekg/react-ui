@@ -9,6 +9,8 @@ import styles from '@/styles/styles.css?url';
 import { ApolloProvider } from '@apollo/client/react';
 import { CacheProvider } from '@emotion/react';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import { Suspense } from 'react';
 import {
   isRouteErrorResponse,
   Links,
@@ -95,7 +97,9 @@ const AppContent = () => {
               <Header isAuthenticated={isAuthenticated} />
               <main>
                 <Sidenav />
-                <Outlet />
+                <Suspense fallback={<CircularProgress />}>
+                  <Outlet />
+                </Suspense>
               </main>
             </SidenavProvider>
           </AuthProvider>

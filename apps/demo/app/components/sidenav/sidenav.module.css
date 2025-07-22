@@ -1,14 +1,18 @@
-.appSidenav {
+.sidenav {
   padding-block: 3rem;
 }
 
-.appSidenavList {
-  /* margin-block-end: 2rem; */
+.header {
+  margin-block-start: 12px;
+  padding-inline: 16px;
+  border-radius: 4px;
+  color: var(--mui-palette-primary-main);
+  text-transform: lowercase;
 }
 
-/* .appSidenavListTitle {
-  font-size: 1.5rem;
-  font-weight: 500;
-  padding-inline: 16px;
-  color: var(--mui-palette-grey-400);
-} */
+.listItem:hover {
+  a,
+  path {
+    color: var(--mui-palette-primary-main);
+  }
+}
