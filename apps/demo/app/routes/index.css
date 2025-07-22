@@ -1,4 +1,5 @@
 .app-home-root {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,4 +10,23 @@
 .app-home-title {
   font-size: 15rem;
   font-weight: 600;
+  animation: slideInFadeIn 1s ease-in forwards;
+  opacity: 0;
+
+  @starting-style {
+  }
+}
+
+@keyframes slideInFadeIn {
+  0% {
+    opacity: 0; /* Start completely transparent */
+    transform: translateX(-100%); /* Start off-screen to the left */
+  }
+  70% {
+    opacity: 0.2; /* Midway point, semi-transparent */
+  }
+  100% {
+    opacity: 1; /* End fully opaque */
+    transform: translateX(0); /* End at its original position */
+  }
 }
