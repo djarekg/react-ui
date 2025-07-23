@@ -3,13 +3,13 @@ import { getAuthSession } from '@/auth/auth-session.js';
 import { AuthProvider } from '@/auth/auth.js';
 import { clientConfig, createApolloClient } from '@/client/create-apollo-client.js';
 import Header from '@/components/layout/header.js';
+import Loader from '@/components/loader/loader.js';
 import { SidenavProvider } from '@/components/sidenav/sidenav-provider.js';
 import Sidenav from '@/components/sidenav/sidenav.js';
 import styles from '@/styles/styles.css?url';
 import { ApolloProvider } from '@apollo/client/react';
 import { CacheProvider } from '@emotion/react';
 import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
 import { Suspense } from 'react';
 import {
   isRouteErrorResponse,
@@ -97,7 +97,7 @@ const AppContent = () => {
               <Header isAuthenticated={isAuthenticated} />
               <main>
                 <Sidenav />
-                <Suspense fallback={<CircularProgress />}>
+                <Suspense fallback={<Loader />}>
                   <Outlet />
                 </Suspense>
               </main>

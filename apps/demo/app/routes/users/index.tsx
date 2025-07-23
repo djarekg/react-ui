@@ -4,10 +4,9 @@ import { useSuspenseQuery } from '@apollo/client/react/hooks';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 150 },
   { field: 'firstName', headerName: 'First Name', width: 150 },
   { field: 'lastName', headerName: 'Last Name', width: 150 },
-  { field: 'email', headerName: 'Email', width: 200 },
+  { field: 'email', headerName: 'Email', width: 200, flex: 1 },
   { field: 'phone', headerName: 'Phone', width: 170 },
   {
     field: 'state',
@@ -16,14 +15,22 @@ const columns: GridColDef[] = [
     valueGetter: (value: { name: string }) => value.name,
   },
   {
+    field: 'role',
+    headerName: 'Role',
+    width: 150,
+    valueGetter: (value: { name: string }) => value.name,
+  },
+  {
     field: 'dateCreated',
     headerName: 'Created',
     width: 90,
     type: 'date',
+    align: 'right',
+    headerAlign: 'right',
     valueGetter: value => new Date(value),
   },
-];
-const paginationModel = { page: 0, pageSize: 5 };
+] as const;
+const paginationModel = { page: 0, pageSize: 5 } as const;
 
 export default function Users() {
   const { data, error } = useSuspenseQuery(GetUsers);

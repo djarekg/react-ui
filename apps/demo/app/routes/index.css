@@ -10,23 +10,23 @@
 .app-home-title {
   font-size: 15rem;
   font-weight: 600;
-  animation: slideInFadeIn 1s ease-in forwards;
+  animation: slideInFadeIn 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.5s forwards;
   opacity: 0;
 
-  @starting-style {
-  }
+  /* @starting-style {
+  } */
 }
 
 @keyframes slideInFadeIn {
   0% {
     opacity: 0; /* Start completely transparent */
-    transform: translateX(-100%); /* Start off-screen to the left */
+    transform: translate(-60%, 30%); /* Start off-screen to the left */
   }
-  70% {
-    opacity: 0.2; /* Midway point, semi-transparent */
+  80% {
+    opacity: 0.4; /* Midway point, semi-transparent */
   }
   100% {
     opacity: 1; /* End fully opaque */
-    transform: translateX(0); /* End at its original position */
+    transform: translate(0, 0); /* End at its original position */
   }
 }

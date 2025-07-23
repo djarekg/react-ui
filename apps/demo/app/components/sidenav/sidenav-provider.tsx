@@ -1,5 +1,5 @@
 import useBoolean from '@/core/hooks/use-boolean.js';
-import { createContext, useContext } from 'react';
+import { createContext, use } from 'react';
 
 type Sidenav = {
   open: boolean;
@@ -28,7 +28,7 @@ export const SidenavProvider = ({ children }: { children: React.ReactNode }) => 
 };
 
 export const useSidenavContext = () => {
-  const context = useContext(SidenavContext);
+  const context = use(SidenavContext);
   if (!context) {
     throw new Error('useSidenavContext must be used within a SidenavProvider');
   }

@@ -5,14 +5,15 @@ import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useState, type MouseEvent } from 'react';
+import { useCallback, useState, type MouseEvent } from 'react';
 import { NavLink } from 'react-router';
 
 export default function ProfileMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (e: MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
-  const handleClose = () => setAnchorEl(null);
+  const handleClick = (e: MouseEvent<HTMLElement>) =>
+    useCallback(() => setAnchorEl(e.currentTarget), []);
+  const handleClose = () => useCallback(() => setAnchorEl(null), []);
 
   return (
     <>
