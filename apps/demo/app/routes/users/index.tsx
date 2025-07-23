@@ -1,7 +1,15 @@
 import ErrorMessage from '@/components/error/error-message.js';
 import { GetUsers } from '@/types/graphql.js';
-import { useSuspenseQuery } from '@apollo/client/react/hooks';
-import { DataGrid, type GridColDef } from '@mui/x-data-grid';
+import { useQuery } from '@apollo/client/react/hooks';
+import {
+  DataGrid,
+  type GridCallbackDetails,
+  type GridColDef,
+  type GridRowParams,
+  type MuiEvent,
+} from '@mui/x-data-grid';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router';
 
 const columns: GridColDef[] = [
   { field: 'firstName', headerName: 'First Name', width: 150 },
@@ -33,19 +41,27 @@ const columns: GridColDef[] = [
 const paginationModel = { page: 0, pageSize: 5 } as const;
 
 export default function Users() {
-  const { data, error } = useSuspenseQuery(GetUsers);
+  const navigate = useNavigate();
+  const { data, error, loading } = useQuery(GetUsers);
+
+  const handleRowClick = useCallback(
+    (params: GridRowParams, event: MuiEvent, details: GridCallbackDetails) => {
+      navigate(`/users/${params.row.id}`);
+    },
+    []
+  );
 
   if (error) return <ErrorMessage message={error.message} />;
-
-  const { users } = data;
 
   return (
     <>
       <DataGrid
-        rows={users}
+        rows={data?.users}
         columns={columns}
         pageSizeOptions={[5, 10]}
         initialState={{ pagination: { paginationModel } }}
+        loading={loading}
+        onRowClick={handleRowClick}
       />
     </>
   );
