@@ -16,4 +16,4 @@ build
 
 # Prisma
 *.db
-**/prisma/generated
+**/prisma/generated/
