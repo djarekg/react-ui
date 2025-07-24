@@ -1,3 +1,4 @@
+import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs.js';
 import ProfileMenu from '@/components/profile-menu/profile-menu.js';
 import { useSidenavContext } from '@/components/sidenav/sidenav-provider.js';
 import MenuRounded from '@mui/icons-material/MenuRounded';
@@ -17,7 +18,6 @@ export default function Header({ isAuthenticated }: HeaderProps) {
       <nav>
         {isAuthenticated && (
           <IconButton
-            // color="primary"
             size="large"
             onClick={toggleOpen}>
             <MenuRounded />
@@ -25,7 +25,8 @@ export default function Header({ isAuthenticated }: HeaderProps) {
         )}
         <NavLink to={isAuthenticated ? '/' : '/signin'}>
           <img
-            src="react-logo.svg"
+            loading="lazy"
+            src="/public/react-logo.svg"
             alt="React Logo"
             width="30"
             height="30"
@@ -33,7 +34,12 @@ export default function Header({ isAuthenticated }: HeaderProps) {
         </NavLink>
       </nav>
 
-      {isAuthenticated && <ProfileMenu />}
+      {isAuthenticated && (
+        <>
+          <Breadcrumbs />
+          <ProfileMenu />
+        </>
+      )}
     </header>
   );
 }

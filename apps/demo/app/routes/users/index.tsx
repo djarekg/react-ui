@@ -1,4 +1,3 @@
-import ErrorMessage from '@/components/error/error-message.js';
 import { GetUsers } from '@/types/graphql.js';
 import { useQuery } from '@apollo/client/react/hooks';
 import {
@@ -8,8 +7,10 @@ import {
   type GridRowParams,
   type MuiEvent,
 } from '@mui/x-data-grid';
-import { useCallback } from 'react';
+import { lazy, useCallback } from 'react';
 import { useNavigate } from 'react-router';
+
+const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
 
 const columns: GridColDef[] = [
   { field: 'firstName', headerName: 'First Name', width: 150 },
@@ -31,7 +32,7 @@ const columns: GridColDef[] = [
   {
     field: 'dateCreated',
     headerName: 'Created',
-    width: 90,
+    width: 120,
     type: 'date',
     align: 'right',
     headerAlign: 'right',
@@ -41,8 +42,8 @@ const columns: GridColDef[] = [
 const paginationModel = { page: 0, pageSize: 5 } as const;
 
 export default function Users() {
-  const navigate = useNavigate();
   const { data, error, loading } = useQuery(GetUsers);
+  const navigate = useNavigate();
 
   const handleRowClick = useCallback(
     (params: GridRowParams, event: MuiEvent, details: GridCallbackDetails) => {

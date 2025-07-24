@@ -1,12 +1,13 @@
-import LogoutOutlined from '@mui/icons-material/LogoutOutlined';
-import PersonOutlineOutlined from '@mui/icons-material/PersonOutlineOutlined';
 import PersonOutlineRounded from '@mui/icons-material/PersonOutlineRounded';
 import IconButton from '@mui/material/IconButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import { useCallback, useState, type MouseEvent } from 'react';
-import { NavLink } from 'react-router';
+import { lazy, useCallback, useState, type MouseEvent } from 'react';
+
+const ListItemIcon = lazy(() => import('@mui/material/ListItemIcon'));
+const LogoutOutlined = lazy(() => import('@mui/icons-material/LogoutOutlined'));
+const Menu = lazy(() => import('@mui/material/Menu'));
+const MenuItem = lazy(() => import('@mui/material/MenuItem'));
+const NavLink = lazy(() => import('react-router').then(({ NavLink }) => ({ default: NavLink })));
+const PersonOutlineOutlined = lazy(() => import('@mui/icons-material/PersonOutlineOutlined'));
 
 export default function ProfileMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

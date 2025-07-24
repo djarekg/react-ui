@@ -5,12 +5,10 @@ import { clientConfig, createApolloClient } from '@/client/create-apollo-client.
 import Header from '@/components/layout/header.js';
 import Loader from '@/components/loader/loader.js';
 import { SidenavProvider } from '@/components/sidenav/sidenav-provider.js';
-import Sidenav from '@/components/sidenav/sidenav.js';
-import styles from '@/styles/styles.css?url';
 import { ApolloProvider } from '@apollo/client/react';
 import { CacheProvider } from '@emotion/react';
 import Box from '@mui/material/Box';
-import { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import {
   isRouteErrorResponse,
   Links,
@@ -23,6 +21,8 @@ import {
 } from 'react-router';
 import createEmotionCache from './createCache.js';
 import AppTheme from './styles/theme.js';
+
+const Sidenav = lazy(() => import('@/components/sidenav/sidenav.js'));
 
 export const loader = async ({ request }: Route.LoaderArgs) => {
   const { isAuthenticated } = await getAuthSession(request);
@@ -58,7 +58,7 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: 'stylesheet',
-    href: styles,
+    href: '/app/styles/styles.css',
   },
 ];
 

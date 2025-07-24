@@ -1,6 +1,6 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import * as React from 'react';
+import type { ReactNode } from 'react';
 
 const theme = createTheme({
   cssVariables: true,
@@ -34,13 +34,7 @@ const theme = createTheme({
   },
 });
 
-interface AppThemeProps {
-  children: React.ReactNode;
-}
-
-export type RuiTheme = typeof theme;
-
-export default function AppTheme({ children }: AppThemeProps) {
+export default function AppTheme({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline enableColorScheme />

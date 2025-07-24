@@ -1,6 +1,16 @@
 .app-header {
+  --_gap: 5rem;
+
   box-sizing: border-box;
+  position: fixed;
+  inset-block-start: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--_gap);
+  width: 100vw;
+  height: var(--app-header-height);
   padding: 20px;
+  z-index: 1000;
   opacity: 1;
   transform: translateY(0);
   transition:
@@ -12,18 +22,25 @@
     transform: translateY(-20px);
   }
 
+  & > button {
+    margin-inline-start: auto;
+  }
+
   a,
   nav {
     display: flex;
     align-items: center;
-    gap: 4rem;
   }
 
   nav {
     gap: 20px;
   }
 
-  a:hover {
-    color: var(--mui-palette-primary-main);
+  a {
+    gap: var(--_gap);
+
+    &:hover {
+      color: var(--mui-palette-primary-main);
+    }
   }
 }

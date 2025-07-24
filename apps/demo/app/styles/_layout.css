@@ -8,7 +8,7 @@ body {
   height: 100%;
   width: 100%;
 
-  & > header,
+  /* & > header,
   & > footer {
     position: fixed;
     display: flex;
@@ -16,21 +16,21 @@ body {
     width: 100vw;
     padding-inline: 1.25rem;
     background: "transparent";
-  }
+  } */
 
-  & > header {
+  /* & > header {
     inset-block-start: 0;
     justify-content: space-between;
     height: var(--app-header-height);
     z-index: 1000;
-  }
+  } */
 
-  & > footer {
+  /* & > footer {
     inset-block-end: 0;
     justify-content: space-between;
     padding-block: 0.75rem;
     z-index: 1;
-  }
+  } */
 
   & > main {
     display: flex;
