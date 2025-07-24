@@ -1,7 +1,7 @@
-import Link from '@mui/material/Link';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import type { HTMLAttributes } from 'react';
+import { Link } from 'react-router';
 
 type NavListItemProps = {
   to: string;
@@ -13,11 +13,17 @@ type NavListItemProps = {
  * A reusable navigation list item component.
  * It renders a button with an icon and a link to the specified route.
  */
-export default function NavListItem({ className, to, icon, label }: NavListItemProps) {
+const NavListItem = ({ className, to, icon, label }: NavListItemProps) => {
   return (
     <ListItemButton className={className}>
       <ListItemIcon>{icon}</ListItemIcon>
-      <Link href={to}>{label}</Link>
+      <Link
+        to={to}
+        discover="none">
+        {label}
+      </Link>
     </ListItemButton>
   );
-}
+};
+
+export default NavListItem;

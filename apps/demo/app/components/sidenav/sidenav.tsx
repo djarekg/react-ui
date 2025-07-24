@@ -37,7 +37,9 @@ export default function Sidenav() {
       <header className={styles.header}>
         <h1 className={styles.appSidenavTitle}>React UI</h1>
       </header>
-      <List component="nav">
+      <List
+        component="nav"
+        onClickCapture={setOpenFalse}>
         <NavListItem
           to="/"
           icon={<HomeOutlined />}
