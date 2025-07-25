@@ -1,6 +1,7 @@
 @import "./_common.css";
 @import "./_base.css";
 @import "./_layout.css";
+@import "./_components.css";
 
 .app-brand-text-color {
   background: var(--app-brand-color-gradient);

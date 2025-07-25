@@ -1,4 +1,4 @@
-import { getSession, destroySession } from '@/session.server.js';
+import { destroySession, getSession } from '@/session.server.js';
 import { redirect, type LoaderFunctionArgs } from 'react-router';
 
 /**
@@ -15,6 +15,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   });
 };
 
-export default function Signout() {
-  return null; // This component doesn't need to render anything.
-}
+const Signout = () => null; // This component doesn't need to render anything.
+
+export default Signout;

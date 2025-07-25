@@ -1,12 +1,12 @@
-import { createContext, use, useState } from 'react';
 import { isNullOrEmpty } from '@/core/utils/string.js';
+import { createContext, use, useState, type ReactNode } from 'react';
 
-interface AuthProvider {
+type AuthProvider = {
   isAuthenticated: boolean;
   username: null | string;
   signin(username: string, password: string): Promise<boolean>;
   signout(): Promise<void>;
-}
+};
 
 /**
  * This represents some generic auth provider API, like Firebase.
@@ -20,7 +20,7 @@ const fakeAuthProvider: AuthProvider = {
    * In a real application, this would involve API calls to authenticate the user.
    */
   async signin(username: string, password: string) {
-    await new Promise((r) => setTimeout(r, 500)); // fake delay
+    await new Promise(r => setTimeout(r, 500)); // fake delay
 
     if (isNullOrEmpty(username) || isNullOrEmpty(password)) {
       return false;
@@ -36,11 +36,11 @@ const fakeAuthProvider: AuthProvider = {
    * In a real application, this would involve API calls to log out the user.
    */
   async signout() {
-    await new Promise((r) => setTimeout(r, 500)); // fake delay
+    await new Promise(r => setTimeout(r, 500)); // fake delay
     fakeAuthProvider.isAuthenticated = false;
     fakeAuthProvider.username = '';
   },
-};
+} as const;
 
 /**
  * AuthProvider component that provides authentication state and methods
@@ -49,8 +49,8 @@ const fakeAuthProvider: AuthProvider = {
  * @param {React.ReactNode} children - The child components that will have access to the authentication context.
  * @returns {JSX.Element} The AuthContext provider wrapping the children.
  */
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [username, setUsername] = useState<any>(null);
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [username, setUsername] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   /**
@@ -93,11 +93,9 @@ const AuthContext = createContext<AuthProvider>({} as AuthProvider);
 
 /**
  * Custom hook to access the authentication context.
- * This hook provides access to the authentication state and methods.
+ * This hook provides access to the authentication state and methods.`
  * It should be used within a component that is wrapped in the AuthProvider.
  *
  * @returns {AuthProvider} The authentication context value.
  */
-export const useAuthContext = () => {
-  return use(AuthContext);
-};
+export const useAuth = () => use(AuthContext);

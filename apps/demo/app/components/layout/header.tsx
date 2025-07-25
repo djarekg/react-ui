@@ -1,8 +1,9 @@
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs.js';
-import ProfileMenu from '@/components/profile-menu/profile-menu.js';
+import SessionMenu from '@/components/session-menu/session-menu.js';
 import { useSidenavContext } from '@/components/sidenav/sidenav-provider.js';
 import MenuRounded from '@mui/icons-material/MenuRounded';
 import IconButton from '@mui/material/IconButton';
+import type { FC } from 'react';
 import { NavLink } from 'react-router';
 import './header.css';
 
@@ -10,7 +11,7 @@ type HeaderProps = {
   isAuthenticated: boolean;
 };
 
-export default function Header({ isAuthenticated }: HeaderProps) {
+const Header: FC<HeaderProps> = ({ isAuthenticated }) => {
   const { toggleOpen } = useSidenavContext();
 
   return (
@@ -37,9 +38,11 @@ export default function Header({ isAuthenticated }: HeaderProps) {
       {isAuthenticated && (
         <>
           <Breadcrumbs />
-          <ProfileMenu />
+          <SessionMenu />
         </>
       )}
     </header>
   );
-}
+};
+
+export default Header;

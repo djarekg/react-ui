@@ -10,6 +10,7 @@ import { CacheProvider } from '@emotion/react';
 import Box from '@mui/material/Box';
 import { lazy, Suspense } from 'react';
 import {
+  createSearchParams,
   isRouteErrorResponse,
   Links,
   Meta,
@@ -32,8 +33,7 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
   // them to `/signin` with a `from` parameter that allows signin to redirect back
   // to this page upon successful authentication.
   if (!isAuthenticated && !/\/signin/.test(pathname)) {
-    const params = new URLSearchParams();
-    params.set('from', new URL(request.url).pathname);
+    const params = createSearchParams([['from', new URL(request.url).pathname]]);
     return redirect('/signin?' + params.toString());
   }
 

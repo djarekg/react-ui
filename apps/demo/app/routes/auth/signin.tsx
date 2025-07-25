@@ -1,5 +1,5 @@
 import { getAuthSession } from '@/auth/auth-session.js';
-import { useAuthContext } from '@/auth/auth.js';
+import { useAuth } from '@/auth/auth.js';
 import { commitSession, getSession } from '@/session.server.js';
 import LoginOutlined from '@mui/icons-material/LoginOutlined';
 import PasswordRounded from '@mui/icons-material/PasswordRounded';
@@ -51,10 +51,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   });
 };
 
-export default function Signin() {
+const Signin = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const auth = useAuthContext();
+  const { state: locationState } = useLocation();
+  const { signin } = useAuth();
   const fetcher = useFetcher();
 
   const handleSignin = useCallback(
@@ -65,22 +65,22 @@ export default function Signin() {
       const formData = new FormData(e.currentTarget.closest('form') as HTMLFormElement);
       const username = formData.get('username') as string;
       const password = formData.get('password') as string;
-      const isSignedIn = await auth.signin(username, password);
+      const isSignedIn = await signin(username, password);
 
       if (isSignedIn) {
         // If sign-in is successful, submit the form data to the action so
         // that the session can be updated with the new user information.
         await fetcher.submit(formData, { method: 'post' });
-        const from = location.state?.from || '/';
+        const from = locationState?.from || '/';
 
         // Redirect to the home page or the page they were trying to access.
-        navigate(from, { replace: true });
+        navigate(from, { replace: true, viewTransition: true });
       } else {
         // Handle sign-in failure (e.g., show an error message).
         console.error('Sign-in failed');
       }
     },
-    [auth, fetcher, location.state, navigate]
+    [fetcher, locationState, navigate]
   );
 
   return (
@@ -127,4 +127,6 @@ export default function Signin() {
       </form>
     </div>
   );
-}
+};
+
+export default Signin;

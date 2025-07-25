@@ -24,7 +24,7 @@ const DRAWER_SX = {
   },
 } satisfies SxProps;
 
-export default function Sidenav() {
+const Sidenav = () => {
   const { open, setOpenFalse } = useSidenavContext();
 
   return (
@@ -45,26 +45,32 @@ export default function Sidenav() {
           icon={<HomeOutlined />}
           label="Home"
           className={styles.listItem}
+          viewTransition
         />
         <NavListItem
           to="/users"
           icon={<PeopleOutlineRounded />}
           label="Users"
           className={styles.listItem}
+          viewTransition
         />
         <NavListItem
           to="/customers"
           icon={<ShoppingBagOutlined />}
           label="Customers"
           className={styles.listItem}
+          viewTransition
         />
         <NavListItem
           to="/admin/settings"
           icon={<SettingsOutlined />}
           label="Settings"
           className={styles.listItem}
+          viewTransition
         />
       </List>
     </Drawer>
   );
-}
+};
+
+export default Sidenav;

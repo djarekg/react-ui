@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 80%;
+
+  span {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--mui-palette-text-secondary);
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  width: 80%;
+  padding-block: 8px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 80%;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.stateZip {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}

@@ -1,0 +1,8 @@
+.MuiButtonBase-root {
+  &:hover {
+    a,
+    svg path {
+      color: var(--mui-palette-primary-main);
+    }
+  }
+}
