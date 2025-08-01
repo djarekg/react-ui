@@ -5,7 +5,7 @@ import type { ReactNode } from 'react';
 const theme = createTheme({
   cssVariables: true,
   typography: {
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: 'Open Sans, Roboto, sans-serif',
     fontSize: 14,
     fontWeightLight: 300,
     fontWeightRegular: 400,

@@ -1,13 +1,13 @@
 import type { User } from '@/types/graphql.js';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 import styles from './user-detail.module.css';
 
 type UserDetailProps = {
   user: User;
-};
+} & HTMLAttributes<HTMLDivElement>;
 
 const UserDetail: FC<UserDetailProps> = ({ user }) => {
   const { pending } = useFormStatus();

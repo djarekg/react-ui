@@ -2517,26 +2517,25 @@ export type SignoutQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SignoutQuery = { readonly signout: boolean };
 
-export type GetCustomerContactsQueryVariables = Exact<{
+export type GetCustomerContactsByCustomerIdQueryVariables = Exact<{
   customerId: Scalars['String']['input'];
 }>;
 
-export type GetCustomerContactsQuery = {
-  readonly customerContact?:
-    | {
-        readonly id: string;
-        readonly firstName: string;
-        readonly lastName: string;
-        readonly streetAddress: string;
-        readonly city: string;
-        readonly stateId: string;
-        readonly zip: string;
-        readonly phone: string;
-        readonly email: string;
-        readonly dateCreated: unknown;
-        readonly dateUpdated: unknown;
-      }
-    | undefined;
+export type GetCustomerContactsByCustomerIdQuery = {
+  readonly customerContacts: ReadonlyArray<{
+    readonly id: string;
+    readonly firstName: string;
+    readonly lastName: string;
+    readonly streetAddress: string;
+    readonly city: string;
+    readonly stateId: string;
+    readonly zip: string;
+    readonly phone: string;
+    readonly email: string;
+    readonly dateCreated: unknown;
+    readonly dateUpdated: unknown;
+    readonly state: { readonly id: string; readonly name: string };
+  }>;
 };
 
 export type GetCustomersQueryVariables = Exact<{ [key: string]: never }>;
@@ -2886,13 +2885,13 @@ export const Signout = {
     },
   ],
 } as unknown as DocumentNode<SignoutQuery, SignoutQueryVariables>;
-export const GetCustomerContacts = {
+export const GetCustomerContactsByCustomerId = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'getCustomerContacts' },
+      name: { kind: 'Name', value: 'getCustomerContactsByCustomerId' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -2908,7 +2907,7 @@ export const GetCustomerContacts = {
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'customerContact' },
+            name: { kind: 'Name', value: 'customerContacts' },
             arguments: [
               {
                 kind: 'Argument',
@@ -2946,6 +2945,17 @@ export const GetCustomerContacts = {
                 { kind: 'Field', name: { kind: 'Name', value: 'streetAddress' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'city' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'stateId' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'state' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                    ],
+                  },
+                },
                 { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'phone' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'email' } },
@@ -2958,7 +2968,10 @@ export const GetCustomerContacts = {
       },
     },
   ],
-} as unknown as DocumentNode<GetCustomerContactsQuery, GetCustomerContactsQueryVariables>;
+} as unknown as DocumentNode<
+  GetCustomerContactsByCustomerIdQuery,
+  GetCustomerContactsByCustomerIdQueryVariables
+>;
 export const GetCustomers = {
   kind: 'Document',
   definitions: [

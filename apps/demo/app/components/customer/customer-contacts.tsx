@@ -1,7 +1,8 @@
-import { GetUsers } from '@/types/graphql.js';
+import { GetCustomerContactsByCustomerId } from '@/types/graphql.js';
 import { useQuery } from '@apollo/client/react/hooks';
-import { DataGrid, type GridColDef, type GridRowParams } from '@mui/x-data-grid';
-import { lazy, useCallback } from 'react';
+import { DataGrid } from '@mui/x-data-grid/DataGrid';
+import type { GridColDef, GridRowParams } from '@mui/x-data-grid/models';
+import { lazy, useCallback, type HTMLAttributes } from 'react';
 import { useNavigate } from 'react-router';
 
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
@@ -18,12 +19,6 @@ const columns: GridColDef[] = [
     valueGetter: (value: { name: string }) => value.name,
   },
   {
-    field: 'role',
-    headerName: 'Role',
-    width: 150,
-    valueGetter: (value: { name: string }) => value.name,
-  },
-  {
     field: 'dateCreated',
     headerName: 'Created',
     width: 120,
@@ -33,27 +28,37 @@ const columns: GridColDef[] = [
     valueGetter: value => new Date(value),
   },
 ] as const;
-const paginationModel = { page: 0, pageSize: 10 } as const;
+const paginationModel = { page: 0, pageSize: 5 } as const;
 
-const Users = () => {
-  const { data, error, loading } = useQuery(GetUsers);
+type CustomerContactsProps = {
+  customerId: string;
+} & HTMLAttributes<HTMLElement>;
+
+const CustomerContacts = ({ customerId }: CustomerContactsProps) => {
   const navigate = useNavigate();
+  const { data, error, loading } = useQuery(GetCustomerContactsByCustomerId, {
+    variables: { customerId },
+    fetchPolicy: 'cache-and-network',
+  });
+
+  // When a row is selected, navigate to the customer details page
   const handleRowClick = useCallback(({ row: { id } }: GridRowParams) => {
-    navigate(`/users/${id}`, { viewTransition: true });
+    navigate(`/customers/${id}`, { viewTransition: true });
   }, []);
 
   if (error) return <ErrorMessage message={error.message} />;
 
   return (
     <DataGrid
-      rows={data?.users}
+      rows={data?.customerContacts}
       columns={columns}
       pageSizeOptions={[5, 10, 20]}
       initialState={{ pagination: { paginationModel } }}
       loading={loading}
       onRowClick={handleRowClick}
+      sx={{ width: '100%' }}
     />
   );
 };
 
-export default Users;
+export default CustomerContacts;

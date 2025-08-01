@@ -25,7 +25,8 @@ const Breadcrumbs = () => {
   const pathnames = useMemo(() => pathname.split('/').filter(x => !isNullOrEmpty(x)), [pathname]);
 
   if (pathnames.length === 0) {
-    return <HomeLink />;
+    // return <HomeLink />;
+    return null;
   }
 
   return (

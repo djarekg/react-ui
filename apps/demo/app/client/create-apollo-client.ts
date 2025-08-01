@@ -3,8 +3,6 @@ import { ApolloClient, InMemoryCache } from '@apollo/client/core';
 import { ApolloLink } from '@apollo/client/link/core';
 import { onError } from '@apollo/client/link/error';
 import { HttpLink } from '@apollo/client/link/http';
-import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
-import { sha256 } from 'crypto-hash';
 
 // import { BadRequestError } from '../errors.js';
 
@@ -54,11 +52,11 @@ const createLinks = (token: string, uri: string) => {
     },
   });
 
-  const persistedQueryLink = createPersistedQueryLink({
-    sha256,
-    disable: () => !import.meta.env.DEV,
-    useGETForHashedQueries: true,
-  });
+  // const persistedQueryLink = createPersistedQueryLink({
+  //   sha256,
+  //   disable: () => !import.meta.env.DEV,
+  //   useGETForHashedQueries: true,
+  // });
 
   const authLink = new ApolloLink((operation, forward) => {
     operation.setContext(({ headers = {} }) => ({
@@ -71,7 +69,7 @@ const createLinks = (token: string, uri: string) => {
     return forward(operation);
   });
 
-  const link = authLink.concat(ApolloLink.from([errorLink, httpLink, persistedQueryLink]));
+  const link = authLink.concat(ApolloLink.from([errorLink, httpLink /*, persistedQueryLink*/]));
 
   return link;
 };

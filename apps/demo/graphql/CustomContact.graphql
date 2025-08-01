@@ -1,11 +1,15 @@
-query getCustomerContacts($customerId: String!) {
-  customerContact(where: { customerId: { equals: $customerId } }) {
+query getCustomerContactsByCustomerId($customerId: String!) {
+  customerContacts(where: { customerId: { equals: $customerId } }) {
     id
     firstName
     lastName
     streetAddress
     city
     stateId
+    state {
+      id
+      name
+    }
     zip
     phone
     email
