@@ -3,11 +3,12 @@
   justify-content: flex-end;
   align-items: center;
   width: 80%;
+  padding-block: 8px;
 
   span {
     font-size: 1.4rem;
     font-weight: 400;
-    color: var(--mui-palette-text-secondary);
+    color: var(--mui-palette-primary-main);
   }
 }
 
@@ -17,7 +18,7 @@
   align-items: center;
   gap: 16px;
   width: 80%;
-  padding-block: 8px;
+  padding-block: 18px;
 }
 
 .form {
@@ -25,6 +26,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 24px;
   width: 80%;
+  /* margin-block-end: 12px; */
 
   section {
     display: flex;

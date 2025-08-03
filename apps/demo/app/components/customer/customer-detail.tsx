@@ -1,53 +1,45 @@
+import FormInput from '@/components/form-input/form-input.js';
 import type { Customer } from '@/types/graphql.js';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import { useState, type ChangeEvent, type FC, type HTMLAttributes } from 'react';
+import { useCallback, useState, type FC, type HTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 import styles from './customer-detail.module.css';
 
-type FormInputProps = {
-  label: string;
-  name: string;
-  type?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search' | undefined;
-  initialValue?: string;
-  fullWidth?: boolean;
-  readonly?: boolean;
-  required?: boolean;
-} & HTMLAttributes<HTMLInputElement>;
+type ActionsProps = {
+  isEditing: boolean;
+  onCancel: () => void;
+  onEdit: () => void;
+  onSave: () => void;
+};
 
-const FormInput: FC<FormInputProps> = ({
-  label,
-  name,
-  initialValue = '',
-  fullWidth = false,
-  readonly,
-  required,
-  type = 'text',
-}) => {
-  const [value, setValue] = useState(initialValue);
-  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    setValue(target.value);
-  };
+const Actions: FC<ActionsProps> = ({ isEditing, onCancel, onEdit, onSave }) => {
+  const { pending } = useFormStatus();
 
-  console.log('FormInput', { label, name, value, type, fullWidth, required });
+  if (isEditing) {
+    return (
+      <>
+        <Button
+          variant="outlined"
+          onClick={onCancel}>
+          Cancel
+        </Button>
+        <Button
+          type="submit"
+          variant="outlined"
+          disabled={pending}
+          onClick={onSave}>
+          Save
+        </Button>
+      </>
+    );
+  }
 
   return (
-    <TextField
+    <Button
       variant="outlined"
-      size="small"
-      name={name}
-      label={label}
-      inputMode={type}
-      fullWidth={fullWidth}
-      required={required}
-      value={value}
-      onChange={handleChange}
-      slotProps={{
-        input: {
-          readOnly: Boolean(readonly),
-        },
-      }}
-    />
+      onClick={onEdit}>
+      Edit
+    </Button>
   );
 };
 
@@ -58,35 +50,52 @@ type CustomerDetailProps = {
 } & HTMLAttributes<HTMLElement>;
 
 const CustomerDetail: FC<CustomerDetailProps> = ({ customer }) => {
-  console.log('CustomerDetail', { customer });
-  const { pending } = useFormStatus();
+  const [isReadonly, setIsReadonly] = useState(true);
+  const [customerCopy, setCustomerCopy] = useState<Customer>(customer);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCancel = useCallback(() => {
+    setIsReadonly(true);
+    setCustomerCopy(customer); // Reset to original customer data
+  }, [customer]);
+
+  const handleEdit = useCallback(() => {
+    setIsReadonly(false);
+  }, []);
+
+  const handleSave = useCallback(() => {
+    setIsReadonly(true);
+  }, []);
+
+  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  };
+  }, []);
 
   return (
     <>
       <header className={styles.header}>
-        <span>Created: {new Date(customer?.dateCreated as string).toLocaleDateString()}</span>
+        <span>Created: {new Date(customerCopy?.dateCreated as string).toLocaleDateString()}</span>
       </header>
+
       <form
-        autoComplete="off"
         className={styles.form}
         onSubmit={handleSubmit}>
         <section>
           <FormInput
             label="Name"
             name="name"
-            initialValue={customer?.name}
             required
+            readonly={isReadonly}
+            value={customerCopy?.name}
+            onChange={value => setCustomerCopy(prev => ({ ...prev, name: value as string }))}
           />
           <FormInput
             label="Phone"
             name="phone"
             type="tel"
-            initialValue={customer?.phone}
             required
+            readonly={isReadonly}
+            value={customerCopy?.phone}
+            onChange={value => setCustomerCopy(prev => ({ ...prev, phone: value as string }))}
           />
         </section>
         <section>
@@ -94,45 +103,64 @@ const CustomerDetail: FC<CustomerDetailProps> = ({ customer }) => {
             name="streetAddress"
             label="Street Address"
             required
-            initialValue={customer?.streetAddress}
+            readonly={isReadonly}
+            value={customerCopy?.streetAddress}
+            onChange={value =>
+              setCustomerCopy(prev => ({ ...prev, streetAddress: value as string }))
+            }
           />
           <FormInput
             name="streetAddress2"
             label="Street Address 2"
-            initialValue={customer?.streetAddress2}
+            readonly={isReadonly}
+            value={customerCopy?.streetAddress2}
+            onChange={value =>
+              setCustomerCopy(prev => ({ ...prev, streetAddress2: value as string }))
+            }
           />
           <FormInput
             name="city"
             label="City"
             required
-            initialValue={customer?.city}
+            readonly={isReadonly}
+            value={customerCopy?.city}
+            onChange={value => setCustomerCopy(prev => ({ ...prev, city: value as string }))}
           />
           <div className={styles.stateZip}>
             <FormInput
               name="state"
               label="State"
               required
-              initialValue={customer?.state?.name}
               fullWidth
+              readonly={isReadonly}
+              value={customerCopy?.state?.name}
+              onChange={value =>
+                setCustomerCopy(prev => ({
+                  ...prev,
+                  state: { ...prev.state, name: value as string },
+                }))
+              }
             />
             <FormInput
               name="zip"
               label="Zip Code"
               required
-              initialValue={customer?.zip}
               fullWidth
+              readonly={isReadonly}
+              value={customerCopy?.zip}
+              onChange={value => setCustomerCopy(prev => ({ ...prev, zip: value as string }))}
             />
           </div>
         </section>
       </form>
+
       <footer className={styles.footer}>
-        <Button variant="outlined">Cancel</Button>
-        <Button
-          type="submit"
-          variant="outlined"
-          disabled={pending}>
-          Save
-        </Button>
+        <Actions
+          isEditing={!isReadonly}
+          onCancel={handleCancel}
+          onEdit={handleEdit}
+          onSave={handleSave}
+        />
       </footer>
     </>
   );

@@ -43,7 +43,7 @@ const CustomerContacts = ({ customerId }: CustomerContactsProps) => {
 
   // When a row is selected, navigate to the customer details page
   const handleRowClick = useCallback(({ row: { id } }: GridRowParams) => {
-    navigate(`/customers/${id}`, { viewTransition: true });
+    // navigate(`/customers/${id}`, { viewTransition: true });
   }, []);
 
   if (error) return <ErrorMessage message={error.message} />;

@@ -25,6 +25,7 @@ const Customer = () => {
   }, []);
 
   if (error) return <ErrorMessage message={error.message} />;
+  if (loading) return null;
 
   return (
     <TabContext value={selectedTab}>

@@ -131,7 +131,8 @@
       "**/Thumbs.db": true,
       "**/node_modules": true,
       "**/dist": true,
-      "**/.angular": true
+      "**/.angular": true,
+      "**/.react-router": true
     },
     "editor.quickSuggestions": {
       "other": "on",

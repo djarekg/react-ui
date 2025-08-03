@@ -44,7 +44,7 @@ export const links: Route.LinksFunction = () => [
   {
     rel: 'icon',
     type: 'image/svg+xml',
-    href: 'react-logo.svg',
+    href: '/public/react-logo.svg',
   },
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   {

@@ -1,0 +1,8 @@
+.textField {
+  input {
+    &[readonly] {
+      background-color: rgba(255, 255, 255, 0.02);
+      color: var(--mui-palette-text-disabled);
+    }
+  }
+}
