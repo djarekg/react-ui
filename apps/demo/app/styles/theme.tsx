@@ -31,6 +31,9 @@ const theme = createTheme({
       // dark: will be calculated from palette.secondary.main,
       contrastText: '#47008F',
     },
+    success: {
+      main: '#4aedc4',
+    },
   },
 });
 

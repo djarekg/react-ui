@@ -1,15 +1,15 @@
 import FormInput from '@/components/form-input/form-input.js';
 import type { Customer } from '@/types/graphql.js';
 import Button from '@mui/material/Button';
-import { useCallback, useState, type FC, type HTMLAttributes } from 'react';
+import { useCallback, useRef, useState, type FC, type HTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 import styles from './customer-detail.module.css';
 
 type ActionsProps = {
   isEditing: boolean;
-  onCancel: () => void;
-  onEdit: () => void;
-  onSave: () => void;
+  onCancel?: () => void;
+  onEdit?: () => void;
+  onSave?: () => void;
 };
 
 const Actions: FC<ActionsProps> = ({ isEditing, onCancel, onEdit, onSave }) => {
@@ -24,7 +24,6 @@ const Actions: FC<ActionsProps> = ({ isEditing, onCancel, onEdit, onSave }) => {
           Cancel
         </Button>
         <Button
-          type="submit"
           variant="outlined"
           disabled={pending}
           onClick={onSave}>
@@ -49,9 +48,10 @@ type CustomerDetailProps = {
   onCancel?: () => void;
 } & HTMLAttributes<HTMLElement>;
 
-const CustomerDetail: FC<CustomerDetailProps> = ({ customer }) => {
+const CustomerDetail: FC<CustomerDetailProps> = ({ customer, onSave }) => {
   const [isReadonly, setIsReadonly] = useState(true);
   const [customerCopy, setCustomerCopy] = useState<Customer>(customer);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleCancel = useCallback(() => {
     setIsReadonly(true);
@@ -64,11 +64,8 @@ const CustomerDetail: FC<CustomerDetailProps> = ({ customer }) => {
 
   const handleSave = useCallback(() => {
     setIsReadonly(true);
-  }, []);
-
-  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  }, []);
+    onSave?.(customerCopy);
+  }, [customerCopy]);
 
   return (
     <>
@@ -77,8 +74,9 @@ const CustomerDetail: FC<CustomerDetailProps> = ({ customer }) => {
       </header>
 
       <form
+        method="post"
         className={styles.form}
-        onSubmit={handleSubmit}>
+        ref={formRef}>
         <section>
           <FormInput
             label="Name"

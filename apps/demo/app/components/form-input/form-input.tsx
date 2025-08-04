@@ -23,8 +23,8 @@ const FormInput: FC<FormInputProps> = ({
   type = 'text',
   onChange,
 }) => {
-  const handleChange = useCallback(({ target }: ChangeEvent<HTMLInputElement>) => {
-    onChange?.(target.value);
+  const handleChange = useCallback(({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+    onChange?.(value);
   }, []);
 
   return (

@@ -24,6 +24,10 @@ const config = {
     skipTypename: true,
     useIndexSignature: true,
     useTypeImports: true,
+    // skipTypeNameForRoot: true,
+    // onlyOperationTypes: true,
+    // flattenGeneratedTypes: true,
+    // flattenGeneratedTypesIncludeFragments: true,
   },
   generates: {
     './app/types/graphql.ts': {
