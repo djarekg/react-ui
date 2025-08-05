@@ -37,7 +37,7 @@ const columns: GridColDef[] = [
     valueGetter: value => new Date(value),
   },
   {
-    field: 'actions',
+    field: 'open',
     headerName: '',
     align: 'center',
     width: 60,
@@ -70,9 +70,11 @@ const CustomerContactList = ({ customerId }: CustomerContactListProps) => {
   // customer contacts mutation
   const [updateCustomerContact] = useMutation(UpdateCustomerContact);
 
-  const handleCellClick = useCallback(({ row }: GridCellParams) => {
-    setCustomerContact(row);
-    setDialogOpen(true);
+  const handleCellClick = useCallback(({ field, row }: GridCellParams) => {
+    if (field === 'open') {
+      setCustomerContact(row);
+      setDialogOpen(true);
+    }
   }, []);
 
   const handleSave = async (updatedContact: CustomerContact) => {
