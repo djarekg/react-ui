@@ -1,9 +1,9 @@
 import FormInput from '@/components/form-input/form-input.js';
-import type { Customer } from '@/types/graphql.js';
+import type { CustomerContact } from '@/types/graphql.js';
 import Button from '@mui/material/Button';
 import { useCallback, useRef, useState, type FC, type HTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
-import styles from './customer-detail.module.css';
+import styles from './customer-contact-detail.module.css';
 
 type ActionsProps = {
   isEditing: boolean;
@@ -42,20 +42,20 @@ const Actions: FC<ActionsProps> = ({ isEditing, onCancel, onEdit, onSave }) => {
   );
 };
 
-type CustomerDetailProps = {
-  customer: Customer;
-  onSave?: (customer: Customer) => void;
+type CustomerContactDetailProps = {
+  customerContact: CustomerContact | null;
+  onSave?: (customer: CustomerContact) => void;
 } & HTMLAttributes<HTMLElement>;
 
-const CustomerDetail: FC<CustomerDetailProps> = ({ customer, onSave }) => {
+const CustomerContactDetail: FC<CustomerContactDetailProps> = ({ customerContact, onSave }) => {
   const [isReadonly, setIsReadonly] = useState(true);
-  const [customerCopy, setCustomerCopy] = useState<Customer>(customer);
+  const [customerContactCopy, setCustomerContactCopy] = useState<CustomerContact>(customerContact!);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleCancel = useCallback(() => {
     setIsReadonly(true);
-    setCustomerCopy(customer); // Reset to original customer data
-  }, [customer]);
+    setCustomerContactCopy(customerContact!); // Reset to original customer data
+  }, [customerContact]);
 
   const handleEdit = useCallback(() => {
     setIsReadonly(false);
@@ -63,13 +63,15 @@ const CustomerDetail: FC<CustomerDetailProps> = ({ customer, onSave }) => {
 
   const handleSave = useCallback(() => {
     setIsReadonly(true);
-    onSave?.(customerCopy);
-  }, [customerCopy]);
+    onSave?.(customerContactCopy);
+  }, [customerContactCopy]);
 
   return (
     <>
       <header className={styles.header}>
-        <span>Created: {new Date(customerCopy?.dateCreated as string).toLocaleDateString()}</span>
+        <span>
+          Created: {new Date(customerContactCopy?.dateCreated as string).toLocaleDateString()}
+        </span>
       </header>
 
       <form
@@ -77,12 +79,29 @@ const CustomerDetail: FC<CustomerDetailProps> = ({ customer, onSave }) => {
         ref={formRef}>
         <section>
           <FormInput
-            label="Name"
-            name="name"
+            label="First name"
+            name="firstName"
             required
             readonly={isReadonly}
-            value={customerCopy?.name}
-            onChange={name => setCustomerCopy(prev => ({ ...prev, name }))}
+            value={customerContactCopy?.firstName}
+            onChange={firstName => setCustomerContactCopy(prev => ({ ...prev, firstName }))}
+          />
+          <FormInput
+            label="Last name"
+            name="lastName"
+            required
+            readonly={isReadonly}
+            value={customerContactCopy?.lastName}
+            onChange={lastName => setCustomerContactCopy(prev => ({ ...prev, lastName }))}
+          />
+          <FormInput
+            label="Email"
+            name="email"
+            type="email"
+            required
+            readonly={isReadonly}
+            value={customerContactCopy?.email}
+            onChange={email => setCustomerContactCopy(prev => ({ ...prev, email }))}
           />
           <FormInput
             label="Phone"
@@ -90,8 +109,8 @@ const CustomerDetail: FC<CustomerDetailProps> = ({ customer, onSave }) => {
             type="tel"
             required
             readonly={isReadonly}
-            value={customerCopy?.phone}
-            onChange={phone => setCustomerCopy(prev => ({ ...prev, phone }))}
+            value={customerContactCopy?.phone}
+            onChange={phone => setCustomerContactCopy(prev => ({ ...prev, phone }))}
           />
         </section>
         <section>
@@ -100,23 +119,25 @@ const CustomerDetail: FC<CustomerDetailProps> = ({ customer, onSave }) => {
             label="Street Address"
             required
             readonly={isReadonly}
-            value={customerCopy?.streetAddress}
-            onChange={streetAddress => setCustomerCopy(prev => ({ ...prev, streetAddress }))}
+            value={customerContactCopy?.streetAddress}
+            onChange={streetAddress => setCustomerContactCopy(prev => ({ ...prev, streetAddress }))}
           />
           <FormInput
             name="streetAddress2"
             label="Street Address 2"
             readonly={isReadonly}
-            value={customerCopy?.streetAddress2}
-            onChange={streetAddress2 => setCustomerCopy(prev => ({ ...prev, streetAddress2 }))}
+            value={customerContactCopy?.streetAddress2}
+            onChange={streetAddress2 =>
+              setCustomerContactCopy(prev => ({ ...prev, streetAddress2 }))
+            }
           />
           <FormInput
             name="city"
             label="City"
             required
             readonly={isReadonly}
-            value={customerCopy?.city}
-            onChange={city => setCustomerCopy(prev => ({ ...prev, city }))}
+            value={customerContactCopy?.city}
+            onChange={city => setCustomerContactCopy(prev => ({ ...prev, city }))}
           />
           <div className={styles.stateZip}>
             <FormInput
@@ -125,9 +146,9 @@ const CustomerDetail: FC<CustomerDetailProps> = ({ customer, onSave }) => {
               required
               fullWidth
               readonly={isReadonly}
-              value={customerCopy?.state?.name}
+              value={customerContactCopy?.state?.name}
               onChange={name =>
-                setCustomerCopy(prev => ({
+                setCustomerContactCopy(prev => ({
                   ...prev,
                   state: { ...prev.state, name },
                 }))
@@ -139,8 +160,8 @@ const CustomerDetail: FC<CustomerDetailProps> = ({ customer, onSave }) => {
               required
               fullWidth
               readonly={isReadonly}
-              value={customerCopy?.zip}
-              onChange={zip => setCustomerCopy(prev => ({ ...prev, zip }))}
+              value={customerContactCopy?.zip}
+              onChange={zip => setCustomerContactCopy(prev => ({ ...prev, zip }))}
             />
           </div>
         </section>
@@ -158,4 +179,4 @@ const CustomerDetail: FC<CustomerDetailProps> = ({ customer, onSave }) => {
   );
 };
 
-export default CustomerDetail;
+export default CustomerContactDetail;

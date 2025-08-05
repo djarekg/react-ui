@@ -24,16 +24,14 @@ const Breadcrumbs = () => {
   const { pathname } = useLocation();
   const pathnames = useMemo(() => pathname.split('/').filter(x => !isNullOrEmpty(x)), [pathname]);
 
-  if (pathnames.length === 0) {
-    // return <HomeLink />;
-    return null;
-  }
+  if (pathnames.length === 0) return null;
 
   return (
     <MuiBreadcrumbs separator={<NavigateNextOutlined />}>
       <HomeLink />
       {pathnames.map((name, index) => {
         const route = `/${pathnames.slice(0, index + 1).join('/')}`;
+
         return (
           <Link
             href={route}

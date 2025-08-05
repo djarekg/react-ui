@@ -25,3 +25,7 @@ body {
     display: none;
   }
 }
+
+.MuiDialog-paper {
+  background: var(--mui-palette-background-default);
+}

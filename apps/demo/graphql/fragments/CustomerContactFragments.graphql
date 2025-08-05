@@ -1,0 +1,17 @@
+fragment CustomerContactParts on CustomerContact {
+  id
+  firstName
+  lastName
+  streetAddress
+  city
+  stateId
+  state {
+    id
+    name
+  }
+  zip
+  phone
+  email
+  dateCreated
+  dateUpdated
+}

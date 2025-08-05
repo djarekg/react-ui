@@ -1,8 +1,9 @@
 import TextField from '@mui/material/TextField';
-import { useCallback, type ChangeEvent, type FC, type HTMLAttributes } from 'react';
+import { useCallback, type ChangeEvent, type FC } from 'react';
 import styles from './form-input.module.css';
 
 type FormInputProps = {
+  autoComplete?: 'off' | 'on';
   label: string;
   name: string;
   type?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search' | undefined;
@@ -11,9 +12,10 @@ type FormInputProps = {
   readonly?: boolean;
   required?: boolean;
   onChange?: (value: string) => void;
-} & HTMLAttributes<HTMLInputElement>;
+};
 
 const FormInput: FC<FormInputProps> = ({
+  autoComplete = 'off',
   label,
   name,
   value = '',
@@ -29,6 +31,7 @@ const FormInput: FC<FormInputProps> = ({
 
   return (
     <TextField
+      autoComplete={autoComplete}
       className={styles.textField}
       variant="outlined"
       size="small"

@@ -10,7 +10,7 @@ import { useParams, useSearchParams } from 'react-router';
 
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
 const CustomerDetail = lazy(() => import('@/components/customer/customer-detail.js'));
-const CustomerContacts = lazy(() => import('@/components/customer/customer-contacts.js'));
+const CustomerContacts = lazy(() => import('@/components/customer/customer-contact-list.js'));
 
 type SaveCustomerType = {
   __typename: string;

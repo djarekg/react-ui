@@ -2538,6 +2538,30 @@ export type GetCustomerContactsByCustomerIdQuery = {
   }>;
 };
 
+export type UpdateCustomerContactMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+  data: CustomerContactUpdateInput;
+}>;
+
+export type UpdateCustomerContactMutation = {
+  readonly updateOneCustomerContact?:
+    | {
+        readonly id: string;
+        readonly firstName: string;
+        readonly lastName: string;
+        readonly streetAddress: string;
+        readonly city: string;
+        readonly stateId: string;
+        readonly zip: string;
+        readonly phone: string;
+        readonly email: string;
+        readonly dateCreated: unknown;
+        readonly dateUpdated: unknown;
+        readonly state: { readonly id: string; readonly name: string };
+      }
+    | undefined;
+};
+
 export type GetCustomersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetCustomersQuery = {
@@ -2713,6 +2737,21 @@ export type GetUserByUserIdQuery = {
     | undefined;
 };
 
+export type CustomerContactPartsFragment = {
+  readonly id: string;
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly streetAddress: string;
+  readonly city: string;
+  readonly stateId: string;
+  readonly zip: string;
+  readonly phone: string;
+  readonly email: string;
+  readonly dateCreated: unknown;
+  readonly dateUpdated: unknown;
+  readonly state: { readonly id: string; readonly name: string };
+};
+
 export type CustomerPartsFragment = {
   readonly id: string;
   readonly name: string;
@@ -2742,6 +2781,43 @@ export type UserPartsFragment = {
   readonly state: { readonly id: string; readonly name: string };
 };
 
+export const CustomerContactPartsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CustomerContactParts' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'CustomerContact' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'firstName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'lastName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'streetAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'city' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'stateId' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'state' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'phone' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'email' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'dateUpdated' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CustomerContactPartsFragment, unknown>;
 export const CustomerPartsFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -2939,31 +3015,42 @@ export const GetCustomerContactsByCustomerId = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'firstName' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'lastName' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'streetAddress' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'city' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'stateId' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'state' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                    ],
-                  },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'phone' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'email' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'dateUpdated' } },
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'CustomerContactParts' } },
               ],
             },
           },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CustomerContactParts' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'CustomerContact' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'firstName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'lastName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'streetAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'city' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'stateId' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'state' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'phone' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'email' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'dateUpdated' } },
         ],
       },
     },
@@ -2972,6 +3059,105 @@ export const GetCustomerContactsByCustomerId = {
   GetCustomerContactsByCustomerIdQuery,
   GetCustomerContactsByCustomerIdQueryVariables
 >;
+export const UpdateCustomerContact = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'updateCustomerContact' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'data' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'CustomerContactUpdateInput' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'updateOneCustomerContact' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'id' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+                    },
+                  ],
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'data' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'data' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'FragmentSpread', name: { kind: 'Name', value: 'CustomerContactParts' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CustomerContactParts' },
+      typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'CustomerContact' } },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'firstName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'lastName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'streetAddress' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'city' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'stateId' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'state' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'zip' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'phone' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'email' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'dateCreated' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'dateUpdated' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UpdateCustomerContactMutation, UpdateCustomerContactMutationVariables>;
 export const GetCustomers = {
   kind: 'Document',
   definitions: [

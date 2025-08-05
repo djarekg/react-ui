@@ -1,19 +1,11 @@
 query getCustomerContactsByCustomerId($customerId: String!) {
   customerContacts(where: { customerId: { equals: $customerId } }) {
-    id
-    firstName
-    lastName
-    streetAddress
-    city
-    stateId
-    state {
-      id
-      name
-    }
-    zip
-    phone
-    email
-    dateCreated
-    dateUpdated
+    ...CustomerContactParts
+  }
+}
+
+mutation updateCustomerContact($id: String!, $data: CustomerContactUpdateInput!) {
+  updateOneCustomerContact(where: { id: $id }, data: $data) {
+    ...CustomerContactParts
   }
 }
