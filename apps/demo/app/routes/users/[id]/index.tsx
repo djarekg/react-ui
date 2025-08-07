@@ -7,7 +7,7 @@ import styles from './index.module.css';
 
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
 
-const User = () => {
+export default function User() {
   const { id = '' } = useParams<{ id: string }>();
   const { data, error, loading } = useQuery(GetUserByUserId, {
     variables: { id },
@@ -20,6 +20,4 @@ const User = () => {
       <UserDetail user={data?.user as User} />
     </section>
   );
-};
-
-export default User;
+}

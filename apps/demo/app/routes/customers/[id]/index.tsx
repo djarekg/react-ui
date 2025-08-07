@@ -5,12 +5,12 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Tab from '@mui/material/Tab';
-import { lazy, useCallback, useState, type SyntheticEvent } from 'react';
+import { lazy, useState, type SyntheticEvent } from 'react';
 import { useParams, useSearchParams } from 'react-router';
 
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
 const CustomerDetail = lazy(() => import('@/components/customer/customer-detail.js'));
-const CustomerContacts = lazy(
+const CustomerContactList = lazy(
   () => import('@/components/customer-contact-list/customer-contact-list.js')
 );
 
@@ -18,7 +18,7 @@ type SaveCustomerType = {
   __typename: string;
 } & Omit<Customer, 'CustomerContact'>;
 
-const Customer = () => {
+export default function Customer() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedTab, setSelectedTab] = useState(searchParams.get('tab') || '1');
   const { id = '' } = useParams<{ id: string }>();
@@ -31,16 +31,16 @@ const Customer = () => {
   // update customer mutation
   const [saveCustomer, { error: updateError }] = useMutation(UpdateCustomer);
 
-  const handleTabChange = useCallback((_: SyntheticEvent, value: string) => {
+  const handleTabChange = (_: SyntheticEvent, value: string) => {
     setSelectedTab(value);
     setSearchParams({ tab: value });
-  }, []);
+  };
 
-  const handleSave = useCallback(async (customer: Customer) => {
+  const handleSave = async (customer: Customer) => {
     const { state, stateId, __typename, ...customerCopy } = customer as unknown as SaveCustomerType;
-    saveCustomer({ variables: { id: customerCopy.id, data: customerCopy } });
+    await saveCustomer({ variables: { id: customerCopy.id, data: customerCopy } });
     setSnackbarOpen(true);
-  }, []);
+  };
 
   if (error) return <ErrorMessage message={error.message} />;
   if (updateError) return <ErrorMessage message={updateError.message} />;
@@ -74,7 +74,7 @@ const Customer = () => {
         <TabPanel
           value="2"
           sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <CustomerContacts customerId={id} />
+          <CustomerContactList customerId={id} />
         </TabPanel>
       </TabContext>
 
@@ -85,6 +85,4 @@ const Customer = () => {
       />
     </>
   );
-};
-
-export default Customer;
+}

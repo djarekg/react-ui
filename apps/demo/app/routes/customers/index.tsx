@@ -28,7 +28,7 @@ const columns: GridColDef[] = [
 ] as const;
 const paginationModel = { page: 0, pageSize: 10 } as const;
 
-const Customers = () => {
+export default function Customers() {
   const { data, error, loading } = useQuery(GetCustomers);
   const navigate = useNavigate();
 
@@ -49,6 +49,4 @@ const Customers = () => {
       onRowClick={handleRowClick}
     />
   );
-};
-
-export default Customers;
+}

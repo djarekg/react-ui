@@ -3,6 +3,7 @@ import js from '@eslint/js';
 import json from '@eslint/json';
 import markdown from '@eslint/markdown';
 import pluginReact from 'eslint-plugin-react';
+import reactCompiler from 'eslint-plugin-react-compiler';
 import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -19,6 +20,8 @@ export default defineConfig([
           patterns: [{ regex: '^@mui/[^/]+$' }],
         },
       ],
+      'no-unnecessary-use-callback': 'error',
+      'react-compiler/react-compiler': 'error',
     },
   },
   {
@@ -35,10 +38,13 @@ export default defineConfig([
           patterns: [{ regex: '^@mui/[^/]+$' }],
         },
       ],
+      'no-unnecessary-use-callback': 'error',
+      'react-compiler/react-compiler': 'error',
     },
   },
   tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
+  reactCompiler.configs.recommended,
   {
     files: ['**/*.json'],
     plugins: { json },

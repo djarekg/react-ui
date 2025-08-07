@@ -22,7 +22,7 @@ type CustomerContactListProps = {
   customerId: string;
 } & HTMLAttributes<HTMLElement>;
 
-const CustomerContactList = async ({ customerId }: CustomerContactListProps) => {
+const CustomerContactList = ({ customerId }: CustomerContactListProps) => {
   const deletePopoverId = useId();
   const [deleteAnchorEl, setDeleteAnchorEl] = useState<null | HTMLElement>(null);
   const [dialogOpen, setDialogOpen] = useState(false);

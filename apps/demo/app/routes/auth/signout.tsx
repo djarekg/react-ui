@@ -15,6 +15,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   });
 };
 
-const Signout = () => null; // This component doesn't need to render anything.
-
-export default Signout;
+export default function Signout() {
+  return null; // This component doesn't need to render anything.
+}

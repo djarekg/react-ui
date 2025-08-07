@@ -51,7 +51,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   });
 };
 
-const Signin = () => {
+export default function Signin() {
   const navigate = useNavigate();
   const { state: locationState } = useLocation();
   const { signin } = useAuth();
@@ -127,6 +127,4 @@ const Signin = () => {
       </form>
     </div>
   );
-};
-
-export default Signin;
+}

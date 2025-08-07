@@ -5,7 +5,7 @@ import { useCallback, useState } from 'react';
  *
  * @param {boolean} initialValue Initial boolean value.
  */
-const useBoolean = (initialValue = false) => {
+export default function useBoolean(initialValue = false) {
   const [value, setValue] = useState(initialValue);
 
   const toggle = useCallback(() => {
@@ -21,6 +21,4 @@ const useBoolean = (initialValue = false) => {
   }, []);
 
   return { value, setTrue, setFalse, toggle };
-};
-
-export default useBoolean;
+}
