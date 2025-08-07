@@ -2562,6 +2562,14 @@ export type UpdateCustomerContactMutation = {
     | undefined;
 };
 
+export type DeleteCustomerContactMutationVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+export type DeleteCustomerContactMutation = {
+  readonly deleteOneCustomerContact?: { readonly id: string } | undefined;
+};
+
 export type GetCustomersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetCustomersQuery = {
@@ -3158,6 +3166,55 @@ export const UpdateCustomerContact = {
     },
   ],
 } as unknown as DocumentNode<UpdateCustomerContactMutation, UpdateCustomerContactMutationVariables>;
+export const DeleteCustomerContact = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'deleteCustomerContact' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'deleteOneCustomerContact' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'id' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<DeleteCustomerContactMutation, DeleteCustomerContactMutationVariables>;
 export const GetCustomers = {
   kind: 'Document',
   definitions: [

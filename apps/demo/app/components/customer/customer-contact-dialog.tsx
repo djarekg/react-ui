@@ -24,6 +24,7 @@ const CustomerContactDialog: FC<CustomerContactDialogProps> = ({
     <Dialog
       aria-labelledby="customer-contact-dialog-title"
       open={open}
+      maxWidth="lg"
       onClose={onClose}>
       <DialogTitle>Customer Contact Details</DialogTitle>
       <IconButton
@@ -37,7 +38,7 @@ const CustomerContactDialog: FC<CustomerContactDialogProps> = ({
         }}>
         <CloseOutlined />
       </IconButton>
-      <DialogContent sx={{ padding: '2rem', paddingBottom: 0 }}>
+      <DialogContent sx={{ padding: '3rem', paddingBottom: 0 }}>
         <CustomerContactDetail
           customerContact={customerContact}
           onSave={onSave}

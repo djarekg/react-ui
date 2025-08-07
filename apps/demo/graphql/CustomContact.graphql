@@ -9,3 +9,9 @@ mutation updateCustomerContact($id: String!, $data: CustomerContactUpdateInput!)
     ...CustomerContactParts
   }
 }
+
+mutation deleteCustomerContact($id: String!) {
+  deleteOneCustomerContact(where: { id: $id }) {
+    id
+  }
+}

@@ -6,3 +6,7 @@
     }
   }
 }
+
+.app-data-grid-cell-action {
+  text-overflow: clip;
+}

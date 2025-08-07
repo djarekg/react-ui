@@ -1,68 +1,35 @@
+import PopoverAlert from '@/components/alert/popover-alert.js';
 import {
+  DeleteCustomerContact,
   GetCustomerContactsByCustomerId,
   UpdateCustomerContact,
   type CustomerContact,
 } from '@/types/graphql.js';
 import { useMutation, useQuery } from '@apollo/client/react/hooks';
-import FolderOpenOutlined from '@mui/icons-material/FolderOpenOutlined';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
 import { DataGrid } from '@mui/x-data-grid/DataGrid';
-import type { GridCellParams, GridColDef } from '@mui/x-data-grid/models';
-import { lazy, useCallback, useState, type HTMLAttributes } from 'react';
+import type { GridCellParams, MuiEvent } from '@mui/x-data-grid/models';
+import { lazy, useCallback, useId, useState, type HTMLAttributes } from 'react';
+import { getColumns } from './customer-contact-datagrid-cols.js';
 
 const CustomerContactDialog = lazy(
   () => import('@/components/customer/customer-contact-dialog.js')
 );
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
 
-const columns: GridColDef[] = [
-  { field: 'firstName', headerName: 'First Name', width: 150 },
-  { field: 'lastName', headerName: 'Last Name', width: 150 },
-  { field: 'email', headerName: 'Email', width: 200, flex: 1 },
-  { field: 'phone', headerName: 'Phone', width: 190 },
-  {
-    field: 'state',
-    headerName: 'State',
-    width: 170,
-    valueGetter: (value: { name: string }) => value.name,
-  },
-  {
-    field: 'dateCreated',
-    headerName: 'Created',
-    width: 120,
-    type: 'date',
-    align: 'right',
-    headerAlign: 'right',
-    valueGetter: value => new Date(value),
-  },
-  {
-    field: 'open',
-    headerName: '',
-    align: 'center',
-    width: 60,
-    maxWidth: 60,
-    renderCell: () => (
-      <Tooltip title="Open customer contact">
-        <IconButton>
-          <FolderOpenOutlined />
-        </IconButton>
-      </Tooltip>
-    ),
-  },
-] as const;
 const paginationModel = { page: 0, pageSize: 5 } as const;
 
 type CustomerContactListProps = {
   customerId: string;
 } & HTMLAttributes<HTMLElement>;
 
-const CustomerContactList = ({ customerId }: CustomerContactListProps) => {
+const CustomerContactList = async ({ customerId }: CustomerContactListProps) => {
+  const deletePopoverId = useId();
+  const [deleteAnchorEl, setDeleteAnchorEl] = useState<null | HTMLElement>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [customerContact, setCustomerContact] = useState<CustomerContact | null>(null);
 
   // customer contacts query
-  const { data, error, loading } = useQuery(GetCustomerContactsByCustomerId, {
+  const { data, error, loading, refetch } = useQuery(GetCustomerContactsByCustomerId, {
     variables: { customerId },
     fetchPolicy: 'cache-and-network',
   });
@@ -70,12 +37,34 @@ const CustomerContactList = ({ customerId }: CustomerContactListProps) => {
   // customer contacts mutation
   const [updateCustomerContact] = useMutation(UpdateCustomerContact);
 
-  const handleCellClick = useCallback(({ field, row }: GridCellParams) => {
-    if (field === 'open') {
-      setCustomerContact(row);
-      setDialogOpen(true);
-    }
-  }, []);
+  // customer contact delete
+  const [deleteCustomerContact] = useMutation(DeleteCustomerContact);
+
+  const handleCellClick = useCallback(
+    async ({ field, row }: GridCellParams, e: MuiEvent<React.MouseEvent>) => {
+      if (field === 'open') {
+        setCustomerContact(row);
+        setDialogOpen(true);
+      }
+    },
+    []
+  );
+
+  const handleDeleteClick = useCallback(
+    async (confirmed: boolean) => {
+      setDeleteAnchorEl(null);
+
+      if (confirmed) {
+        await deleteCustomerContact({
+          variables: {
+            id: customerContact?.id!,
+          },
+        });
+        await refetch();
+      }
+    },
+    [customerContact]
+  );
 
   const handleSave = async (updatedContact: CustomerContact) => {
     const { errors } = await updateCustomerContact({
@@ -101,7 +90,7 @@ const CustomerContactList = ({ customerId }: CustomerContactListProps) => {
     <>
       <DataGrid
         rows={data?.customerContacts}
-        columns={columns}
+        columns={getColumns(deletePopoverId, e => setDeleteAnchorEl(e.currentTarget))}
         pageSizeOptions={[5, 10, 20]}
         initialState={{ pagination: { paginationModel } }}
         loading={loading}
@@ -113,6 +102,12 @@ const CustomerContactList = ({ customerId }: CustomerContactListProps) => {
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
         onSave={handleSave}
+      />
+      <PopoverAlert
+        message="Are you sure you want to delete this customer contact?"
+        popoverId={deletePopoverId}
+        anchorEl={deleteAnchorEl}
+        onConfirm={handleDeleteClick}
       />
     </>
   );
