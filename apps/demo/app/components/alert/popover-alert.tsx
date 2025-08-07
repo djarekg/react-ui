@@ -2,7 +2,6 @@ import QuestionMarkOutlined from '@mui/icons-material/QuestionMarkOutlined';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
-import type { FC } from 'react';
 
 type PopoverAlertProps = {
   message: string;
@@ -11,7 +10,14 @@ type PopoverAlertProps = {
   onConfirm: (confirmed: boolean) => void;
 };
 
-const PopoverAlert: FC<PopoverAlertProps> = ({ message, popoverId, anchorEl, onConfirm }) => {
+export default function PopoverAlert({
+  message,
+  popoverId,
+  anchorEl,
+  onConfirm,
+}: PopoverAlertProps) {
+  'ues memo';
+
   return (
     <Popover
       id={popoverId}
@@ -46,6 +52,4 @@ const PopoverAlert: FC<PopoverAlertProps> = ({ message, popoverId, anchorEl, onC
       </Alert>
     </Popover>
   );
-};
-
-export default PopoverAlert;
+}

@@ -8,7 +8,7 @@ import {
 import { useMutation, useQuery } from '@apollo/client/react/hooks';
 import { DataGrid } from '@mui/x-data-grid/DataGrid';
 import type { GridCellParams, MuiEvent } from '@mui/x-data-grid/models';
-import { lazy, useCallback, useId, useState, type HTMLAttributes } from 'react';
+import { lazy, useId, useState, type HTMLAttributes } from 'react';
 import { getColumns } from './customer-contact-datagrid-cols.js';
 
 const CustomerContactDialog = lazy(
@@ -16,13 +16,13 @@ const CustomerContactDialog = lazy(
 );
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
 
-const paginationModel = { page: 0, pageSize: 5 } as const;
-
 type CustomerContactListProps = {
   customerId: string;
 } & HTMLAttributes<HTMLElement>;
 
 const CustomerContactList = ({ customerId }: CustomerContactListProps) => {
+  'use memo';
+
   const deletePopoverId = useId();
   const [deleteAnchorEl, setDeleteAnchorEl] = useState<null | HTMLElement>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -40,31 +40,25 @@ const CustomerContactList = ({ customerId }: CustomerContactListProps) => {
   // customer contact delete
   const [deleteCustomerContact] = useMutation(DeleteCustomerContact);
 
-  const handleCellClick = useCallback(
-    async ({ field, row }: GridCellParams, e: MuiEvent<React.MouseEvent>) => {
-      if (field === 'open') {
-        setCustomerContact(row);
-        setDialogOpen(true);
-      }
-    },
-    []
-  );
+  const handleCellClick = async ({ field, row }: GridCellParams, e: MuiEvent<React.MouseEvent>) => {
+    if (field === 'open') {
+      setCustomerContact(row);
+      setDialogOpen(true);
+    }
+  };
 
-  const handleDeleteClick = useCallback(
-    async (confirmed: boolean) => {
-      setDeleteAnchorEl(null);
+  const handleDeleteClick = async (confirmed: boolean) => {
+    setDeleteAnchorEl(null);
 
-      if (confirmed) {
-        await deleteCustomerContact({
-          variables: {
-            id: customerContact?.id!,
-          },
-        });
-        await refetch();
-      }
-    },
-    [customerContact]
-  );
+    if (confirmed) {
+      await deleteCustomerContact({
+        variables: {
+          id: customerContact?.id!,
+        },
+      });
+      await refetch();
+    }
+  };
 
   const handleSave = async (updatedContact: CustomerContact) => {
     const { errors } = await updateCustomerContact({
@@ -92,7 +86,7 @@ const CustomerContactList = ({ customerId }: CustomerContactListProps) => {
         rows={data?.customerContacts}
         columns={getColumns(deletePopoverId, e => setDeleteAnchorEl(e.currentTarget))}
         pageSizeOptions={[5, 10, 20]}
-        initialState={{ pagination: { paginationModel } }}
+        initialState={{ pagination: { paginationModel: { page: 0, pageSize: 5 } } }}
         loading={loading}
         sx={{ width: '100%' }}
         onCellClick={handleCellClick}

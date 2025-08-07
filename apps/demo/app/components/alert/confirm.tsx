@@ -3,7 +3,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import type { FC } from 'react';
 import styles from './confirm.module.css';
 
 type ConfirmProps = {
@@ -15,14 +14,14 @@ type ConfirmProps = {
   onConfirm: (result: boolean) => void;
 };
 
-const Confirm: FC<ConfirmProps> = ({
+export default function Confirm({
   open,
   message,
   title = 'Confirm',
   confirmButtonText = 'Yes',
   cancelButtonText = 'No',
   onConfirm,
-}) => {
+}: ConfirmProps) {
   return (
     <Dialog open={open}>
       <DialogTitle>
@@ -48,6 +47,4 @@ const Confirm: FC<ConfirmProps> = ({
       </DialogActions>
     </Dialog>
   );
-};
-
-export default Confirm;
+}
