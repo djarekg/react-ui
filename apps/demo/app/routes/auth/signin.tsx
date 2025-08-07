@@ -18,6 +18,8 @@ import {
 import './signin.css';
 
 export const loader = async ({ request }: ActionFunctionArgs) => {
+  'use memo';
+
   const { isAuthenticated } = await getAuthSession(request);
 
   if (isAuthenticated) {
@@ -28,6 +30,8 @@ export const loader = async ({ request }: ActionFunctionArgs) => {
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
+  'use memo';
+
   // Extract username from form data.
   const session = await getSession(request.headers.get('Cookie'));
   const formData = await request.formData();
@@ -52,6 +56,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function Signin() {
+  'use memo';
+
   const navigate = useNavigate();
   const { state: locationState } = useLocation();
   const { signin } = useAuth();

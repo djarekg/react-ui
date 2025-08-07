@@ -1,4 +1,6 @@
 export default function Settings() {
+  'use memo';
+
   return (
     <div>
       <h1>Admin Settings</h1>

@@ -2,7 +2,7 @@ import { GetCustomers } from '@/types/graphql.js';
 import { useQuery } from '@apollo/client/react/hooks';
 import { DataGrid } from '@mui/x-data-grid/DataGrid';
 import type { GridColDef, GridRowParams } from '@mui/x-data-grid/models';
-import { lazy, useCallback } from 'react';
+import { lazy } from 'react';
 import { useNavigate } from 'react-router';
 
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
@@ -29,13 +29,15 @@ const columns: GridColDef[] = [
 const paginationModel = { page: 0, pageSize: 10 } as const;
 
 export default function Customers() {
+  'use memo';
+
   const { data, error, loading } = useQuery(GetCustomers);
   const navigate = useNavigate();
 
   // When a row is selected, navigate to the customer details page
-  const handleRowClick = useCallback(({ row: { id } }: GridRowParams) => {
+  const handleRowClick = ({ row: { id } }: GridRowParams) => {
     navigate(`/customers/${id}`, { viewTransition: true });
-  }, []);
+  };
 
   if (error) return <ErrorMessage message={error.message} />;
 

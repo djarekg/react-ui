@@ -8,6 +8,8 @@ import styles from './index.module.css';
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
 
 export default function User() {
+  'use memo';
+
   const { id = '' } = useParams<{ id: string }>();
   const { data, error, loading } = useQuery(GetUserByUserId, {
     variables: { id },

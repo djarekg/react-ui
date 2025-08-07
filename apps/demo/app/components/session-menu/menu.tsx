@@ -3,7 +3,6 @@ import PersonOutlineOutlined from '@mui/icons-material/PersonOutlineOutlined';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import type { FC } from 'react';
 import { NavLink } from 'react-router';
 
 type MenuProps = {
@@ -12,7 +11,9 @@ type MenuProps = {
   handleClose: () => void;
 };
 
-const Menu: FC<MenuProps> = ({ anchorEl, open, handleClose }) => {
+export default function Menu({ anchorEl, open, handleClose }: MenuProps) {
+  'use memo';
+
   return (
     <MuiMenu
       anchorEl={anchorEl}
@@ -35,6 +36,4 @@ const Menu: FC<MenuProps> = ({ anchorEl, open, handleClose }) => {
       </MenuItem>
     </MuiMenu>
   );
-};
-
-export default Menu;
+}

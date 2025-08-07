@@ -7,20 +7,26 @@ import { useLocation } from 'react-router';
 const MuiBreadcrumbs = lazy(() => import('@mui/material/Breadcrumbs'));
 const NavigateNextOutlined = lazy(() => import('@mui/icons-material/NavigateNextOutlined'));
 
-const HomeLink = memo(() => (
-  <Link
-    href="/"
-    color="inherit"
-    sx={{ columnGap: '0 !important' }}>
-    <HomeOutlined
-      sx={{ mr: 1 }}
-      fontSize="small"
-    />
-    Home
-  </Link>
-));
+function HomeLink() {
+  'use memo';
 
-const Breadcrumbs = () => {
+  return (
+    <Link
+      href="/"
+      color="inherit"
+      sx={{ columnGap: '0 !important' }}>
+      <HomeOutlined
+        sx={{ mr: 1 }}
+        fontSize="small"
+      />
+      Home
+    </Link>
+  );
+}
+
+export default function Breadcrumbs() {
+  'use memo';
+
   const { pathname } = useLocation();
   const pathnames = useMemo(() => pathname.split('/').filter(x => !isNullOrEmpty(x)), [pathname]);
 
@@ -43,6 +49,4 @@ const Breadcrumbs = () => {
       })}
     </MuiBreadcrumbs>
   );
-};
-
-export default Breadcrumbs;
+}

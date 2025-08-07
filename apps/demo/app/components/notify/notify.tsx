@@ -1,7 +1,6 @@
 import Alert, { type AlertColor } from '@mui/material/Alert';
 import Fade from '@mui/material/Fade';
 import Snackbar from '@mui/material/Snackbar';
-import { useCallback, type FC } from 'react';
 
 type NotifyProps = {
   duration?: number;
@@ -11,14 +10,16 @@ type NotifyProps = {
   onClose?: () => void;
 };
 
-const Notify: FC<NotifyProps> = ({
+export default function Notify({
   duration = 3000,
   message,
   severity = 'success',
   open = false,
   onClose,
-}) => {
-  const handleClose = useCallback(() => onClose?.(), []);
+}: NotifyProps) {
+  'use memo';
+
+  const handleClose = () => onClose?.();
 
   return (
     <Snackbar
@@ -35,6 +36,4 @@ const Notify: FC<NotifyProps> = ({
       </Alert>
     </Snackbar>
   );
-};
-
-export default Notify;
+}

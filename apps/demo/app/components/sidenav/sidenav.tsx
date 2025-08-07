@@ -24,7 +24,9 @@ const DRAWER_SX = {
   },
 } satisfies SxProps;
 
-const Sidenav = () => {
+export default function Sidenav() {
+  'use memo';
+
   const { open, setOpenFalse } = useSidenavContext();
 
   return (
@@ -71,6 +73,4 @@ const Sidenav = () => {
       </List>
     </Drawer>
   );
-};
-
-export default Sidenav;
+}

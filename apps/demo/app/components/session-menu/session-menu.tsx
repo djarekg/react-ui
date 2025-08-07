@@ -1,14 +1,16 @@
 import PersonOutlineRounded from '@mui/icons-material/PersonOutlineRounded';
 import IconButton from '@mui/material/IconButton';
-import { lazy, useCallback, useState, type MouseEvent } from 'react';
+import { lazy, useState, type MouseEvent } from 'react';
 
 const Menu = lazy(() => import('./menu.js'));
 
-const SessionMenu = () => {
+export default function SessionMenu() {
+  'use memo';
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = useCallback((e: MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget), []);
-  const handleClose = useCallback(() => setAnchorEl(null), []);
+  const handleClick = (e: MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
+  const handleClose = () => setAnchorEl(null);
 
   return (
     <>
@@ -22,6 +24,4 @@ const SessionMenu = () => {
       />
     </>
   );
-};
-
-export default SessionMenu;
+}

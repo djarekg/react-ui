@@ -1,7 +1,9 @@
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const Loader = () => {
+export default function Loader() {
+  'use memo';
+
   return (
     <Box
       sx={{
@@ -15,6 +17,4 @@ const Loader = () => {
       />
     </Box>
   );
-};
-
-export default Loader;
+}

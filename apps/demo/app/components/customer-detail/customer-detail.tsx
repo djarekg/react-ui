@@ -1,7 +1,7 @@
 import FormInput from '@/components/form-input/form-input.js';
 import type { Customer } from '@/types/graphql.js';
 import Button from '@mui/material/Button';
-import { useCallback, useRef, useState, type FC, type HTMLAttributes } from 'react';
+import { useRef, useState, type HTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 import styles from './customer-detail.module.css';
 
@@ -12,7 +12,9 @@ type ActionsProps = {
   onSave?: () => void;
 };
 
-const Actions: FC<ActionsProps> = ({ isEditing, onCancel, onEdit, onSave }) => {
+function Actions({ isEditing, onCancel, onEdit, onSave }: ActionsProps) {
+  'use memo';
+
   const { pending } = useFormStatus();
 
   if (isEditing) {
@@ -40,31 +42,33 @@ const Actions: FC<ActionsProps> = ({ isEditing, onCancel, onEdit, onSave }) => {
       Edit
     </Button>
   );
-};
+}
 
 type CustomerDetailProps = {
   customer: Customer;
   onSave?: (customer: Customer) => void;
 } & HTMLAttributes<HTMLElement>;
 
-const CustomerDetail: FC<CustomerDetailProps> = ({ customer, onSave }) => {
+export default function CustomerDetail({ customer, onSave }: CustomerDetailProps) {
+  'use memo';
+
   const [isReadonly, setIsReadonly] = useState(true);
   const [customerCopy, setCustomerCopy] = useState<Customer>(customer);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const handleCancel = useCallback(() => {
+  const handleCancel = () => {
     setIsReadonly(true);
     setCustomerCopy(customer); // Reset to original customer data
-  }, [customer]);
+  };
 
-  const handleEdit = useCallback(() => {
+  const handleEdit = () => {
     setIsReadonly(false);
-  }, []);
+  };
 
-  const handleSave = useCallback(() => {
+  const handleSave = () => {
     setIsReadonly(true);
     onSave?.(customerCopy);
-  }, [customerCopy]);
+  };
 
   return (
     <>
@@ -156,6 +160,4 @@ const CustomerDetail: FC<CustomerDetailProps> = ({ customer, onSave }) => {
       </footer>
     </>
   );
-};
-
-export default CustomerDetail;
+}

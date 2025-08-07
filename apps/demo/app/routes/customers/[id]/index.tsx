@@ -19,6 +19,8 @@ type SaveCustomerType = {
 } & Omit<Customer, 'CustomerContact'>;
 
 export default function Customer() {
+  'use memo';
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedTab, setSelectedTab] = useState(searchParams.get('tab') || '1');
   const { id = '' } = useParams<{ id: string }>();

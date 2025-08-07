@@ -17,7 +17,9 @@ const SidenavContext = createContext<Sidenav | undefined>(undefined);
  * SidenavProvider component that provides the state of the sidenav
  * and a method to toggle its open/closed state.
  */
-export const SidenavProvider = ({ children }: { children: React.ReactNode }) => {
+export function SidenavProvider({ children }: { children: React.ReactNode }) {
+  'use memo';
+
   const { value: open, setFalse: setOpenFalse, toggle: toggleOpen } = useBoolean(false);
 
   return (
@@ -25,12 +27,15 @@ export const SidenavProvider = ({ children }: { children: React.ReactNode }) => 
       {children}
     </SidenavContext.Provider>
   );
-};
+}
 
-export const useSidenavContext = () => {
+export function useSidenavContext() {
+  'use memo';
+
   const context = use(SidenavContext);
+
   if (!context) {
     throw new Error('useSidenavContext must be used within a SidenavProvider');
   }
   return context;
-};
+}

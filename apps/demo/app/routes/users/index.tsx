@@ -1,7 +1,7 @@
 import { GetUsers } from '@/types/graphql.js';
 import { useQuery } from '@apollo/client/react/hooks';
 import { DataGrid, type GridColDef, type GridRowParams } from '@mui/x-data-grid';
-import { lazy, useCallback } from 'react';
+import { lazy } from 'react';
 import { useNavigate } from 'react-router';
 
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
@@ -36,11 +36,13 @@ const columns: GridColDef[] = [
 const paginationModel = { page: 0, pageSize: 10 } as const;
 
 export default function Users() {
+  'use memo';
+
   const { data, error, loading } = useQuery(GetUsers);
   const navigate = useNavigate();
-  const handleRowClick = useCallback(({ row: { id } }: GridRowParams) => {
+  const handleRowClick = ({ row: { id } }: GridRowParams) => {
     navigate(`/users/${id}`, { viewTransition: true });
-  }, []);
+  };
 
   if (error) return <ErrorMessage message={error.message} />;
 

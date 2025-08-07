@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField';
-import { useCallback, type ChangeEvent, type FC } from 'react';
+import { type ChangeEvent } from 'react';
 import styles from './form-input.module.css';
 
 type FormInputProps = {
@@ -14,7 +14,7 @@ type FormInputProps = {
   onChange?: (value: string) => void;
 };
 
-const FormInput: FC<FormInputProps> = ({
+export default function FormInput({
   autoComplete = 'off',
   label,
   name,
@@ -24,10 +24,12 @@ const FormInput: FC<FormInputProps> = ({
   required,
   type = 'text',
   onChange,
-}) => {
-  const handleChange = useCallback(({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+}: FormInputProps) {
+  'use memo';
+
+  const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     onChange?.(value);
-  }, []);
+  };
 
   return (
     <TextField
@@ -49,6 +51,4 @@ const FormInput: FC<FormInputProps> = ({
       }}
     />
   );
-};
-
-export default FormInput;
+}

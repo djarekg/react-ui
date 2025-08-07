@@ -10,8 +10,8 @@ type ErrorMessageProps = {
  * @param {string} message - The error message to display
  * @returns {JSX.Element}
  */
-const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }) => {
-  return <div className={styles.error}>{message}</div>;
-};
+export default function ErrorMessage({ message }: ErrorMessageProps) {
+  'use memo';
 
-export default ErrorMessage;
+  return <div className={styles.error}>{message}</div>;
+}
