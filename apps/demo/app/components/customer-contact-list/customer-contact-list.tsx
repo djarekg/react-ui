@@ -12,7 +12,7 @@ import { lazy, useCallback, useId, useState, type HTMLAttributes } from 'react';
 import { getColumns } from './customer-contact-datagrid-cols.js';
 
 const CustomerContactDialog = lazy(
-  () => import('@/components/customer/customer-contact-dialog.js')
+  () => import('@/components/customer-contact-dialog/customer-contact-dialog.js')
 );
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
 

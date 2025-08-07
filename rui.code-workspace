@@ -118,7 +118,9 @@
       "**/dist": true,
       "**/public": true,
       "CHANGELOG.md": true,
-      "**/routeTree.gen.ts": true
+      "**/routeTree.gen.ts": true,
+      "**/build": true,
+      "**/.react-router": true
     },
 
     "files.exclude": {
@@ -132,7 +134,8 @@
       "**/node_modules": true,
       "**/dist": true,
       "**/.angular": true,
-      "**/.react-router": true
+      "**/.react-router": true,
+      "**/build": true,
     },
     "editor.quickSuggestions": {
       "other": "on",

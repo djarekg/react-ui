@@ -1,4 +1,4 @@
-import CustomerContactDetail from '@/components/customer/customer-contact-detail.js';
+import CustomerContactDetail from '@/components/customer-contact-detail/customer-contact-detail.js';
 import type { CustomerContact } from '@/types/graphql.js';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import Dialog from '@mui/material/Dialog';

@@ -9,7 +9,7 @@ import { lazy, useState, type SyntheticEvent } from 'react';
 import { useParams, useSearchParams } from 'react-router';
 
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
-const CustomerDetail = lazy(() => import('@/components/customer/customer-detail.js'));
+const CustomerDetail = lazy(() => import('@/components/customer-detail/customer-detail.js'));
 const CustomerContactList = lazy(
   () => import('@/components/customer-contact-list/customer-contact-list.js')
 );
