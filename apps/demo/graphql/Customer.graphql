@@ -18,6 +18,12 @@ mutation updateCustomer($id: String!, $data: CustomerUpdateInput!) {
 
 mutation deleteCustomer($id: String!) {
   deleteOneCustomer(where: { id: $id }) {
+    id
+  }
+}
+
+mutation createCustomer($data: CustomerCreateInput!) {
+  createOneCustomer(data: $data) {
     ...CustomerParts
   }
 }

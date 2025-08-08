@@ -21,22 +21,15 @@ type SaveCustomerType = {
 export default function Customer() {
   'use memo';
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedTab, setSelectedTab] = useState(searchParams.get('tab') || '1');
   const { id = '' } = useParams<{ id: string }>();
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  // customer query
   const { data, error, loading } = useQuery(GetCustomerById, {
     variables: { id },
   });
-  // update customer mutation
   const [saveCustomer, { error: updateError }] = useMutation(UpdateCustomer);
-
-  const handleTabChange = (_: SyntheticEvent, value: string) => {
-    setSelectedTab(value);
-    setSearchParams({ tab: value });
-  };
 
   const handleSave = async (customer: Customer) => {
     const { state, stateId, __typename, ...customerCopy } = customer as unknown as SaveCustomerType;
@@ -44,9 +37,16 @@ export default function Customer() {
     setSnackbarOpen(true);
   };
 
+  const handleTabChange = (_: SyntheticEvent, value: string) => {
+    setSelectedTab(value);
+    setSearchParams({ tab: value });
+  };
+
+  if (loading) return null;
   if (error) return <ErrorMessage message={error.message} />;
   if (updateError) return <ErrorMessage message={updateError.message} />;
-  if (loading) return null;
+
+  const customer = data?.customer;
 
   return (
     <>
@@ -68,7 +68,7 @@ export default function Customer() {
           value="1"
           sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <CustomerDetail
-            customer={data?.customer as Customer}
+            customer={customer as Customer}
             onSave={handleSave}
           />
         </TabPanel>
@@ -76,7 +76,7 @@ export default function Customer() {
         <TabPanel
           value="2"
           sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <CustomerContactList customerId={id} />
+          <CustomerContactList customerId={customer?.id!} />
         </TabPanel>
       </TabContext>
 

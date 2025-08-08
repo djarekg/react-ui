@@ -10,3 +10,13 @@
 .app-data-grid-cell-action {
   text-overflow: clip;
 }
+
+.MuiTabPanel-root {
+  &[hidden] {
+    display: none;
+  }
+}
+
+.MuiDialog-paper {
+  background: var(--mui-palette-background-default);
+}

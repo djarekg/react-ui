@@ -1,0 +1,32 @@
+import { GetCustomers } from '@/types/graphql.js';
+import { useQuery } from '@apollo/client/react/hooks';
+import { DataGrid } from '@mui/x-data-grid/DataGrid';
+import type { GridRowParams } from '@mui/x-data-grid/models';
+import { lazy } from 'react';
+import { useNavigate } from 'react-router';
+import { columns } from './customer-datagrid-cols.js';
+
+const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
+
+export default function NewCustomerDetail() {
+  'use memo';
+
+  const navigate = useNavigate();
+  const { data: { customers = [] } = {}, error, loading } = useQuery(GetCustomers);
+
+  const handleRowClick = ({ row: { id } }: GridRowParams) =>
+    navigate(`/customers/${id}`, { viewTransition: true });
+
+  if (error) return <ErrorMessage message={error.message} />;
+
+  return (
+    <DataGrid
+      rows={customers}
+      columns={columns}
+      pageSizeOptions={[5, 10, 20]}
+      initialState={{ pagination: { paginationModel: { page: 0, pageSize: 10 } } }}
+      loading={loading}
+      onRowClick={handleRowClick}
+    />
+  );
+}

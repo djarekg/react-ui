@@ -2638,21 +2638,27 @@ export type DeleteCustomerMutationVariables = Exact<{
 }>;
 
 export type DeleteCustomerMutation = {
-  readonly deleteOneCustomer?:
-    | {
-        readonly id: string;
-        readonly name: string;
-        readonly phone: string;
-        readonly streetAddress: string;
-        readonly streetAddress2?: string | undefined;
-        readonly city: string;
-        readonly stateId: string;
-        readonly zip: string;
-        readonly dateCreated: unknown;
-        readonly dateUpdated: unknown;
-        readonly state: { readonly id: string; readonly name: string };
-      }
-    | undefined;
+  readonly deleteOneCustomer?: { readonly id: string } | undefined;
+};
+
+export type CreateCustomerMutationVariables = Exact<{
+  data: CustomerCreateInput;
+}>;
+
+export type CreateCustomerMutation = {
+  readonly createOneCustomer: {
+    readonly id: string;
+    readonly name: string;
+    readonly phone: string;
+    readonly streetAddress: string;
+    readonly streetAddress2?: string | undefined;
+    readonly city: string;
+    readonly stateId: string;
+    readonly zip: string;
+    readonly dateCreated: unknown;
+    readonly dateUpdated: unknown;
+    readonly state: { readonly id: string; readonly name: string };
+  };
 };
 
 export type GetLocationStatesQueryVariables = Exact<{ [key: string]: never }>;
@@ -3489,6 +3495,46 @@ export const DeleteCustomer = {
             ],
             selectionSet: {
               kind: 'SelectionSet',
+              selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<DeleteCustomerMutation, DeleteCustomerMutationVariables>;
+export const CreateCustomer = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'createCustomer' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'data' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'CustomerCreateInput' } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'createOneCustomer' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'data' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'data' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
               selections: [
                 { kind: 'FragmentSpread', name: { kind: 'Name', value: 'CustomerParts' } },
               ],
@@ -3529,7 +3575,7 @@ export const DeleteCustomer = {
       },
     },
   ],
-} as unknown as DocumentNode<DeleteCustomerMutation, DeleteCustomerMutationVariables>;
+} as unknown as DocumentNode<CreateCustomerMutation, CreateCustomerMutationVariables>;
 export const GetLocationStates = {
   kind: 'Document',
   definitions: [

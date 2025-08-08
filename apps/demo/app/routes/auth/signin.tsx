@@ -7,7 +7,7 @@ import PersonOutlineRounded from '@mui/icons-material/PersonOutlineRounded';
 import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
-import { useCallback, type MouseEvent } from 'react';
+import { type MouseEvent } from 'react';
 import {
   redirect,
   useFetcher,
@@ -63,31 +63,28 @@ export default function Signin() {
   const { signin } = useAuth();
   const fetcher = useFetcher();
 
-  const handleSignin = useCallback(
-    async (e: MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
+  const handleSignin = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
 
-      // Get the username from the form data and signin.
-      const formData = new FormData(e.currentTarget.closest('form') as HTMLFormElement);
-      const username = formData.get('username') as string;
-      const password = formData.get('password') as string;
-      const isSignedIn = await signin(username, password);
+    // Get the username from the form data and signin.
+    const formData = new FormData(e.currentTarget.closest('form') as HTMLFormElement);
+    const username = formData.get('username') as string;
+    const password = formData.get('password') as string;
+    const isSignedIn = await signin(username, password);
 
-      if (isSignedIn) {
-        // If sign-in is successful, submit the form data to the action so
-        // that the session can be updated with the new user information.
-        await fetcher.submit(formData, { method: 'post' });
-        const from = locationState?.from || '/';
+    if (isSignedIn) {
+      // If sign-in is successful, submit the form data to the action so
+      // that the session can be updated with the new user information.
+      await fetcher.submit(formData, { method: 'post' });
+      const from = locationState?.from || '/';
 
-        // Redirect to the home page or the page they were trying to access.
-        navigate(from, { replace: true, viewTransition: true });
-      } else {
-        // Handle sign-in failure (e.g., show an error message).
-        console.error('Sign-in failed');
-      }
-    },
-    [fetcher, locationState, navigate]
-  );
+      // Redirect to the home page or the page they were trying to access.
+      navigate(from, { replace: true, viewTransition: true });
+    } else {
+      // Handle sign-in failure (e.g., show an error message).
+      console.error('Sign-in failed');
+    }
+  };
 
   return (
     <div className="signin-container">

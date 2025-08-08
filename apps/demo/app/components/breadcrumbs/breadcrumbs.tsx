@@ -1,7 +1,7 @@
 import { isNullOrEmpty } from '@/core/utils/string.js';
 import HomeOutlined from '@mui/icons-material/HomeOutlined';
 import Link from '@mui/material/Link';
-import { lazy, memo, useMemo } from 'react';
+import { lazy } from 'react';
 import { useLocation } from 'react-router';
 
 const MuiBreadcrumbs = lazy(() => import('@mui/material/Breadcrumbs'));
@@ -28,7 +28,7 @@ export default function Breadcrumbs() {
   'use memo';
 
   const { pathname } = useLocation();
-  const pathnames = useMemo(() => pathname.split('/').filter(x => !isNullOrEmpty(x)), [pathname]);
+  const pathnames = pathname.split('/').filter(x => !isNullOrEmpty(x));
 
   if (pathnames.length === 0) return null;
 
