@@ -18,7 +18,7 @@ import {
 import './signin.css';
 
 export const loader = async ({ request }: ActionFunctionArgs) => {
-  'use memo';
+  'use no memo';
 
   const { isAuthenticated } = await getAuthSession(request);
 
@@ -30,7 +30,7 @@ export const loader = async ({ request }: ActionFunctionArgs) => {
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-  'use memo';
+  'use no memo';
 
   // Extract username from form data.
   const session = await getSession(request.headers.get('Cookie'));

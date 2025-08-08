@@ -1,8 +1,11 @@
 import FormInput from '@/components/form-input/form-input.js';
+import LocationStateSelect from '@/components/location-state-select/location-state-select.js';
+import { FormMode, type FormModeType } from '@/core/constants/form-mode.js';
 import type { Customer } from '@/types/graphql.js';
 import Button from '@mui/material/Button';
-import { useRef, useState, type HTMLAttributes } from 'react';
+import { useState, type HTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
+import { useSearchParams } from 'react-router';
 import styles from './customer-detail.module.css';
 
 type ActionsProps = {
@@ -20,11 +23,7 @@ function Actions({ isEditing, onCancel, onEdit, onSave }: ActionsProps) {
   if (isEditing) {
     return (
       <>
-        <Button
-          variant="outlined"
-          onClick={onCancel}>
-          Cancel
-        </Button>
+        <Button onClick={onCancel}>Cancel</Button>
         <Button
           variant="outlined"
           disabled={pending}
@@ -52,22 +51,33 @@ type CustomerDetailProps = {
 export default function CustomerDetail({ customer, onSave }: CustomerDetailProps) {
   'use memo';
 
-  const [isReadonly, setIsReadonly] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [formMode, setFormMode] = useState<FormModeType>(
+    (searchParams.get('m') as FormModeType) || 'view'
+  );
+  const [isReadonly, setIsReadonly] = useState(() => formMode === 'view');
   const [customerCopy, setCustomerCopy] = useState<Customer>(customer);
-  const formRef = useRef<HTMLFormElement>(null);
+
+  const setFormModeFn = (mode: FormModeType) => {
+    setFormMode(mode);
+    setSearchParams({ m: mode }, { replace: true });
+  };
 
   const handleCancel = () => {
     setIsReadonly(true);
     setCustomerCopy(customer); // Reset to original customer data
+    setFormModeFn(FormMode.VIEW);
   };
 
   const handleEdit = () => {
     setIsReadonly(false);
+    setFormModeFn(FormMode.EDIT);
   };
 
   const handleSave = () => {
     setIsReadonly(true);
     onSave?.(customerCopy);
+    setFormModeFn(FormMode.VIEW);
   };
 
   return (
@@ -76,9 +86,7 @@ export default function CustomerDetail({ customer, onSave }: CustomerDetailProps
         <span>Created: {new Date(customerCopy?.dateCreated as string).toLocaleDateString()}</span>
       </header>
 
-      <form
-        className={styles.form}
-        ref={formRef}>
+      <form className={styles.form}>
         <section>
           <FormInput
             label="Name"
@@ -123,20 +131,22 @@ export default function CustomerDetail({ customer, onSave }: CustomerDetailProps
             onChange={city => setCustomerCopy(prev => ({ ...prev, city }))}
           />
           <div className={styles.stateZip}>
-            <FormInput
-              name="state"
-              label="State"
-              required
-              fullWidth
-              readonly={isReadonly}
-              value={customerCopy?.state?.name}
-              onChange={name =>
-                setCustomerCopy(prev => ({
-                  ...prev,
-                  state: { ...prev.state, name },
-                }))
-              }
-            />
+            {formMode === 'view' ? (
+              <FormInput
+                name="state"
+                label="State"
+                required
+                fullWidth
+                readonly
+                value={customerCopy?.state?.name}
+              />
+            ) : (
+              <LocationStateSelect
+                readonly={isReadonly}
+                value={customerCopy?.state?.id}
+                onChange={stateId => setCustomerCopy(prev => ({ ...prev, stateId }))}
+              />
+            )}
             <FormInput
               name="zip"
               label="Zip Code"

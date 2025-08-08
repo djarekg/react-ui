@@ -20,16 +20,12 @@ function Actions({ isEditing, onCancel, onEdit, onSave }: ActionsProps) {
   if (isEditing) {
     return (
       <>
-        <Button
-          variant="outlined"
-          onClick={onCancel}>
-          Cancel
-        </Button>
+        <Button onClick={onCancel}>CANCEL</Button>
         <Button
           variant="outlined"
           disabled={pending}
           onClick={onSave}>
-          Save
+          SAVE
         </Button>
       </>
     );

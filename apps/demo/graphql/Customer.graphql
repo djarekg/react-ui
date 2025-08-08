@@ -10,8 +10,28 @@ query getCustomerById($id: String!) {
   }
 }
 
-mutation updateCustomer($id: String!, $data: CustomerUpdateInput!) {
-  updateOneCustomer(where: { id: $id }, data: $data) {
+mutation updateCustomer(
+  $id: String!
+  $name: String!
+  $streetAddress: String!
+  $streetAddress2: String!
+  $city: String!
+  $stateId: String!
+  $zip: String!
+  $phone: String!
+) {
+  updateOneCustomer(
+    where: { id: $id }
+    data: {
+      name: $name
+      streetAddress: $streetAddress
+      streetAddress2: $streetAddress2
+      city: $city
+      zip: $zip
+      phone: $phone
+      state: { connect: { id: $stateId } }
+    }
+  ) {
     ...CustomerParts
   }
 }
@@ -22,8 +42,26 @@ mutation deleteCustomer($id: String!) {
   }
 }
 
-mutation createCustomer($data: CustomerCreateInput!) {
-  createOneCustomer(data: $data) {
+mutation createCustomer(
+  $name: String!
+  $streetAddress: String!
+  $streetAddress2: String!
+  $city: String!
+  $stateId: String!
+  $zip: String!
+  $phone: String!
+) {
+  createOneCustomer(
+    data: {
+      name: $name
+      streetAddress: $streetAddress
+      streetAddress2: $streetAddress2
+      city: $city
+      zip: $zip
+      phone: $phone
+      state: { connect: { id: $stateId } }
+    }
+  ) {
     ...CustomerParts
   }
 }

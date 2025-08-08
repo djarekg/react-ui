@@ -1,3 +1,4 @@
+import type { SxProps } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { type ChangeEvent } from 'react';
 import styles from './form-input.module.css';
@@ -11,6 +12,7 @@ type FormInputProps = {
   fullWidth?: boolean;
   readonly?: boolean;
   required?: boolean;
+  sx?: SxProps;
   onChange?: (value: string) => void;
 };
 
@@ -24,6 +26,7 @@ export default function FormInput({
   required,
   type = 'text',
   onChange,
+  sx = {},
 }: FormInputProps) {
   'use memo';
 
@@ -49,6 +52,7 @@ export default function FormInput({
           readOnly: Boolean(readonly),
         },
       }}
+      sx={sx}
     />
   );
 }
