@@ -1,3 +1,6 @@
+import FolderOpenOutlined from '@mui/icons-material/FolderOpenOutlined';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import type { GridColDef } from '@mui/x-data-grid/models';
 
 export const columns: GridColDef[] = [
@@ -17,5 +20,24 @@ export const columns: GridColDef[] = [
     align: 'right',
     headerAlign: 'right',
     valueGetter: value => new Date(value),
+  },
+  {
+    field: 'open',
+    headerName: '',
+    align: 'right',
+    width: 55,
+    maxWidth: 55,
+    hideSortIcons: true,
+    disableColumnMenu: true,
+    disableExport: true,
+    disableReorder: true,
+    cellClassName: 'app-data-grid-cell-action',
+    renderCell: () => (
+      <Tooltip title="Open customer">
+        <IconButton>
+          <FolderOpenOutlined />
+        </IconButton>
+      </Tooltip>
+    ),
   },
 ] as const;

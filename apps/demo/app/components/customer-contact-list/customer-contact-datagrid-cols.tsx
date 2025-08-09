@@ -44,7 +44,7 @@ export const getColumns = (
       cellClassName: 'app-data-grid-cell-action',
       renderCell: () => (
         <Tooltip title="Open customer contact">
-          <IconButton id="openCustomerContact">
+          <IconButton>
             <FolderOpenOutlined />
           </IconButton>
         </Tooltip>
@@ -66,7 +66,6 @@ export const getColumns = (
           <>
             <Tooltip title="Delete customer contact">
               <IconButton
-                id="deleteCustomerContact"
                 aria-describedby={deletePopoverId}
                 onClick={handleDeleteClick}>
                 <DeleteOutlineOutlined />

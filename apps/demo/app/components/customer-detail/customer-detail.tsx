@@ -5,7 +5,7 @@ import type { Customer } from '@/types/graphql.js';
 import Button from '@mui/material/Button';
 import { useState, type HTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import styles from './customer-detail.module.css';
 
 type ActionsProps = {
@@ -51,11 +51,13 @@ type CustomerDetailProps = {
 export default function CustomerDetail({ customer, onSave }: CustomerDetailProps) {
   'use memo';
 
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [formMode, setFormMode] = useState<FormModeType>(
     (searchParams.get('m') as FormModeType) || 'view'
   );
   const [isReadonly, setIsReadonly] = useState(() => formMode === 'view');
+  const [isCreating, setIsCreating] = useState(() => formMode === 'new');
   const [customerCopy, setCustomerCopy] = useState<Customer>(customer);
 
   const setFormModeFn = (mode: FormModeType) => {
@@ -64,26 +66,35 @@ export default function CustomerDetail({ customer, onSave }: CustomerDetailProps
   };
 
   const handleCancel = () => {
-    setIsReadonly(true);
+    // If we are in 'new' mode, navigate back to the customer list
+    // Otherwise, reset the form to the original customer data.
+    if (isCreating) {
+      navigate('/customers', { viewTransition: true });
+      return;
+    }
+
     setCustomerCopy(customer); // Reset to original customer data
     setFormModeFn(FormMode.VIEW);
+    setIsReadonly(true);
   };
 
   const handleEdit = () => {
-    setIsReadonly(false);
     setFormModeFn(FormMode.EDIT);
+    setIsReadonly(false);
   };
 
   const handleSave = () => {
-    setIsReadonly(true);
     onSave?.(customerCopy);
     setFormModeFn(FormMode.VIEW);
+    setIsReadonly(true);
   };
 
   return (
     <>
       <header className={styles.header}>
-        <span>Created: {new Date(customerCopy?.dateCreated as string).toLocaleDateString()}</span>
+        {!isCreating && (
+          <span>Created: {new Date(customerCopy?.dateCreated as string).toLocaleDateString()}</span>
+        )}
       </header>
 
       <form className={styles.form}>
