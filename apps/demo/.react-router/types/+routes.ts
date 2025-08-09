@@ -19,6 +19,9 @@ type Pages = {
   "/signout": {
     params: {};
   };
+  "/admin": {
+    params: {};
+  };
   "/admin/settings": {
     params: {};
   };
@@ -43,7 +46,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/signin" | "/signout" | "/admin/settings" | "/customers" | "/customers/:id" | "/users" | "/users/:id";
+    page: "/" | "/signin" | "/signout" | "/admin" | "/admin/settings" | "/customers" | "/customers/:id" | "/users" | "/users/:id";
   };
   "routes/index.tsx": {
     id: "routes/index";
@@ -56,6 +59,10 @@ type RouteFiles = {
   "routes/auth/signout.tsx": {
     id: "routes/auth/signout";
     page: "/signout";
+  };
+  "routes/admin/index.tsx": {
+    id: "routes/admin/index";
+    page: "/admin";
   };
   "routes/admin/settings.tsx": {
     id: "routes/admin/settings";

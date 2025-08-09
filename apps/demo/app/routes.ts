@@ -4,7 +4,10 @@ export default [
   index('routes/index.tsx'),
   route('signin', 'routes/auth/signin.tsx'),
   route('signout', 'routes/auth/signout.tsx'),
-  ...prefix('admin', [route('settings', 'routes/admin/settings.tsx')]),
+  ...prefix('admin', [
+    index('routes/admin/index.tsx'),
+    route('settings', 'routes/admin/settings.tsx'),
+  ]),
   ...prefix('customers', [
     index('routes/customers/index.tsx'),
     ...prefix(':id', [index('routes/customers/[id]/index.tsx')]),
