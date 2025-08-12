@@ -7,6 +7,12 @@ type AffectedRowsOutput {
   count: Int!
 }
 
+type AggregateColor {
+  _count: ColorCountAggregate
+  _max: ColorMaxAggregate
+  _min: ColorMinAggregate
+}
+
 type AggregateCustomer {
   _count: CustomerCountAggregate
   _max: CustomerMaxAggregate
@@ -19,6 +25,40 @@ type AggregateCustomerContact {
   _min: CustomerContactMinAggregate
 }
 
+type AggregateProduct {
+  _count: ProductCountAggregate
+  _max: ProductMaxAggregate
+  _min: ProductMinAggregate
+}
+
+type AggregateProductColor {
+  _count: ProductColorCountAggregate
+  _max: ProductColorMaxAggregate
+  _min: ProductColorMinAggregate
+}
+
+type AggregateProductInventory {
+  _avg: ProductInventoryAvgAggregate
+  _count: ProductInventoryCountAggregate
+  _max: ProductInventoryMaxAggregate
+  _min: ProductInventoryMinAggregate
+  _sum: ProductInventorySumAggregate
+}
+
+type AggregateProductSales {
+  _avg: ProductSalesAvgAggregate
+  _count: ProductSalesCountAggregate
+  _max: ProductSalesMaxAggregate
+  _min: ProductSalesMinAggregate
+  _sum: ProductSalesSumAggregate
+}
+
+type AggregateProductType {
+  _count: ProductTypeCountAggregate
+  _max: ProductTypeMaxAggregate
+  _min: ProductTypeMinAggregate
+}
+
 type AggregateState {
   _count: StateCountAggregate
   _max: StateMaxAggregate
@@ -29,6 +69,215 @@ type AggregateUser {
   _count: UserCountAggregate
   _max: UserMaxAggregate
   _min: UserMinAggregate
+}
+
+type Color {
+  _count: ColorCount
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  name: String!
+  productColor(cursor: ProductColorWhereUniqueInput, distinct: [ProductColorScalarFieldEnum!], orderBy: [ProductColorOrderByWithRelationInput!], skip: Int, take: Int, where: ProductColorWhereInput): [ProductColor!]!
+}
+
+type ColorCount {
+  productColor(where: ProductColorWhereInput): Int!
+}
+
+type ColorCountAggregate {
+  _all: Int!
+  dateCreated: Int!
+  dateUpdated: Int!
+  id: Int!
+  name: Int!
+}
+
+input ColorCountOrderByAggregateInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input ColorCreateInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String!
+  productColor: ProductColorCreateNestedManyWithoutColorInput
+}
+
+input ColorCreateManyInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String!
+}
+
+input ColorCreateNestedOneWithoutProductColorInput {
+  connect: ColorWhereUniqueInput
+  connectOrCreate: ColorCreateOrConnectWithoutProductColorInput
+  create: ColorCreateWithoutProductColorInput
+}
+
+input ColorCreateOrConnectWithoutProductColorInput {
+  create: ColorCreateWithoutProductColorInput!
+  where: ColorWhereUniqueInput!
+}
+
+input ColorCreateWithoutProductColorInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String!
+}
+
+type ColorGroupBy {
+  _count: ColorCountAggregate
+  _max: ColorMaxAggregate
+  _min: ColorMinAggregate
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  name: String!
+}
+
+type ColorMaxAggregate {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String
+}
+
+input ColorMaxOrderByAggregateInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+type ColorMinAggregate {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String
+}
+
+input ColorMinOrderByAggregateInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input ColorOrderByWithAggregationInput {
+  _count: ColorCountOrderByAggregateInput
+  _max: ColorMaxOrderByAggregateInput
+  _min: ColorMinOrderByAggregateInput
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input ColorOrderByWithRelationInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  name: SortOrder
+  productColor: ProductColorOrderByRelationAggregateInput
+}
+
+input ColorRelationFilter {
+  is: ColorWhereInput
+  isNot: ColorWhereInput
+}
+
+enum ColorScalarFieldEnum {
+  dateCreated
+  dateUpdated
+  id
+  name
+}
+
+input ColorScalarWhereWithAggregatesInput {
+  AND: [ColorScalarWhereWithAggregatesInput!]
+  NOT: [ColorScalarWhereWithAggregatesInput!]
+  OR: [ColorScalarWhereWithAggregatesInput!]
+  dateCreated: DateTimeWithAggregatesFilter
+  dateUpdated: DateTimeWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  name: StringWithAggregatesFilter
+}
+
+input ColorUpdateInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String
+  productColor: ProductColorUpdateManyWithoutColorNestedInput
+}
+
+input ColorUpdateManyMutationInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String
+}
+
+input ColorUpdateOneRequiredWithoutProductColorNestedInput {
+  connect: ColorWhereUniqueInput
+  connectOrCreate: ColorCreateOrConnectWithoutProductColorInput
+  create: ColorCreateWithoutProductColorInput
+  update: ColorUpdateToOneWithWhereWithoutProductColorInput
+  upsert: ColorUpsertWithoutProductColorInput
+}
+
+input ColorUpdateToOneWithWhereWithoutProductColorInput {
+  data: ColorUpdateWithoutProductColorInput!
+  where: ColorWhereInput
+}
+
+input ColorUpdateWithoutProductColorInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String
+}
+
+input ColorUpsertWithoutProductColorInput {
+  create: ColorCreateWithoutProductColorInput!
+  update: ColorUpdateWithoutProductColorInput!
+  where: ColorWhereInput
+}
+
+input ColorWhereInput {
+  AND: [ColorWhereInput!]
+  NOT: [ColorWhereInput!]
+  OR: [ColorWhereInput!]
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: StringFilter
+  name: StringFilter
+  productColor: ProductColorListRelationFilter
+}
+
+input ColorWhereUniqueInput {
+  AND: [ColorWhereInput!]
+  NOT: [ColorWhereInput!]
+  OR: [ColorWhereInput!]
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: String
+  name: StringFilter
+  productColor: ProductColorListRelationFilter
+}
+
+type CreateManyAndReturnColor {
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  name: String!
 }
 
 type CreateManyAndReturnCustomer {
@@ -63,6 +312,59 @@ type CreateManyAndReturnCustomerContact {
   zip: String!
 }
 
+type CreateManyAndReturnProduct {
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  description: String!
+  genderId: String!
+  id: String!
+  name: String!
+  price: String!
+  productType(where: ProductTypeWhereInput): ProductType
+  productTypeId: String!
+}
+
+type CreateManyAndReturnProductColor {
+  color: Color!
+  colorId: String!
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  product: Product!
+  productId: String!
+}
+
+type CreateManyAndReturnProductInventory {
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  product: Product!
+  productId: String!
+  quantity: Int!
+  size: String!
+}
+
+type CreateManyAndReturnProductSales {
+  customer: Customer!
+  customerId: String!
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  price: String!
+  product: Product!
+  productId: String!
+  quantity: Int!
+  user: User!
+  userId: String!
+}
+
+type CreateManyAndReturnProductType {
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  name: String!
+}
+
 type CreateManyAndReturnState {
   code: String!
   id: String!
@@ -95,6 +397,7 @@ type Customer {
   id: String!
   name: String!
   phone: String!
+  productSales(cursor: ProductSalesWhereUniqueInput, distinct: [ProductSalesScalarFieldEnum!], orderBy: [ProductSalesOrderByWithRelationInput!], skip: Int, take: Int, where: ProductSalesWhereInput): [ProductSales!]!
   state: State!
   stateId: String!
   streetAddress: String!
@@ -625,6 +928,7 @@ input CustomerContactWhereUniqueInput {
 
 type CustomerCount {
   CustomerContact(where: CustomerContactWhereInput): Int!
+  productSales(where: ProductSalesWhereInput): Int!
 }
 
 type CustomerCountAggregate {
@@ -662,6 +966,7 @@ input CustomerCreateInput {
   id: String
   name: String!
   phone: String!
+  productSales: ProductSalesCreateNestedManyWithoutCustomerInput
   state: StateCreateNestedOneWithoutCustomerInput!
   streetAddress: String!
   streetAddress2: String
@@ -710,8 +1015,19 @@ input CustomerCreateNestedOneWithoutCustomerContactInput {
   create: CustomerCreateWithoutCustomerContactInput
 }
 
+input CustomerCreateNestedOneWithoutProductSalesInput {
+  connect: CustomerWhereUniqueInput
+  connectOrCreate: CustomerCreateOrConnectWithoutProductSalesInput
+  create: CustomerCreateWithoutProductSalesInput
+}
+
 input CustomerCreateOrConnectWithoutCustomerContactInput {
   create: CustomerCreateWithoutCustomerContactInput!
+  where: CustomerWhereUniqueInput!
+}
+
+input CustomerCreateOrConnectWithoutProductSalesInput {
+  create: CustomerCreateWithoutProductSalesInput!
   where: CustomerWhereUniqueInput!
 }
 
@@ -721,6 +1037,21 @@ input CustomerCreateOrConnectWithoutStateInput {
 }
 
 input CustomerCreateWithoutCustomerContactInput {
+  city: String!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String!
+  phone: String!
+  productSales: ProductSalesCreateNestedManyWithoutCustomerInput
+  state: StateCreateNestedOneWithoutCustomerInput!
+  streetAddress: String!
+  streetAddress2: String
+  zip: String!
+}
+
+input CustomerCreateWithoutProductSalesInput {
+  CustomerContact: CustomerContactCreateNestedManyWithoutCustomerInput
   city: String!
   dateCreated: DateTimeISO
   dateUpdated: DateTimeISO
@@ -741,6 +1072,7 @@ input CustomerCreateWithoutStateInput {
   id: String
   name: String!
   phone: String!
+  productSales: ProductSalesCreateNestedManyWithoutCustomerInput
   streetAddress: String!
   streetAddress2: String
   zip: String!
@@ -848,6 +1180,7 @@ input CustomerOrderByWithRelationInput {
   id: SortOrder
   name: SortOrder
   phone: SortOrder
+  productSales: ProductSalesOrderByRelationAggregateInput
   state: StateOrderByWithRelationInput
   stateId: SortOrder
   streetAddress: SortOrder
@@ -913,6 +1246,7 @@ input CustomerUpdateInput {
   id: String
   name: String
   phone: String
+  productSales: ProductSalesUpdateManyWithoutCustomerNestedInput
   state: StateUpdateOneRequiredWithoutCustomerNestedInput
   streetAddress: String
   streetAddress2: String
@@ -958,8 +1292,21 @@ input CustomerUpdateOneRequiredWithoutCustomerContactNestedInput {
   upsert: CustomerUpsertWithoutCustomerContactInput
 }
 
+input CustomerUpdateOneRequiredWithoutProductSalesNestedInput {
+  connect: CustomerWhereUniqueInput
+  connectOrCreate: CustomerCreateOrConnectWithoutProductSalesInput
+  create: CustomerCreateWithoutProductSalesInput
+  update: CustomerUpdateToOneWithWhereWithoutProductSalesInput
+  upsert: CustomerUpsertWithoutProductSalesInput
+}
+
 input CustomerUpdateToOneWithWhereWithoutCustomerContactInput {
   data: CustomerUpdateWithoutCustomerContactInput!
+  where: CustomerWhereInput
+}
+
+input CustomerUpdateToOneWithWhereWithoutProductSalesInput {
+  data: CustomerUpdateWithoutProductSalesInput!
   where: CustomerWhereInput
 }
 
@@ -969,6 +1316,21 @@ input CustomerUpdateWithWhereUniqueWithoutStateInput {
 }
 
 input CustomerUpdateWithoutCustomerContactInput {
+  city: String
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String
+  phone: String
+  productSales: ProductSalesUpdateManyWithoutCustomerNestedInput
+  state: StateUpdateOneRequiredWithoutCustomerNestedInput
+  streetAddress: String
+  streetAddress2: String
+  zip: String
+}
+
+input CustomerUpdateWithoutProductSalesInput {
+  CustomerContact: CustomerContactUpdateManyWithoutCustomerNestedInput
   city: String
   dateCreated: DateTimeISO
   dateUpdated: DateTimeISO
@@ -989,6 +1351,7 @@ input CustomerUpdateWithoutStateInput {
   id: String
   name: String
   phone: String
+  productSales: ProductSalesUpdateManyWithoutCustomerNestedInput
   streetAddress: String
   streetAddress2: String
   zip: String
@@ -1006,6 +1369,12 @@ input CustomerUpsertWithoutCustomerContactInput {
   where: CustomerWhereInput
 }
 
+input CustomerUpsertWithoutProductSalesInput {
+  create: CustomerCreateWithoutProductSalesInput!
+  update: CustomerUpdateWithoutProductSalesInput!
+  where: CustomerWhereInput
+}
+
 input CustomerWhereInput {
   AND: [CustomerWhereInput!]
   CustomerContact: CustomerContactListRelationFilter
@@ -1017,6 +1386,7 @@ input CustomerWhereInput {
   id: StringFilter
   name: StringFilter
   phone: StringFilter
+  productSales: ProductSalesListRelationFilter
   state: StateRelationFilter
   stateId: StringFilter
   streetAddress: StringFilter
@@ -1035,6 +1405,7 @@ input CustomerWhereUniqueInput {
   id: String
   name: StringFilter
   phone: StringFilter
+  productSales: ProductSalesListRelationFilter
   state: StateRelationFilter
   stateId: StringFilter
   streetAddress: StringFilter
@@ -1072,37 +1443,112 @@ input DateTimeWithAggregatesFilter {
   notIn: [DateTimeISO!]
 }
 
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
+input IntWithAggregatesFilter {
+  _avg: NestedFloatFilter
+  _count: NestedIntFilter
+  _max: NestedIntFilter
+  _min: NestedIntFilter
+  _sum: NestedIntFilter
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntWithAggregatesFilter
+  notIn: [Int!]
+}
+
 type Mutation {
+  createManyAndReturnColor(data: [ColorCreateManyInput!]!): [CreateManyAndReturnColor!]!
   createManyAndReturnCustomer(data: [CustomerCreateManyInput!]!): [CreateManyAndReturnCustomer!]!
   createManyAndReturnCustomerContact(data: [CustomerContactCreateManyInput!]!): [CreateManyAndReturnCustomerContact!]!
+  createManyAndReturnProduct(data: [ProductCreateManyInput!]!): [CreateManyAndReturnProduct!]!
+  createManyAndReturnProductColor(data: [ProductColorCreateManyInput!]!): [CreateManyAndReturnProductColor!]!
+  createManyAndReturnProductInventory(data: [ProductInventoryCreateManyInput!]!): [CreateManyAndReturnProductInventory!]!
+  createManyAndReturnProductSales(data: [ProductSalesCreateManyInput!]!): [CreateManyAndReturnProductSales!]!
+  createManyAndReturnProductType(data: [ProductTypeCreateManyInput!]!): [CreateManyAndReturnProductType!]!
   createManyAndReturnState(data: [StateCreateManyInput!]!): [CreateManyAndReturnState!]!
   createManyAndReturnUser(data: [UserCreateManyInput!]!): [CreateManyAndReturnUser!]!
+  createManyColor(data: [ColorCreateManyInput!]!): AffectedRowsOutput!
   createManyCustomer(data: [CustomerCreateManyInput!]!): AffectedRowsOutput!
   createManyCustomerContact(data: [CustomerContactCreateManyInput!]!): AffectedRowsOutput!
+  createManyProduct(data: [ProductCreateManyInput!]!): AffectedRowsOutput!
+  createManyProductColor(data: [ProductColorCreateManyInput!]!): AffectedRowsOutput!
+  createManyProductInventory(data: [ProductInventoryCreateManyInput!]!): AffectedRowsOutput!
+  createManyProductSales(data: [ProductSalesCreateManyInput!]!): AffectedRowsOutput!
+  createManyProductType(data: [ProductTypeCreateManyInput!]!): AffectedRowsOutput!
   createManyState(data: [StateCreateManyInput!]!): AffectedRowsOutput!
   createManyUser(data: [UserCreateManyInput!]!): AffectedRowsOutput!
+  createOneColor(data: ColorCreateInput!): Color!
   createOneCustomer(data: CustomerCreateInput!): Customer!
   createOneCustomerContact(data: CustomerContactCreateInput!): CustomerContact!
+  createOneProduct(data: ProductCreateInput!): Product!
+  createOneProductColor(data: ProductColorCreateInput!): ProductColor!
+  createOneProductInventory(data: ProductInventoryCreateInput!): ProductInventory!
+  createOneProductSales(data: ProductSalesCreateInput!): ProductSales!
+  createOneProductType(data: ProductTypeCreateInput!): ProductType!
   createOneState(data: StateCreateInput!): State!
   createOneUser(data: UserCreateInput!): User!
+  deleteManyColor(where: ColorWhereInput): AffectedRowsOutput!
   deleteManyCustomer(where: CustomerWhereInput): AffectedRowsOutput!
   deleteManyCustomerContact(where: CustomerContactWhereInput): AffectedRowsOutput!
+  deleteManyProduct(where: ProductWhereInput): AffectedRowsOutput!
+  deleteManyProductColor(where: ProductColorWhereInput): AffectedRowsOutput!
+  deleteManyProductInventory(where: ProductInventoryWhereInput): AffectedRowsOutput!
+  deleteManyProductSales(where: ProductSalesWhereInput): AffectedRowsOutput!
+  deleteManyProductType(where: ProductTypeWhereInput): AffectedRowsOutput!
   deleteManyState(where: StateWhereInput): AffectedRowsOutput!
   deleteManyUser(where: UserWhereInput): AffectedRowsOutput!
+  deleteOneColor(where: ColorWhereUniqueInput!): Color
   deleteOneCustomer(where: CustomerWhereUniqueInput!): Customer
   deleteOneCustomerContact(where: CustomerContactWhereUniqueInput!): CustomerContact
+  deleteOneProduct(where: ProductWhereUniqueInput!): Product
+  deleteOneProductColor(where: ProductColorWhereUniqueInput!): ProductColor
+  deleteOneProductInventory(where: ProductInventoryWhereUniqueInput!): ProductInventory
+  deleteOneProductSales(where: ProductSalesWhereUniqueInput!): ProductSales
+  deleteOneProductType(where: ProductTypeWhereUniqueInput!): ProductType
   deleteOneState(where: StateWhereUniqueInput!): State
   deleteOneUser(where: UserWhereUniqueInput!): User
+  updateManyColor(data: ColorUpdateManyMutationInput!, where: ColorWhereInput): AffectedRowsOutput!
   updateManyCustomer(data: CustomerUpdateManyMutationInput!, where: CustomerWhereInput): AffectedRowsOutput!
   updateManyCustomerContact(data: CustomerContactUpdateManyMutationInput!, where: CustomerContactWhereInput): AffectedRowsOutput!
+  updateManyProduct(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): AffectedRowsOutput!
+  updateManyProductColor(data: ProductColorUpdateManyMutationInput!, where: ProductColorWhereInput): AffectedRowsOutput!
+  updateManyProductInventory(data: ProductInventoryUpdateManyMutationInput!, where: ProductInventoryWhereInput): AffectedRowsOutput!
+  updateManyProductSales(data: ProductSalesUpdateManyMutationInput!, where: ProductSalesWhereInput): AffectedRowsOutput!
+  updateManyProductType(data: ProductTypeUpdateManyMutationInput!, where: ProductTypeWhereInput): AffectedRowsOutput!
   updateManyState(data: StateUpdateManyMutationInput!, where: StateWhereInput): AffectedRowsOutput!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
+  updateOneColor(data: ColorUpdateInput!, where: ColorWhereUniqueInput!): Color
   updateOneCustomer(data: CustomerUpdateInput!, where: CustomerWhereUniqueInput!): Customer
   updateOneCustomerContact(data: CustomerContactUpdateInput!, where: CustomerContactWhereUniqueInput!): CustomerContact
+  updateOneProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
+  updateOneProductColor(data: ProductColorUpdateInput!, where: ProductColorWhereUniqueInput!): ProductColor
+  updateOneProductInventory(data: ProductInventoryUpdateInput!, where: ProductInventoryWhereUniqueInput!): ProductInventory
+  updateOneProductSales(data: ProductSalesUpdateInput!, where: ProductSalesWhereUniqueInput!): ProductSales
+  updateOneProductType(data: ProductTypeUpdateInput!, where: ProductTypeWhereUniqueInput!): ProductType
   updateOneState(data: StateUpdateInput!, where: StateWhereUniqueInput!): State
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  upsertOneColor(create: ColorCreateInput!, update: ColorUpdateInput!, where: ColorWhereUniqueInput!): Color!
   upsertOneCustomer(create: CustomerCreateInput!, update: CustomerUpdateInput!, where: CustomerWhereUniqueInput!): Customer!
   upsertOneCustomerContact(create: CustomerContactCreateInput!, update: CustomerContactUpdateInput!, where: CustomerContactWhereUniqueInput!): CustomerContact!
+  upsertOneProduct(create: ProductCreateInput!, update: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product!
+  upsertOneProductColor(create: ProductColorCreateInput!, update: ProductColorUpdateInput!, where: ProductColorWhereUniqueInput!): ProductColor!
+  upsertOneProductInventory(create: ProductInventoryCreateInput!, update: ProductInventoryUpdateInput!, where: ProductInventoryWhereUniqueInput!): ProductInventory!
+  upsertOneProductSales(create: ProductSalesCreateInput!, update: ProductSalesUpdateInput!, where: ProductSalesWhereUniqueInput!): ProductSales!
+  upsertOneProductType(create: ProductTypeCreateInput!, update: ProductTypeUpdateInput!, where: ProductTypeWhereUniqueInput!): ProductType!
   upsertOneState(create: StateCreateInput!, update: StateUpdateInput!, where: StateWhereUniqueInput!): State!
   upsertOneUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
@@ -1132,6 +1578,17 @@ input NestedDateTimeWithAggregatesFilter {
   notIn: [DateTimeISO!]
 }
 
+input NestedFloatFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatFilter
+  notIn: [Float!]
+}
+
 input NestedIntFilter {
   equals: Int
   gt: Int
@@ -1151,6 +1608,22 @@ input NestedIntNullableFilter {
   lt: Int
   lte: Int
   not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+input NestedIntWithAggregatesFilter {
+  _avg: NestedFloatFilter
+  _count: NestedIntFilter
+  _max: NestedIntFilter
+  _min: NestedIntFilter
+  _sum: NestedIntFilter
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntWithAggregatesFilter
   notIn: [Int!]
 }
 
@@ -1221,31 +1694,1907 @@ enum NullsOrder {
   last
 }
 
+type Product {
+  ProductColor(cursor: ProductColorWhereUniqueInput, distinct: [ProductColorScalarFieldEnum!], orderBy: [ProductColorOrderByWithRelationInput!], skip: Int, take: Int, where: ProductColorWhereInput): [ProductColor!]!
+  _count: ProductCount
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  description: String!
+  genderId: String!
+  id: String!
+  name: String!
+  price: String!
+  productInventory(cursor: ProductInventoryWhereUniqueInput, distinct: [ProductInventoryScalarFieldEnum!], orderBy: [ProductInventoryOrderByWithRelationInput!], skip: Int, take: Int, where: ProductInventoryWhereInput): [ProductInventory!]!
+  productSales(cursor: ProductSalesWhereUniqueInput, distinct: [ProductSalesScalarFieldEnum!], orderBy: [ProductSalesOrderByWithRelationInput!], skip: Int, take: Int, where: ProductSalesWhereInput): [ProductSales!]!
+  productType(where: ProductTypeWhereInput): ProductType
+  productTypeId: String!
+}
+
+type ProductColor {
+  color: Color!
+  colorId: String!
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  product: Product!
+  productId: String!
+}
+
+type ProductColorCountAggregate {
+  _all: Int!
+  colorId: Int!
+  dateCreated: Int!
+  dateUpdated: Int!
+  id: Int!
+  productId: Int!
+}
+
+input ProductColorCountOrderByAggregateInput {
+  colorId: SortOrder
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  productId: SortOrder
+}
+
+input ProductColorCreateInput {
+  color: ColorCreateNestedOneWithoutProductColorInput!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  product: ProductCreateNestedOneWithoutProductColorInput!
+}
+
+input ProductColorCreateManyColorInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  productId: String!
+}
+
+input ProductColorCreateManyColorInputEnvelope {
+  data: [ProductColorCreateManyColorInput!]!
+}
+
+input ProductColorCreateManyInput {
+  colorId: String!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  productId: String!
+}
+
+input ProductColorCreateManyProductInput {
+  colorId: String!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+}
+
+input ProductColorCreateManyProductInputEnvelope {
+  data: [ProductColorCreateManyProductInput!]!
+}
+
+input ProductColorCreateNestedManyWithoutColorInput {
+  connect: [ProductColorWhereUniqueInput!]
+  connectOrCreate: [ProductColorCreateOrConnectWithoutColorInput!]
+  create: [ProductColorCreateWithoutColorInput!]
+  createMany: ProductColorCreateManyColorInputEnvelope
+}
+
+input ProductColorCreateNestedManyWithoutProductInput {
+  connect: [ProductColorWhereUniqueInput!]
+  connectOrCreate: [ProductColorCreateOrConnectWithoutProductInput!]
+  create: [ProductColorCreateWithoutProductInput!]
+  createMany: ProductColorCreateManyProductInputEnvelope
+}
+
+input ProductColorCreateOrConnectWithoutColorInput {
+  create: ProductColorCreateWithoutColorInput!
+  where: ProductColorWhereUniqueInput!
+}
+
+input ProductColorCreateOrConnectWithoutProductInput {
+  create: ProductColorCreateWithoutProductInput!
+  where: ProductColorWhereUniqueInput!
+}
+
+input ProductColorCreateWithoutColorInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  product: ProductCreateNestedOneWithoutProductColorInput!
+}
+
+input ProductColorCreateWithoutProductInput {
+  color: ColorCreateNestedOneWithoutProductColorInput!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+}
+
+type ProductColorGroupBy {
+  _count: ProductColorCountAggregate
+  _max: ProductColorMaxAggregate
+  _min: ProductColorMinAggregate
+  colorId: String!
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  productId: String!
+}
+
+input ProductColorListRelationFilter {
+  every: ProductColorWhereInput
+  none: ProductColorWhereInput
+  some: ProductColorWhereInput
+}
+
+type ProductColorMaxAggregate {
+  colorId: String
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  productId: String
+}
+
+input ProductColorMaxOrderByAggregateInput {
+  colorId: SortOrder
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  productId: SortOrder
+}
+
+type ProductColorMinAggregate {
+  colorId: String
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  productId: String
+}
+
+input ProductColorMinOrderByAggregateInput {
+  colorId: SortOrder
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  productId: SortOrder
+}
+
+input ProductColorOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ProductColorOrderByWithAggregationInput {
+  _count: ProductColorCountOrderByAggregateInput
+  _max: ProductColorMaxOrderByAggregateInput
+  _min: ProductColorMinOrderByAggregateInput
+  colorId: SortOrder
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  productId: SortOrder
+}
+
+input ProductColorOrderByWithRelationInput {
+  color: ColorOrderByWithRelationInput
+  colorId: SortOrder
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  product: ProductOrderByWithRelationInput
+  productId: SortOrder
+}
+
+enum ProductColorScalarFieldEnum {
+  colorId
+  dateCreated
+  dateUpdated
+  id
+  productId
+}
+
+input ProductColorScalarWhereInput {
+  AND: [ProductColorScalarWhereInput!]
+  NOT: [ProductColorScalarWhereInput!]
+  OR: [ProductColorScalarWhereInput!]
+  colorId: StringFilter
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: StringFilter
+  productId: StringFilter
+}
+
+input ProductColorScalarWhereWithAggregatesInput {
+  AND: [ProductColorScalarWhereWithAggregatesInput!]
+  NOT: [ProductColorScalarWhereWithAggregatesInput!]
+  OR: [ProductColorScalarWhereWithAggregatesInput!]
+  colorId: StringWithAggregatesFilter
+  dateCreated: DateTimeWithAggregatesFilter
+  dateUpdated: DateTimeWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  productId: StringWithAggregatesFilter
+}
+
+input ProductColorUpdateInput {
+  color: ColorUpdateOneRequiredWithoutProductColorNestedInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  product: ProductUpdateOneRequiredWithoutProductColorNestedInput
+}
+
+input ProductColorUpdateManyMutationInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+}
+
+input ProductColorUpdateManyWithWhereWithoutColorInput {
+  data: ProductColorUpdateManyMutationInput!
+  where: ProductColorScalarWhereInput!
+}
+
+input ProductColorUpdateManyWithWhereWithoutProductInput {
+  data: ProductColorUpdateManyMutationInput!
+  where: ProductColorScalarWhereInput!
+}
+
+input ProductColorUpdateManyWithoutColorNestedInput {
+  connect: [ProductColorWhereUniqueInput!]
+  connectOrCreate: [ProductColorCreateOrConnectWithoutColorInput!]
+  create: [ProductColorCreateWithoutColorInput!]
+  createMany: ProductColorCreateManyColorInputEnvelope
+  delete: [ProductColorWhereUniqueInput!]
+  deleteMany: [ProductColorScalarWhereInput!]
+  disconnect: [ProductColorWhereUniqueInput!]
+  set: [ProductColorWhereUniqueInput!]
+  update: [ProductColorUpdateWithWhereUniqueWithoutColorInput!]
+  updateMany: [ProductColorUpdateManyWithWhereWithoutColorInput!]
+  upsert: [ProductColorUpsertWithWhereUniqueWithoutColorInput!]
+}
+
+input ProductColorUpdateManyWithoutProductNestedInput {
+  connect: [ProductColorWhereUniqueInput!]
+  connectOrCreate: [ProductColorCreateOrConnectWithoutProductInput!]
+  create: [ProductColorCreateWithoutProductInput!]
+  createMany: ProductColorCreateManyProductInputEnvelope
+  delete: [ProductColorWhereUniqueInput!]
+  deleteMany: [ProductColorScalarWhereInput!]
+  disconnect: [ProductColorWhereUniqueInput!]
+  set: [ProductColorWhereUniqueInput!]
+  update: [ProductColorUpdateWithWhereUniqueWithoutProductInput!]
+  updateMany: [ProductColorUpdateManyWithWhereWithoutProductInput!]
+  upsert: [ProductColorUpsertWithWhereUniqueWithoutProductInput!]
+}
+
+input ProductColorUpdateWithWhereUniqueWithoutColorInput {
+  data: ProductColorUpdateWithoutColorInput!
+  where: ProductColorWhereUniqueInput!
+}
+
+input ProductColorUpdateWithWhereUniqueWithoutProductInput {
+  data: ProductColorUpdateWithoutProductInput!
+  where: ProductColorWhereUniqueInput!
+}
+
+input ProductColorUpdateWithoutColorInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  product: ProductUpdateOneRequiredWithoutProductColorNestedInput
+}
+
+input ProductColorUpdateWithoutProductInput {
+  color: ColorUpdateOneRequiredWithoutProductColorNestedInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+}
+
+input ProductColorUpsertWithWhereUniqueWithoutColorInput {
+  create: ProductColorCreateWithoutColorInput!
+  update: ProductColorUpdateWithoutColorInput!
+  where: ProductColorWhereUniqueInput!
+}
+
+input ProductColorUpsertWithWhereUniqueWithoutProductInput {
+  create: ProductColorCreateWithoutProductInput!
+  update: ProductColorUpdateWithoutProductInput!
+  where: ProductColorWhereUniqueInput!
+}
+
+input ProductColorWhereInput {
+  AND: [ProductColorWhereInput!]
+  NOT: [ProductColorWhereInput!]
+  OR: [ProductColorWhereInput!]
+  color: ColorRelationFilter
+  colorId: StringFilter
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: StringFilter
+  product: ProductRelationFilter
+  productId: StringFilter
+}
+
+input ProductColorWhereUniqueInput {
+  AND: [ProductColorWhereInput!]
+  NOT: [ProductColorWhereInput!]
+  OR: [ProductColorWhereInput!]
+  color: ColorRelationFilter
+  colorId: StringFilter
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: String
+  product: ProductRelationFilter
+  productId: StringFilter
+}
+
+type ProductCount {
+  ProductColor(where: ProductColorWhereInput): Int!
+  productInventory(where: ProductInventoryWhereInput): Int!
+  productSales(where: ProductSalesWhereInput): Int!
+}
+
+type ProductCountAggregate {
+  _all: Int!
+  dateCreated: Int!
+  dateUpdated: Int!
+  description: Int!
+  genderId: Int!
+  id: Int!
+  name: Int!
+  price: Int!
+  productTypeId: Int!
+}
+
+input ProductCountOrderByAggregateInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  description: SortOrder
+  genderId: SortOrder
+  id: SortOrder
+  name: SortOrder
+  price: SortOrder
+  productTypeId: SortOrder
+}
+
+input ProductCreateInput {
+  ProductColor: ProductColorCreateNestedManyWithoutProductInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String!
+  genderId: String!
+  id: String
+  name: String!
+  price: String!
+  productInventory: ProductInventoryCreateNestedManyWithoutProductInput
+  productSales: ProductSalesCreateNestedManyWithoutProductInput
+  productType: ProductTypeCreateNestedOneWithoutProductInput
+}
+
+input ProductCreateManyInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String!
+  genderId: String!
+  id: String
+  name: String!
+  price: String!
+  productTypeId: String!
+}
+
+input ProductCreateManyProductTypeInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String!
+  genderId: String!
+  id: String
+  name: String!
+  price: String!
+}
+
+input ProductCreateManyProductTypeInputEnvelope {
+  data: [ProductCreateManyProductTypeInput!]!
+}
+
+input ProductCreateNestedManyWithoutProductTypeInput {
+  connect: [ProductWhereUniqueInput!]
+  connectOrCreate: [ProductCreateOrConnectWithoutProductTypeInput!]
+  create: [ProductCreateWithoutProductTypeInput!]
+  createMany: ProductCreateManyProductTypeInputEnvelope
+}
+
+input ProductCreateNestedOneWithoutProductColorInput {
+  connect: ProductWhereUniqueInput
+  connectOrCreate: ProductCreateOrConnectWithoutProductColorInput
+  create: ProductCreateWithoutProductColorInput
+}
+
+input ProductCreateNestedOneWithoutProductInventoryInput {
+  connect: ProductWhereUniqueInput
+  connectOrCreate: ProductCreateOrConnectWithoutProductInventoryInput
+  create: ProductCreateWithoutProductInventoryInput
+}
+
+input ProductCreateNestedOneWithoutProductSalesInput {
+  connect: ProductWhereUniqueInput
+  connectOrCreate: ProductCreateOrConnectWithoutProductSalesInput
+  create: ProductCreateWithoutProductSalesInput
+}
+
+input ProductCreateOrConnectWithoutProductColorInput {
+  create: ProductCreateWithoutProductColorInput!
+  where: ProductWhereUniqueInput!
+}
+
+input ProductCreateOrConnectWithoutProductInventoryInput {
+  create: ProductCreateWithoutProductInventoryInput!
+  where: ProductWhereUniqueInput!
+}
+
+input ProductCreateOrConnectWithoutProductSalesInput {
+  create: ProductCreateWithoutProductSalesInput!
+  where: ProductWhereUniqueInput!
+}
+
+input ProductCreateOrConnectWithoutProductTypeInput {
+  create: ProductCreateWithoutProductTypeInput!
+  where: ProductWhereUniqueInput!
+}
+
+input ProductCreateWithoutProductColorInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String!
+  genderId: String!
+  id: String
+  name: String!
+  price: String!
+  productInventory: ProductInventoryCreateNestedManyWithoutProductInput
+  productSales: ProductSalesCreateNestedManyWithoutProductInput
+  productType: ProductTypeCreateNestedOneWithoutProductInput
+}
+
+input ProductCreateWithoutProductInventoryInput {
+  ProductColor: ProductColorCreateNestedManyWithoutProductInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String!
+  genderId: String!
+  id: String
+  name: String!
+  price: String!
+  productSales: ProductSalesCreateNestedManyWithoutProductInput
+  productType: ProductTypeCreateNestedOneWithoutProductInput
+}
+
+input ProductCreateWithoutProductSalesInput {
+  ProductColor: ProductColorCreateNestedManyWithoutProductInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String!
+  genderId: String!
+  id: String
+  name: String!
+  price: String!
+  productInventory: ProductInventoryCreateNestedManyWithoutProductInput
+  productType: ProductTypeCreateNestedOneWithoutProductInput
+}
+
+input ProductCreateWithoutProductTypeInput {
+  ProductColor: ProductColorCreateNestedManyWithoutProductInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String!
+  genderId: String!
+  id: String
+  name: String!
+  price: String!
+  productInventory: ProductInventoryCreateNestedManyWithoutProductInput
+  productSales: ProductSalesCreateNestedManyWithoutProductInput
+}
+
+type ProductGroupBy {
+  _count: ProductCountAggregate
+  _max: ProductMaxAggregate
+  _min: ProductMinAggregate
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  description: String!
+  genderId: String!
+  id: String!
+  name: String!
+  price: String!
+  productTypeId: String!
+}
+
+type ProductInventory {
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  product: Product!
+  productId: String!
+  quantity: Int!
+  size: String!
+}
+
+type ProductInventoryAvgAggregate {
+  quantity: Float
+}
+
+input ProductInventoryAvgOrderByAggregateInput {
+  quantity: SortOrder
+}
+
+type ProductInventoryCountAggregate {
+  _all: Int!
+  dateCreated: Int!
+  dateUpdated: Int!
+  id: Int!
+  productId: Int!
+  quantity: Int!
+  size: Int!
+}
+
+input ProductInventoryCountOrderByAggregateInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  productId: SortOrder
+  quantity: SortOrder
+  size: SortOrder
+}
+
+input ProductInventoryCreateInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  product: ProductCreateNestedOneWithoutProductInventoryInput!
+  quantity: Int!
+  size: String!
+}
+
+input ProductInventoryCreateManyInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  productId: String!
+  quantity: Int!
+  size: String!
+}
+
+input ProductInventoryCreateManyProductInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  quantity: Int!
+  size: String!
+}
+
+input ProductInventoryCreateManyProductInputEnvelope {
+  data: [ProductInventoryCreateManyProductInput!]!
+}
+
+input ProductInventoryCreateNestedManyWithoutProductInput {
+  connect: [ProductInventoryWhereUniqueInput!]
+  connectOrCreate: [ProductInventoryCreateOrConnectWithoutProductInput!]
+  create: [ProductInventoryCreateWithoutProductInput!]
+  createMany: ProductInventoryCreateManyProductInputEnvelope
+}
+
+input ProductInventoryCreateOrConnectWithoutProductInput {
+  create: ProductInventoryCreateWithoutProductInput!
+  where: ProductInventoryWhereUniqueInput!
+}
+
+input ProductInventoryCreateWithoutProductInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  quantity: Int!
+  size: String!
+}
+
+type ProductInventoryGroupBy {
+  _avg: ProductInventoryAvgAggregate
+  _count: ProductInventoryCountAggregate
+  _max: ProductInventoryMaxAggregate
+  _min: ProductInventoryMinAggregate
+  _sum: ProductInventorySumAggregate
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  productId: String!
+  quantity: Int!
+  size: String!
+}
+
+input ProductInventoryListRelationFilter {
+  every: ProductInventoryWhereInput
+  none: ProductInventoryWhereInput
+  some: ProductInventoryWhereInput
+}
+
+type ProductInventoryMaxAggregate {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  productId: String
+  quantity: Int
+  size: String
+}
+
+input ProductInventoryMaxOrderByAggregateInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  productId: SortOrder
+  quantity: SortOrder
+  size: SortOrder
+}
+
+type ProductInventoryMinAggregate {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  productId: String
+  quantity: Int
+  size: String
+}
+
+input ProductInventoryMinOrderByAggregateInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  productId: SortOrder
+  quantity: SortOrder
+  size: SortOrder
+}
+
+input ProductInventoryOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ProductInventoryOrderByWithAggregationInput {
+  _avg: ProductInventoryAvgOrderByAggregateInput
+  _count: ProductInventoryCountOrderByAggregateInput
+  _max: ProductInventoryMaxOrderByAggregateInput
+  _min: ProductInventoryMinOrderByAggregateInput
+  _sum: ProductInventorySumOrderByAggregateInput
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  productId: SortOrder
+  quantity: SortOrder
+  size: SortOrder
+}
+
+input ProductInventoryOrderByWithRelationInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  product: ProductOrderByWithRelationInput
+  productId: SortOrder
+  quantity: SortOrder
+  size: SortOrder
+}
+
+enum ProductInventoryScalarFieldEnum {
+  dateCreated
+  dateUpdated
+  id
+  productId
+  quantity
+  size
+}
+
+input ProductInventoryScalarWhereInput {
+  AND: [ProductInventoryScalarWhereInput!]
+  NOT: [ProductInventoryScalarWhereInput!]
+  OR: [ProductInventoryScalarWhereInput!]
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: StringFilter
+  productId: StringFilter
+  quantity: IntFilter
+  size: StringFilter
+}
+
+input ProductInventoryScalarWhereWithAggregatesInput {
+  AND: [ProductInventoryScalarWhereWithAggregatesInput!]
+  NOT: [ProductInventoryScalarWhereWithAggregatesInput!]
+  OR: [ProductInventoryScalarWhereWithAggregatesInput!]
+  dateCreated: DateTimeWithAggregatesFilter
+  dateUpdated: DateTimeWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  productId: StringWithAggregatesFilter
+  quantity: IntWithAggregatesFilter
+  size: StringWithAggregatesFilter
+}
+
+type ProductInventorySumAggregate {
+  quantity: Int
+}
+
+input ProductInventorySumOrderByAggregateInput {
+  quantity: SortOrder
+}
+
+input ProductInventoryUpdateInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  product: ProductUpdateOneRequiredWithoutProductInventoryNestedInput
+  quantity: Int
+  size: String
+}
+
+input ProductInventoryUpdateManyMutationInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  quantity: Int
+  size: String
+}
+
+input ProductInventoryUpdateManyWithWhereWithoutProductInput {
+  data: ProductInventoryUpdateManyMutationInput!
+  where: ProductInventoryScalarWhereInput!
+}
+
+input ProductInventoryUpdateManyWithoutProductNestedInput {
+  connect: [ProductInventoryWhereUniqueInput!]
+  connectOrCreate: [ProductInventoryCreateOrConnectWithoutProductInput!]
+  create: [ProductInventoryCreateWithoutProductInput!]
+  createMany: ProductInventoryCreateManyProductInputEnvelope
+  delete: [ProductInventoryWhereUniqueInput!]
+  deleteMany: [ProductInventoryScalarWhereInput!]
+  disconnect: [ProductInventoryWhereUniqueInput!]
+  set: [ProductInventoryWhereUniqueInput!]
+  update: [ProductInventoryUpdateWithWhereUniqueWithoutProductInput!]
+  updateMany: [ProductInventoryUpdateManyWithWhereWithoutProductInput!]
+  upsert: [ProductInventoryUpsertWithWhereUniqueWithoutProductInput!]
+}
+
+input ProductInventoryUpdateWithWhereUniqueWithoutProductInput {
+  data: ProductInventoryUpdateWithoutProductInput!
+  where: ProductInventoryWhereUniqueInput!
+}
+
+input ProductInventoryUpdateWithoutProductInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  quantity: Int
+  size: String
+}
+
+input ProductInventoryUpsertWithWhereUniqueWithoutProductInput {
+  create: ProductInventoryCreateWithoutProductInput!
+  update: ProductInventoryUpdateWithoutProductInput!
+  where: ProductInventoryWhereUniqueInput!
+}
+
+input ProductInventoryWhereInput {
+  AND: [ProductInventoryWhereInput!]
+  NOT: [ProductInventoryWhereInput!]
+  OR: [ProductInventoryWhereInput!]
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: StringFilter
+  product: ProductRelationFilter
+  productId: StringFilter
+  quantity: IntFilter
+  size: StringFilter
+}
+
+input ProductInventoryWhereUniqueInput {
+  AND: [ProductInventoryWhereInput!]
+  NOT: [ProductInventoryWhereInput!]
+  OR: [ProductInventoryWhereInput!]
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: String
+  product: ProductRelationFilter
+  productId: StringFilter
+  quantity: IntFilter
+  size: StringFilter
+}
+
+input ProductListRelationFilter {
+  every: ProductWhereInput
+  none: ProductWhereInput
+  some: ProductWhereInput
+}
+
+type ProductMaxAggregate {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String
+  genderId: String
+  id: String
+  name: String
+  price: String
+  productTypeId: String
+}
+
+input ProductMaxOrderByAggregateInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  description: SortOrder
+  genderId: SortOrder
+  id: SortOrder
+  name: SortOrder
+  price: SortOrder
+  productTypeId: SortOrder
+}
+
+type ProductMinAggregate {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String
+  genderId: String
+  id: String
+  name: String
+  price: String
+  productTypeId: String
+}
+
+input ProductMinOrderByAggregateInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  description: SortOrder
+  genderId: SortOrder
+  id: SortOrder
+  name: SortOrder
+  price: SortOrder
+  productTypeId: SortOrder
+}
+
+input ProductOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ProductOrderByWithAggregationInput {
+  _count: ProductCountOrderByAggregateInput
+  _max: ProductMaxOrderByAggregateInput
+  _min: ProductMinOrderByAggregateInput
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  description: SortOrder
+  genderId: SortOrder
+  id: SortOrder
+  name: SortOrder
+  price: SortOrder
+  productTypeId: SortOrder
+}
+
+input ProductOrderByWithRelationInput {
+  ProductColor: ProductColorOrderByRelationAggregateInput
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  description: SortOrder
+  genderId: SortOrder
+  id: SortOrder
+  name: SortOrder
+  price: SortOrder
+  productInventory: ProductInventoryOrderByRelationAggregateInput
+  productSales: ProductSalesOrderByRelationAggregateInput
+  productType: ProductTypeOrderByWithRelationInput
+  productTypeId: SortOrder
+}
+
+input ProductRelationFilter {
+  is: ProductWhereInput
+  isNot: ProductWhereInput
+}
+
+type ProductSales {
+  customer: Customer!
+  customerId: String!
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  price: String!
+  product: Product!
+  productId: String!
+  quantity: Int!
+  user: User!
+  userId: String!
+}
+
+type ProductSalesAvgAggregate {
+  quantity: Float
+}
+
+input ProductSalesAvgOrderByAggregateInput {
+  quantity: SortOrder
+}
+
+type ProductSalesCountAggregate {
+  _all: Int!
+  customerId: Int!
+  dateCreated: Int!
+  dateUpdated: Int!
+  id: Int!
+  price: Int!
+  productId: Int!
+  quantity: Int!
+  userId: Int!
+}
+
+input ProductSalesCountOrderByAggregateInput {
+  customerId: SortOrder
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  price: SortOrder
+  productId: SortOrder
+  quantity: SortOrder
+  userId: SortOrder
+}
+
+input ProductSalesCreateInput {
+  customer: CustomerCreateNestedOneWithoutProductSalesInput!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String!
+  product: ProductCreateNestedOneWithoutProductSalesInput!
+  quantity: Int!
+  user: UserCreateNestedOneWithoutProductSalesInput!
+}
+
+input ProductSalesCreateManyCustomerInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String!
+  productId: String!
+  quantity: Int!
+  userId: String!
+}
+
+input ProductSalesCreateManyCustomerInputEnvelope {
+  data: [ProductSalesCreateManyCustomerInput!]!
+}
+
+input ProductSalesCreateManyInput {
+  customerId: String!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String!
+  productId: String!
+  quantity: Int!
+  userId: String!
+}
+
+input ProductSalesCreateManyProductInput {
+  customerId: String!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String!
+  quantity: Int!
+  userId: String!
+}
+
+input ProductSalesCreateManyProductInputEnvelope {
+  data: [ProductSalesCreateManyProductInput!]!
+}
+
+input ProductSalesCreateManyUserInput {
+  customerId: String!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String!
+  productId: String!
+  quantity: Int!
+}
+
+input ProductSalesCreateManyUserInputEnvelope {
+  data: [ProductSalesCreateManyUserInput!]!
+}
+
+input ProductSalesCreateNestedManyWithoutCustomerInput {
+  connect: [ProductSalesWhereUniqueInput!]
+  connectOrCreate: [ProductSalesCreateOrConnectWithoutCustomerInput!]
+  create: [ProductSalesCreateWithoutCustomerInput!]
+  createMany: ProductSalesCreateManyCustomerInputEnvelope
+}
+
+input ProductSalesCreateNestedManyWithoutProductInput {
+  connect: [ProductSalesWhereUniqueInput!]
+  connectOrCreate: [ProductSalesCreateOrConnectWithoutProductInput!]
+  create: [ProductSalesCreateWithoutProductInput!]
+  createMany: ProductSalesCreateManyProductInputEnvelope
+}
+
+input ProductSalesCreateNestedManyWithoutUserInput {
+  connect: [ProductSalesWhereUniqueInput!]
+  connectOrCreate: [ProductSalesCreateOrConnectWithoutUserInput!]
+  create: [ProductSalesCreateWithoutUserInput!]
+  createMany: ProductSalesCreateManyUserInputEnvelope
+}
+
+input ProductSalesCreateOrConnectWithoutCustomerInput {
+  create: ProductSalesCreateWithoutCustomerInput!
+  where: ProductSalesWhereUniqueInput!
+}
+
+input ProductSalesCreateOrConnectWithoutProductInput {
+  create: ProductSalesCreateWithoutProductInput!
+  where: ProductSalesWhereUniqueInput!
+}
+
+input ProductSalesCreateOrConnectWithoutUserInput {
+  create: ProductSalesCreateWithoutUserInput!
+  where: ProductSalesWhereUniqueInput!
+}
+
+input ProductSalesCreateWithoutCustomerInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String!
+  product: ProductCreateNestedOneWithoutProductSalesInput!
+  quantity: Int!
+  user: UserCreateNestedOneWithoutProductSalesInput!
+}
+
+input ProductSalesCreateWithoutProductInput {
+  customer: CustomerCreateNestedOneWithoutProductSalesInput!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String!
+  quantity: Int!
+  user: UserCreateNestedOneWithoutProductSalesInput!
+}
+
+input ProductSalesCreateWithoutUserInput {
+  customer: CustomerCreateNestedOneWithoutProductSalesInput!
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String!
+  product: ProductCreateNestedOneWithoutProductSalesInput!
+  quantity: Int!
+}
+
+type ProductSalesGroupBy {
+  _avg: ProductSalesAvgAggregate
+  _count: ProductSalesCountAggregate
+  _max: ProductSalesMaxAggregate
+  _min: ProductSalesMinAggregate
+  _sum: ProductSalesSumAggregate
+  customerId: String!
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  price: String!
+  productId: String!
+  quantity: Int!
+  userId: String!
+}
+
+input ProductSalesListRelationFilter {
+  every: ProductSalesWhereInput
+  none: ProductSalesWhereInput
+  some: ProductSalesWhereInput
+}
+
+type ProductSalesMaxAggregate {
+  customerId: String
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String
+  productId: String
+  quantity: Int
+  userId: String
+}
+
+input ProductSalesMaxOrderByAggregateInput {
+  customerId: SortOrder
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  price: SortOrder
+  productId: SortOrder
+  quantity: SortOrder
+  userId: SortOrder
+}
+
+type ProductSalesMinAggregate {
+  customerId: String
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String
+  productId: String
+  quantity: Int
+  userId: String
+}
+
+input ProductSalesMinOrderByAggregateInput {
+  customerId: SortOrder
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  price: SortOrder
+  productId: SortOrder
+  quantity: SortOrder
+  userId: SortOrder
+}
+
+input ProductSalesOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ProductSalesOrderByWithAggregationInput {
+  _avg: ProductSalesAvgOrderByAggregateInput
+  _count: ProductSalesCountOrderByAggregateInput
+  _max: ProductSalesMaxOrderByAggregateInput
+  _min: ProductSalesMinOrderByAggregateInput
+  _sum: ProductSalesSumOrderByAggregateInput
+  customerId: SortOrder
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  price: SortOrder
+  productId: SortOrder
+  quantity: SortOrder
+  userId: SortOrder
+}
+
+input ProductSalesOrderByWithRelationInput {
+  customer: CustomerOrderByWithRelationInput
+  customerId: SortOrder
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  price: SortOrder
+  product: ProductOrderByWithRelationInput
+  productId: SortOrder
+  quantity: SortOrder
+  user: UserOrderByWithRelationInput
+  userId: SortOrder
+}
+
+enum ProductSalesScalarFieldEnum {
+  customerId
+  dateCreated
+  dateUpdated
+  id
+  price
+  productId
+  quantity
+  userId
+}
+
+input ProductSalesScalarWhereInput {
+  AND: [ProductSalesScalarWhereInput!]
+  NOT: [ProductSalesScalarWhereInput!]
+  OR: [ProductSalesScalarWhereInput!]
+  customerId: StringFilter
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: StringFilter
+  price: StringFilter
+  productId: StringFilter
+  quantity: IntFilter
+  userId: StringFilter
+}
+
+input ProductSalesScalarWhereWithAggregatesInput {
+  AND: [ProductSalesScalarWhereWithAggregatesInput!]
+  NOT: [ProductSalesScalarWhereWithAggregatesInput!]
+  OR: [ProductSalesScalarWhereWithAggregatesInput!]
+  customerId: StringWithAggregatesFilter
+  dateCreated: DateTimeWithAggregatesFilter
+  dateUpdated: DateTimeWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  price: StringWithAggregatesFilter
+  productId: StringWithAggregatesFilter
+  quantity: IntWithAggregatesFilter
+  userId: StringWithAggregatesFilter
+}
+
+type ProductSalesSumAggregate {
+  quantity: Int
+}
+
+input ProductSalesSumOrderByAggregateInput {
+  quantity: SortOrder
+}
+
+input ProductSalesUpdateInput {
+  customer: CustomerUpdateOneRequiredWithoutProductSalesNestedInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String
+  product: ProductUpdateOneRequiredWithoutProductSalesNestedInput
+  quantity: Int
+  user: UserUpdateOneRequiredWithoutProductSalesNestedInput
+}
+
+input ProductSalesUpdateManyMutationInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String
+  quantity: Int
+}
+
+input ProductSalesUpdateManyWithWhereWithoutCustomerInput {
+  data: ProductSalesUpdateManyMutationInput!
+  where: ProductSalesScalarWhereInput!
+}
+
+input ProductSalesUpdateManyWithWhereWithoutProductInput {
+  data: ProductSalesUpdateManyMutationInput!
+  where: ProductSalesScalarWhereInput!
+}
+
+input ProductSalesUpdateManyWithWhereWithoutUserInput {
+  data: ProductSalesUpdateManyMutationInput!
+  where: ProductSalesScalarWhereInput!
+}
+
+input ProductSalesUpdateManyWithoutCustomerNestedInput {
+  connect: [ProductSalesWhereUniqueInput!]
+  connectOrCreate: [ProductSalesCreateOrConnectWithoutCustomerInput!]
+  create: [ProductSalesCreateWithoutCustomerInput!]
+  createMany: ProductSalesCreateManyCustomerInputEnvelope
+  delete: [ProductSalesWhereUniqueInput!]
+  deleteMany: [ProductSalesScalarWhereInput!]
+  disconnect: [ProductSalesWhereUniqueInput!]
+  set: [ProductSalesWhereUniqueInput!]
+  update: [ProductSalesUpdateWithWhereUniqueWithoutCustomerInput!]
+  updateMany: [ProductSalesUpdateManyWithWhereWithoutCustomerInput!]
+  upsert: [ProductSalesUpsertWithWhereUniqueWithoutCustomerInput!]
+}
+
+input ProductSalesUpdateManyWithoutProductNestedInput {
+  connect: [ProductSalesWhereUniqueInput!]
+  connectOrCreate: [ProductSalesCreateOrConnectWithoutProductInput!]
+  create: [ProductSalesCreateWithoutProductInput!]
+  createMany: ProductSalesCreateManyProductInputEnvelope
+  delete: [ProductSalesWhereUniqueInput!]
+  deleteMany: [ProductSalesScalarWhereInput!]
+  disconnect: [ProductSalesWhereUniqueInput!]
+  set: [ProductSalesWhereUniqueInput!]
+  update: [ProductSalesUpdateWithWhereUniqueWithoutProductInput!]
+  updateMany: [ProductSalesUpdateManyWithWhereWithoutProductInput!]
+  upsert: [ProductSalesUpsertWithWhereUniqueWithoutProductInput!]
+}
+
+input ProductSalesUpdateManyWithoutUserNestedInput {
+  connect: [ProductSalesWhereUniqueInput!]
+  connectOrCreate: [ProductSalesCreateOrConnectWithoutUserInput!]
+  create: [ProductSalesCreateWithoutUserInput!]
+  createMany: ProductSalesCreateManyUserInputEnvelope
+  delete: [ProductSalesWhereUniqueInput!]
+  deleteMany: [ProductSalesScalarWhereInput!]
+  disconnect: [ProductSalesWhereUniqueInput!]
+  set: [ProductSalesWhereUniqueInput!]
+  update: [ProductSalesUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [ProductSalesUpdateManyWithWhereWithoutUserInput!]
+  upsert: [ProductSalesUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input ProductSalesUpdateWithWhereUniqueWithoutCustomerInput {
+  data: ProductSalesUpdateWithoutCustomerInput!
+  where: ProductSalesWhereUniqueInput!
+}
+
+input ProductSalesUpdateWithWhereUniqueWithoutProductInput {
+  data: ProductSalesUpdateWithoutProductInput!
+  where: ProductSalesWhereUniqueInput!
+}
+
+input ProductSalesUpdateWithWhereUniqueWithoutUserInput {
+  data: ProductSalesUpdateWithoutUserInput!
+  where: ProductSalesWhereUniqueInput!
+}
+
+input ProductSalesUpdateWithoutCustomerInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String
+  product: ProductUpdateOneRequiredWithoutProductSalesNestedInput
+  quantity: Int
+  user: UserUpdateOneRequiredWithoutProductSalesNestedInput
+}
+
+input ProductSalesUpdateWithoutProductInput {
+  customer: CustomerUpdateOneRequiredWithoutProductSalesNestedInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String
+  quantity: Int
+  user: UserUpdateOneRequiredWithoutProductSalesNestedInput
+}
+
+input ProductSalesUpdateWithoutUserInput {
+  customer: CustomerUpdateOneRequiredWithoutProductSalesNestedInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  price: String
+  product: ProductUpdateOneRequiredWithoutProductSalesNestedInput
+  quantity: Int
+}
+
+input ProductSalesUpsertWithWhereUniqueWithoutCustomerInput {
+  create: ProductSalesCreateWithoutCustomerInput!
+  update: ProductSalesUpdateWithoutCustomerInput!
+  where: ProductSalesWhereUniqueInput!
+}
+
+input ProductSalesUpsertWithWhereUniqueWithoutProductInput {
+  create: ProductSalesCreateWithoutProductInput!
+  update: ProductSalesUpdateWithoutProductInput!
+  where: ProductSalesWhereUniqueInput!
+}
+
+input ProductSalesUpsertWithWhereUniqueWithoutUserInput {
+  create: ProductSalesCreateWithoutUserInput!
+  update: ProductSalesUpdateWithoutUserInput!
+  where: ProductSalesWhereUniqueInput!
+}
+
+input ProductSalesWhereInput {
+  AND: [ProductSalesWhereInput!]
+  NOT: [ProductSalesWhereInput!]
+  OR: [ProductSalesWhereInput!]
+  customer: CustomerRelationFilter
+  customerId: StringFilter
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: StringFilter
+  price: StringFilter
+  product: ProductRelationFilter
+  productId: StringFilter
+  quantity: IntFilter
+  user: UserRelationFilter
+  userId: StringFilter
+}
+
+input ProductSalesWhereUniqueInput {
+  AND: [ProductSalesWhereInput!]
+  NOT: [ProductSalesWhereInput!]
+  OR: [ProductSalesWhereInput!]
+  customer: CustomerRelationFilter
+  customerId: StringFilter
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: String
+  price: StringFilter
+  product: ProductRelationFilter
+  productId: StringFilter
+  quantity: IntFilter
+  user: UserRelationFilter
+  userId: StringFilter
+}
+
+enum ProductScalarFieldEnum {
+  dateCreated
+  dateUpdated
+  description
+  genderId
+  id
+  name
+  price
+  productTypeId
+}
+
+input ProductScalarWhereInput {
+  AND: [ProductScalarWhereInput!]
+  NOT: [ProductScalarWhereInput!]
+  OR: [ProductScalarWhereInput!]
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  description: StringFilter
+  genderId: StringFilter
+  id: StringFilter
+  name: StringFilter
+  price: StringFilter
+  productTypeId: StringFilter
+}
+
+input ProductScalarWhereWithAggregatesInput {
+  AND: [ProductScalarWhereWithAggregatesInput!]
+  NOT: [ProductScalarWhereWithAggregatesInput!]
+  OR: [ProductScalarWhereWithAggregatesInput!]
+  dateCreated: DateTimeWithAggregatesFilter
+  dateUpdated: DateTimeWithAggregatesFilter
+  description: StringWithAggregatesFilter
+  genderId: StringWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  name: StringWithAggregatesFilter
+  price: StringWithAggregatesFilter
+  productTypeId: StringWithAggregatesFilter
+}
+
+type ProductType {
+  _count: ProductTypeCount
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  name: String!
+  product(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): [Product!]!
+}
+
+type ProductTypeCount {
+  product(where: ProductWhereInput): Int!
+}
+
+type ProductTypeCountAggregate {
+  _all: Int!
+  dateCreated: Int!
+  dateUpdated: Int!
+  id: Int!
+  name: Int!
+}
+
+input ProductTypeCountOrderByAggregateInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input ProductTypeCreateInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String!
+  product: ProductCreateNestedManyWithoutProductTypeInput
+}
+
+input ProductTypeCreateManyInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String!
+}
+
+input ProductTypeCreateNestedOneWithoutProductInput {
+  connect: ProductTypeWhereUniqueInput
+  connectOrCreate: ProductTypeCreateOrConnectWithoutProductInput
+  create: ProductTypeCreateWithoutProductInput
+}
+
+input ProductTypeCreateOrConnectWithoutProductInput {
+  create: ProductTypeCreateWithoutProductInput!
+  where: ProductTypeWhereUniqueInput!
+}
+
+input ProductTypeCreateWithoutProductInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String!
+}
+
+type ProductTypeGroupBy {
+  _count: ProductTypeCountAggregate
+  _max: ProductTypeMaxAggregate
+  _min: ProductTypeMinAggregate
+  dateCreated: DateTimeISO!
+  dateUpdated: DateTimeISO!
+  id: String!
+  name: String!
+}
+
+type ProductTypeMaxAggregate {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String
+}
+
+input ProductTypeMaxOrderByAggregateInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+type ProductTypeMinAggregate {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String
+}
+
+input ProductTypeMinOrderByAggregateInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input ProductTypeNullableRelationFilter {
+  is: ProductTypeWhereInput
+  isNot: ProductTypeWhereInput
+}
+
+input ProductTypeOrderByWithAggregationInput {
+  _count: ProductTypeCountOrderByAggregateInput
+  _max: ProductTypeMaxOrderByAggregateInput
+  _min: ProductTypeMinOrderByAggregateInput
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  name: SortOrder
+}
+
+input ProductTypeOrderByWithRelationInput {
+  dateCreated: SortOrder
+  dateUpdated: SortOrder
+  id: SortOrder
+  name: SortOrder
+  product: ProductOrderByRelationAggregateInput
+}
+
+enum ProductTypeScalarFieldEnum {
+  dateCreated
+  dateUpdated
+  id
+  name
+}
+
+input ProductTypeScalarWhereWithAggregatesInput {
+  AND: [ProductTypeScalarWhereWithAggregatesInput!]
+  NOT: [ProductTypeScalarWhereWithAggregatesInput!]
+  OR: [ProductTypeScalarWhereWithAggregatesInput!]
+  dateCreated: DateTimeWithAggregatesFilter
+  dateUpdated: DateTimeWithAggregatesFilter
+  id: StringWithAggregatesFilter
+  name: StringWithAggregatesFilter
+}
+
+input ProductTypeUpdateInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String
+  product: ProductUpdateManyWithoutProductTypeNestedInput
+}
+
+input ProductTypeUpdateManyMutationInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String
+}
+
+input ProductTypeUpdateOneWithoutProductNestedInput {
+  connect: ProductTypeWhereUniqueInput
+  connectOrCreate: ProductTypeCreateOrConnectWithoutProductInput
+  create: ProductTypeCreateWithoutProductInput
+  delete: ProductTypeWhereInput
+  disconnect: ProductTypeWhereInput
+  update: ProductTypeUpdateToOneWithWhereWithoutProductInput
+  upsert: ProductTypeUpsertWithoutProductInput
+}
+
+input ProductTypeUpdateToOneWithWhereWithoutProductInput {
+  data: ProductTypeUpdateWithoutProductInput!
+  where: ProductTypeWhereInput
+}
+
+input ProductTypeUpdateWithoutProductInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  id: String
+  name: String
+}
+
+input ProductTypeUpsertWithoutProductInput {
+  create: ProductTypeCreateWithoutProductInput!
+  update: ProductTypeUpdateWithoutProductInput!
+  where: ProductTypeWhereInput
+}
+
+input ProductTypeWhereInput {
+  AND: [ProductTypeWhereInput!]
+  NOT: [ProductTypeWhereInput!]
+  OR: [ProductTypeWhereInput!]
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: StringFilter
+  name: StringFilter
+  product: ProductListRelationFilter
+}
+
+input ProductTypeWhereUniqueInput {
+  AND: [ProductTypeWhereInput!]
+  NOT: [ProductTypeWhereInput!]
+  OR: [ProductTypeWhereInput!]
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  id: String
+  name: StringFilter
+  product: ProductListRelationFilter
+}
+
+input ProductUpdateInput {
+  ProductColor: ProductColorUpdateManyWithoutProductNestedInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String
+  genderId: String
+  id: String
+  name: String
+  price: String
+  productInventory: ProductInventoryUpdateManyWithoutProductNestedInput
+  productSales: ProductSalesUpdateManyWithoutProductNestedInput
+  productType: ProductTypeUpdateOneWithoutProductNestedInput
+}
+
+input ProductUpdateManyMutationInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String
+  genderId: String
+  id: String
+  name: String
+  price: String
+}
+
+input ProductUpdateManyWithWhereWithoutProductTypeInput {
+  data: ProductUpdateManyMutationInput!
+  where: ProductScalarWhereInput!
+}
+
+input ProductUpdateManyWithoutProductTypeNestedInput {
+  connect: [ProductWhereUniqueInput!]
+  connectOrCreate: [ProductCreateOrConnectWithoutProductTypeInput!]
+  create: [ProductCreateWithoutProductTypeInput!]
+  createMany: ProductCreateManyProductTypeInputEnvelope
+  delete: [ProductWhereUniqueInput!]
+  deleteMany: [ProductScalarWhereInput!]
+  disconnect: [ProductWhereUniqueInput!]
+  set: [ProductWhereUniqueInput!]
+  update: [ProductUpdateWithWhereUniqueWithoutProductTypeInput!]
+  updateMany: [ProductUpdateManyWithWhereWithoutProductTypeInput!]
+  upsert: [ProductUpsertWithWhereUniqueWithoutProductTypeInput!]
+}
+
+input ProductUpdateOneRequiredWithoutProductColorNestedInput {
+  connect: ProductWhereUniqueInput
+  connectOrCreate: ProductCreateOrConnectWithoutProductColorInput
+  create: ProductCreateWithoutProductColorInput
+  update: ProductUpdateToOneWithWhereWithoutProductColorInput
+  upsert: ProductUpsertWithoutProductColorInput
+}
+
+input ProductUpdateOneRequiredWithoutProductInventoryNestedInput {
+  connect: ProductWhereUniqueInput
+  connectOrCreate: ProductCreateOrConnectWithoutProductInventoryInput
+  create: ProductCreateWithoutProductInventoryInput
+  update: ProductUpdateToOneWithWhereWithoutProductInventoryInput
+  upsert: ProductUpsertWithoutProductInventoryInput
+}
+
+input ProductUpdateOneRequiredWithoutProductSalesNestedInput {
+  connect: ProductWhereUniqueInput
+  connectOrCreate: ProductCreateOrConnectWithoutProductSalesInput
+  create: ProductCreateWithoutProductSalesInput
+  update: ProductUpdateToOneWithWhereWithoutProductSalesInput
+  upsert: ProductUpsertWithoutProductSalesInput
+}
+
+input ProductUpdateToOneWithWhereWithoutProductColorInput {
+  data: ProductUpdateWithoutProductColorInput!
+  where: ProductWhereInput
+}
+
+input ProductUpdateToOneWithWhereWithoutProductInventoryInput {
+  data: ProductUpdateWithoutProductInventoryInput!
+  where: ProductWhereInput
+}
+
+input ProductUpdateToOneWithWhereWithoutProductSalesInput {
+  data: ProductUpdateWithoutProductSalesInput!
+  where: ProductWhereInput
+}
+
+input ProductUpdateWithWhereUniqueWithoutProductTypeInput {
+  data: ProductUpdateWithoutProductTypeInput!
+  where: ProductWhereUniqueInput!
+}
+
+input ProductUpdateWithoutProductColorInput {
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String
+  genderId: String
+  id: String
+  name: String
+  price: String
+  productInventory: ProductInventoryUpdateManyWithoutProductNestedInput
+  productSales: ProductSalesUpdateManyWithoutProductNestedInput
+  productType: ProductTypeUpdateOneWithoutProductNestedInput
+}
+
+input ProductUpdateWithoutProductInventoryInput {
+  ProductColor: ProductColorUpdateManyWithoutProductNestedInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String
+  genderId: String
+  id: String
+  name: String
+  price: String
+  productSales: ProductSalesUpdateManyWithoutProductNestedInput
+  productType: ProductTypeUpdateOneWithoutProductNestedInput
+}
+
+input ProductUpdateWithoutProductSalesInput {
+  ProductColor: ProductColorUpdateManyWithoutProductNestedInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String
+  genderId: String
+  id: String
+  name: String
+  price: String
+  productInventory: ProductInventoryUpdateManyWithoutProductNestedInput
+  productType: ProductTypeUpdateOneWithoutProductNestedInput
+}
+
+input ProductUpdateWithoutProductTypeInput {
+  ProductColor: ProductColorUpdateManyWithoutProductNestedInput
+  dateCreated: DateTimeISO
+  dateUpdated: DateTimeISO
+  description: String
+  genderId: String
+  id: String
+  name: String
+  price: String
+  productInventory: ProductInventoryUpdateManyWithoutProductNestedInput
+  productSales: ProductSalesUpdateManyWithoutProductNestedInput
+}
+
+input ProductUpsertWithWhereUniqueWithoutProductTypeInput {
+  create: ProductCreateWithoutProductTypeInput!
+  update: ProductUpdateWithoutProductTypeInput!
+  where: ProductWhereUniqueInput!
+}
+
+input ProductUpsertWithoutProductColorInput {
+  create: ProductCreateWithoutProductColorInput!
+  update: ProductUpdateWithoutProductColorInput!
+  where: ProductWhereInput
+}
+
+input ProductUpsertWithoutProductInventoryInput {
+  create: ProductCreateWithoutProductInventoryInput!
+  update: ProductUpdateWithoutProductInventoryInput!
+  where: ProductWhereInput
+}
+
+input ProductUpsertWithoutProductSalesInput {
+  create: ProductCreateWithoutProductSalesInput!
+  update: ProductUpdateWithoutProductSalesInput!
+  where: ProductWhereInput
+}
+
+input ProductWhereInput {
+  AND: [ProductWhereInput!]
+  NOT: [ProductWhereInput!]
+  OR: [ProductWhereInput!]
+  ProductColor: ProductColorListRelationFilter
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  description: StringFilter
+  genderId: StringFilter
+  id: StringFilter
+  name: StringFilter
+  price: StringFilter
+  productInventory: ProductInventoryListRelationFilter
+  productSales: ProductSalesListRelationFilter
+  productType: ProductTypeNullableRelationFilter
+  productTypeId: StringFilter
+}
+
+input ProductWhereUniqueInput {
+  AND: [ProductWhereInput!]
+  NOT: [ProductWhereInput!]
+  OR: [ProductWhereInput!]
+  ProductColor: ProductColorListRelationFilter
+  dateCreated: DateTimeFilter
+  dateUpdated: DateTimeFilter
+  description: StringFilter
+  genderId: StringFilter
+  id: String
+  name: StringFilter
+  price: StringFilter
+  productInventory: ProductInventoryListRelationFilter
+  productSales: ProductSalesListRelationFilter
+  productType: ProductTypeNullableRelationFilter
+  productTypeId: StringFilter
+}
+
 type Query {
+  aggregateColor(cursor: ColorWhereUniqueInput, orderBy: [ColorOrderByWithRelationInput!], skip: Int, take: Int, where: ColorWhereInput): AggregateColor!
   aggregateCustomer(cursor: CustomerWhereUniqueInput, orderBy: [CustomerOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerWhereInput): AggregateCustomer!
   aggregateCustomerContact(cursor: CustomerContactWhereUniqueInput, orderBy: [CustomerContactOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerContactWhereInput): AggregateCustomerContact!
+  aggregateProduct(cursor: ProductWhereUniqueInput, orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): AggregateProduct!
+  aggregateProductColor(cursor: ProductColorWhereUniqueInput, orderBy: [ProductColorOrderByWithRelationInput!], skip: Int, take: Int, where: ProductColorWhereInput): AggregateProductColor!
+  aggregateProductInventory(cursor: ProductInventoryWhereUniqueInput, orderBy: [ProductInventoryOrderByWithRelationInput!], skip: Int, take: Int, where: ProductInventoryWhereInput): AggregateProductInventory!
+  aggregateProductSales(cursor: ProductSalesWhereUniqueInput, orderBy: [ProductSalesOrderByWithRelationInput!], skip: Int, take: Int, where: ProductSalesWhereInput): AggregateProductSales!
+  aggregateProductType(cursor: ProductTypeWhereUniqueInput, orderBy: [ProductTypeOrderByWithRelationInput!], skip: Int, take: Int, where: ProductTypeWhereInput): AggregateProductType!
   aggregateState(cursor: StateWhereUniqueInput, orderBy: [StateOrderByWithRelationInput!], skip: Int, take: Int, where: StateWhereInput): AggregateState!
   aggregateUser(cursor: UserWhereUniqueInput, orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
+  color(where: ColorWhereUniqueInput!): Color
+  colors(cursor: ColorWhereUniqueInput, distinct: [ColorScalarFieldEnum!], orderBy: [ColorOrderByWithRelationInput!], skip: Int, take: Int, where: ColorWhereInput): [Color!]!
   customer(where: CustomerWhereUniqueInput!): Customer
   customerContact(where: CustomerContactWhereUniqueInput!): CustomerContact
   customerContacts(cursor: CustomerContactWhereUniqueInput, distinct: [CustomerContactScalarFieldEnum!], orderBy: [CustomerContactOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerContactWhereInput): [CustomerContact!]!
   customers(cursor: CustomerWhereUniqueInput, distinct: [CustomerScalarFieldEnum!], orderBy: [CustomerOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerWhereInput): [Customer!]!
+  findFirstColor(cursor: ColorWhereUniqueInput, distinct: [ColorScalarFieldEnum!], orderBy: [ColorOrderByWithRelationInput!], skip: Int, take: Int, where: ColorWhereInput): Color
+  findFirstColorOrThrow(cursor: ColorWhereUniqueInput, distinct: [ColorScalarFieldEnum!], orderBy: [ColorOrderByWithRelationInput!], skip: Int, take: Int, where: ColorWhereInput): Color
   findFirstCustomer(cursor: CustomerWhereUniqueInput, distinct: [CustomerScalarFieldEnum!], orderBy: [CustomerOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerWhereInput): Customer
   findFirstCustomerContact(cursor: CustomerContactWhereUniqueInput, distinct: [CustomerContactScalarFieldEnum!], orderBy: [CustomerContactOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerContactWhereInput): CustomerContact
   findFirstCustomerContactOrThrow(cursor: CustomerContactWhereUniqueInput, distinct: [CustomerContactScalarFieldEnum!], orderBy: [CustomerContactOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerContactWhereInput): CustomerContact
   findFirstCustomerOrThrow(cursor: CustomerWhereUniqueInput, distinct: [CustomerScalarFieldEnum!], orderBy: [CustomerOrderByWithRelationInput!], skip: Int, take: Int, where: CustomerWhereInput): Customer
+  findFirstProduct(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): Product
+  findFirstProductColor(cursor: ProductColorWhereUniqueInput, distinct: [ProductColorScalarFieldEnum!], orderBy: [ProductColorOrderByWithRelationInput!], skip: Int, take: Int, where: ProductColorWhereInput): ProductColor
+  findFirstProductColorOrThrow(cursor: ProductColorWhereUniqueInput, distinct: [ProductColorScalarFieldEnum!], orderBy: [ProductColorOrderByWithRelationInput!], skip: Int, take: Int, where: ProductColorWhereInput): ProductColor
+  findFirstProductInventory(cursor: ProductInventoryWhereUniqueInput, distinct: [ProductInventoryScalarFieldEnum!], orderBy: [ProductInventoryOrderByWithRelationInput!], skip: Int, take: Int, where: ProductInventoryWhereInput): ProductInventory
+  findFirstProductInventoryOrThrow(cursor: ProductInventoryWhereUniqueInput, distinct: [ProductInventoryScalarFieldEnum!], orderBy: [ProductInventoryOrderByWithRelationInput!], skip: Int, take: Int, where: ProductInventoryWhereInput): ProductInventory
+  findFirstProductOrThrow(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): Product
+  findFirstProductSales(cursor: ProductSalesWhereUniqueInput, distinct: [ProductSalesScalarFieldEnum!], orderBy: [ProductSalesOrderByWithRelationInput!], skip: Int, take: Int, where: ProductSalesWhereInput): ProductSales
+  findFirstProductSalesOrThrow(cursor: ProductSalesWhereUniqueInput, distinct: [ProductSalesScalarFieldEnum!], orderBy: [ProductSalesOrderByWithRelationInput!], skip: Int, take: Int, where: ProductSalesWhereInput): ProductSales
+  findFirstProductType(cursor: ProductTypeWhereUniqueInput, distinct: [ProductTypeScalarFieldEnum!], orderBy: [ProductTypeOrderByWithRelationInput!], skip: Int, take: Int, where: ProductTypeWhereInput): ProductType
+  findFirstProductTypeOrThrow(cursor: ProductTypeWhereUniqueInput, distinct: [ProductTypeScalarFieldEnum!], orderBy: [ProductTypeOrderByWithRelationInput!], skip: Int, take: Int, where: ProductTypeWhereInput): ProductType
   findFirstState(cursor: StateWhereUniqueInput, distinct: [StateScalarFieldEnum!], orderBy: [StateOrderByWithRelationInput!], skip: Int, take: Int, where: StateWhereInput): State
   findFirstStateOrThrow(cursor: StateWhereUniqueInput, distinct: [StateScalarFieldEnum!], orderBy: [StateOrderByWithRelationInput!], skip: Int, take: Int, where: StateWhereInput): State
   findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): User
   findFirstUserOrThrow(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): User
+  findManyProductSales(cursor: ProductSalesWhereUniqueInput, distinct: [ProductSalesScalarFieldEnum!], orderBy: [ProductSalesOrderByWithRelationInput!], skip: Int, take: Int, where: ProductSalesWhereInput): [ProductSales!]!
+  findUniqueProductSales(where: ProductSalesWhereUniqueInput!): ProductSales
+  findUniqueProductSalesOrThrow(where: ProductSalesWhereUniqueInput!): ProductSales
+  getColor(where: ColorWhereUniqueInput!): Color
   getCustomer(where: CustomerWhereUniqueInput!): Customer
   getCustomerContact(where: CustomerContactWhereUniqueInput!): CustomerContact
+  getProduct(where: ProductWhereUniqueInput!): Product
+  getProductColor(where: ProductColorWhereUniqueInput!): ProductColor
+  getProductInventory(where: ProductInventoryWhereUniqueInput!): ProductInventory
+  getProductType(where: ProductTypeWhereUniqueInput!): ProductType
   getState(where: StateWhereUniqueInput!): State
   getUser(where: UserWhereUniqueInput!): User
+  groupByColor(by: [ColorScalarFieldEnum!]!, having: ColorScalarWhereWithAggregatesInput, orderBy: [ColorOrderByWithAggregationInput!], skip: Int, take: Int, where: ColorWhereInput): [ColorGroupBy!]!
   groupByCustomer(by: [CustomerScalarFieldEnum!]!, having: CustomerScalarWhereWithAggregatesInput, orderBy: [CustomerOrderByWithAggregationInput!], skip: Int, take: Int, where: CustomerWhereInput): [CustomerGroupBy!]!
   groupByCustomerContact(by: [CustomerContactScalarFieldEnum!]!, having: CustomerContactScalarWhereWithAggregatesInput, orderBy: [CustomerContactOrderByWithAggregationInput!], skip: Int, take: Int, where: CustomerContactWhereInput): [CustomerContactGroupBy!]!
+  groupByProduct(by: [ProductScalarFieldEnum!]!, having: ProductScalarWhereWithAggregatesInput, orderBy: [ProductOrderByWithAggregationInput!], skip: Int, take: Int, where: ProductWhereInput): [ProductGroupBy!]!
+  groupByProductColor(by: [ProductColorScalarFieldEnum!]!, having: ProductColorScalarWhereWithAggregatesInput, orderBy: [ProductColorOrderByWithAggregationInput!], skip: Int, take: Int, where: ProductColorWhereInput): [ProductColorGroupBy!]!
+  groupByProductInventory(by: [ProductInventoryScalarFieldEnum!]!, having: ProductInventoryScalarWhereWithAggregatesInput, orderBy: [ProductInventoryOrderByWithAggregationInput!], skip: Int, take: Int, where: ProductInventoryWhereInput): [ProductInventoryGroupBy!]!
+  groupByProductSales(by: [ProductSalesScalarFieldEnum!]!, having: ProductSalesScalarWhereWithAggregatesInput, orderBy: [ProductSalesOrderByWithAggregationInput!], skip: Int, take: Int, where: ProductSalesWhereInput): [ProductSalesGroupBy!]!
+  groupByProductType(by: [ProductTypeScalarFieldEnum!]!, having: ProductTypeScalarWhereWithAggregatesInput, orderBy: [ProductTypeOrderByWithAggregationInput!], skip: Int, take: Int, where: ProductTypeWhereInput): [ProductTypeGroupBy!]!
   groupByState(by: [StateScalarFieldEnum!]!, having: StateScalarWhereWithAggregatesInput, orderBy: [StateOrderByWithAggregationInput!], skip: Int, take: Int, where: StateWhereInput): [StateGroupBy!]!
   groupByUser(by: [UserScalarFieldEnum!]!, having: UserScalarWhereWithAggregatesInput, orderBy: [UserOrderByWithAggregationInput!], skip: Int, take: Int, where: UserWhereInput): [UserGroupBy!]!
+  product(where: ProductWhereUniqueInput!): Product
+  productColor(where: ProductColorWhereUniqueInput!): ProductColor
+  productColors(cursor: ProductColorWhereUniqueInput, distinct: [ProductColorScalarFieldEnum!], orderBy: [ProductColorOrderByWithRelationInput!], skip: Int, take: Int, where: ProductColorWhereInput): [ProductColor!]!
+  productInventories(cursor: ProductInventoryWhereUniqueInput, distinct: [ProductInventoryScalarFieldEnum!], orderBy: [ProductInventoryOrderByWithRelationInput!], skip: Int, take: Int, where: ProductInventoryWhereInput): [ProductInventory!]!
+  productInventory(where: ProductInventoryWhereUniqueInput!): ProductInventory
+  productType(where: ProductTypeWhereUniqueInput!): ProductType
+  productTypes(cursor: ProductTypeWhereUniqueInput, distinct: [ProductTypeScalarFieldEnum!], orderBy: [ProductTypeOrderByWithRelationInput!], skip: Int, take: Int, where: ProductTypeWhereInput): [ProductType!]!
+  products(cursor: ProductWhereUniqueInput, distinct: [ProductScalarFieldEnum!], orderBy: [ProductOrderByWithRelationInput!], skip: Int, take: Int, where: ProductWhereInput): [Product!]!
   search(query: String!): [SearchResult!]
   signin(password: String!, username: String!): SigninResponse
   signout: Boolean!
@@ -1632,6 +3981,7 @@ input StringWithAggregatesFilter {
 }
 
 type User {
+  _count: UserCount
   city: String!
   dateCreated: DateTimeISO!
   email: String!
@@ -1640,12 +3990,17 @@ type User {
   lastName: String!
   password: String!
   phone: String!
+  productSales(cursor: ProductSalesWhereUniqueInput, distinct: [ProductSalesScalarFieldEnum!], orderBy: [ProductSalesOrderByWithRelationInput!], skip: Int, take: Int, where: ProductSalesWhereInput): [ProductSales!]!
   role: String!
   state: State!
   stateId: String!
   streetAddress: String!
   streetAddress2: String
   zip: String!
+}
+
+type UserCount {
+  productSales(where: ProductSalesWhereInput): Int!
 }
 
 type UserCountAggregate {
@@ -1690,6 +4045,7 @@ input UserCreateInput {
   lastName: String!
   password: String!
   phone: String!
+  productSales: ProductSalesCreateNestedManyWithoutUserInput
   role: String!
   state: StateCreateNestedOneWithoutUserInput!
   streetAddress: String!
@@ -1739,9 +4095,36 @@ input UserCreateNestedManyWithoutStateInput {
   createMany: UserCreateManyStateInputEnvelope
 }
 
+input UserCreateNestedOneWithoutProductSalesInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutProductSalesInput
+  create: UserCreateWithoutProductSalesInput
+}
+
+input UserCreateOrConnectWithoutProductSalesInput {
+  create: UserCreateWithoutProductSalesInput!
+  where: UserWhereUniqueInput!
+}
+
 input UserCreateOrConnectWithoutStateInput {
   create: UserCreateWithoutStateInput!
   where: UserWhereUniqueInput!
+}
+
+input UserCreateWithoutProductSalesInput {
+  city: String!
+  dateCreated: DateTimeISO
+  email: String!
+  firstName: String!
+  id: String
+  lastName: String!
+  password: String!
+  phone: String!
+  role: String!
+  state: StateCreateNestedOneWithoutUserInput!
+  streetAddress: String!
+  streetAddress2: String
+  zip: String!
 }
 
 input UserCreateWithoutStateInput {
@@ -1753,6 +4136,7 @@ input UserCreateWithoutStateInput {
   lastName: String!
   password: String!
   phone: String!
+  productSales: ProductSalesCreateNestedManyWithoutUserInput
   role: String!
   streetAddress: String!
   streetAddress2: String
@@ -1880,12 +4264,18 @@ input UserOrderByWithRelationInput {
   lastName: SortOrder
   password: SortOrder
   phone: SortOrder
+  productSales: ProductSalesOrderByRelationAggregateInput
   role: SortOrder
   state: StateOrderByWithRelationInput
   stateId: SortOrder
   streetAddress: SortOrder
   streetAddress2: SortOrderInput
   zip: SortOrder
+}
+
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
 }
 
 enum UserScalarFieldEnum {
@@ -1951,6 +4341,7 @@ input UserUpdateInput {
   lastName: String
   password: String
   phone: String
+  productSales: ProductSalesUpdateManyWithoutUserNestedInput
   role: String
   state: StateUpdateOneRequiredWithoutUserNestedInput
   streetAddress: String
@@ -1992,9 +4383,38 @@ input UserUpdateManyWithoutStateNestedInput {
   upsert: [UserUpsertWithWhereUniqueWithoutStateInput!]
 }
 
+input UserUpdateOneRequiredWithoutProductSalesNestedInput {
+  connect: UserWhereUniqueInput
+  connectOrCreate: UserCreateOrConnectWithoutProductSalesInput
+  create: UserCreateWithoutProductSalesInput
+  update: UserUpdateToOneWithWhereWithoutProductSalesInput
+  upsert: UserUpsertWithoutProductSalesInput
+}
+
+input UserUpdateToOneWithWhereWithoutProductSalesInput {
+  data: UserUpdateWithoutProductSalesInput!
+  where: UserWhereInput
+}
+
 input UserUpdateWithWhereUniqueWithoutStateInput {
   data: UserUpdateWithoutStateInput!
   where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithoutProductSalesInput {
+  city: String
+  dateCreated: DateTimeISO
+  email: String
+  firstName: String
+  id: String
+  lastName: String
+  password: String
+  phone: String
+  role: String
+  state: StateUpdateOneRequiredWithoutUserNestedInput
+  streetAddress: String
+  streetAddress2: String
+  zip: String
 }
 
 input UserUpdateWithoutStateInput {
@@ -2006,6 +4426,7 @@ input UserUpdateWithoutStateInput {
   lastName: String
   password: String
   phone: String
+  productSales: ProductSalesUpdateManyWithoutUserNestedInput
   role: String
   streetAddress: String
   streetAddress2: String
@@ -2016,6 +4437,12 @@ input UserUpsertWithWhereUniqueWithoutStateInput {
   create: UserCreateWithoutStateInput!
   update: UserUpdateWithoutStateInput!
   where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithoutProductSalesInput {
+  create: UserCreateWithoutProductSalesInput!
+  update: UserUpdateWithoutProductSalesInput!
+  where: UserWhereInput
 }
 
 input UserWhereInput {
@@ -2030,6 +4457,7 @@ input UserWhereInput {
   lastName: StringFilter
   password: StringFilter
   phone: StringFilter
+  productSales: ProductSalesListRelationFilter
   role: StringFilter
   state: StateRelationFilter
   stateId: StringFilter
@@ -2050,6 +4478,7 @@ input UserWhereUniqueInput {
   lastName: StringFilter
   password: StringFilter
   phone: StringFilter
+  productSales: ProductSalesListRelationFilter
   role: StringFilter
   state: StateRelationFilter
   stateId: StringFilter
