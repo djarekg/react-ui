@@ -22,7 +22,10 @@
     transform: translateY(-20px);
   }
 
-  & > button {
+  .app-header-right-side {
+    display: flex;
+    align-items: center;
+    gap: 20px;
     margin-inline-start: auto;
   }
 

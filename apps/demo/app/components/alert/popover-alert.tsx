@@ -35,6 +35,7 @@ export default function PopoverAlert({
         action={
           <>
             <Button
+              autoFocus
               color="inherit"
               size="small"
               onClick={() => onConfirm(true)}>

@@ -1,0 +1,33 @@
+.dialog {
+  .MuiDialogTitle-root,
+  .MuiDialogContent-root {
+    padding: 8px;
+  }
+}
+
+.content {
+  padding: 10px 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9em;
+  font-weight: 300;
+  color: var(--mui-palette-grey-400);
+  font-style: italic;
+}
+
+.esc {
+  background-color: var(--mui-palette-grey-800);
+  border-radius: 4px;
+  padding: 0 4px;
+  font-size: 0.9em;
+}
+
+.topScrollPaper {
+  align-items: flex-start;
+  margin-top: 70px;
+}
