@@ -16,4 +16,8 @@ export default [
     index('routes/users/index.tsx'),
     ...prefix(':id', [index('routes/users/[id]/index.tsx')]),
   ]),
+  ...prefix('products', [
+    index('routes/products/index.tsx'),
+    ...prefix(':id', [index('routes/products/[id]/index.tsx')]),
+  ]),
 ] satisfies RouteConfig;

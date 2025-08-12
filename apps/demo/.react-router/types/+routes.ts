@@ -41,12 +41,20 @@ type Pages = {
       "id": string;
     };
   };
+  "/products": {
+    params: {};
+  };
+  "/products/:id": {
+    params: {
+      "id": string;
+    };
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/signin" | "/signout" | "/admin" | "/admin/settings" | "/customers" | "/customers/:id" | "/users" | "/users/:id";
+    page: "/" | "/signin" | "/signout" | "/admin" | "/admin/settings" | "/customers" | "/customers/:id" | "/users" | "/users/:id" | "/products" | "/products/:id";
   };
   "routes/index.tsx": {
     id: "routes/index";
@@ -83,5 +91,13 @@ type RouteFiles = {
   "routes/users/[id]/index.tsx": {
     id: "routes/users/[id]/index";
     page: "/users/:id";
+  };
+  "routes/products/index.tsx": {
+    id: "routes/products/index";
+    page: "/products";
+  };
+  "routes/products/[id]/index.tsx": {
+    id: "routes/products/[id]/index";
+    page: "/products/:id";
   };
 };

@@ -33,6 +33,7 @@
   padding: 5px;
   margin: 1px;
   width: 200px;
+  /* color: var(--mui-palette-primary-main); */
 
   &:hover {
     margin: 0;

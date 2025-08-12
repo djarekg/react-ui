@@ -1,3 +1,4 @@
+import ProductsIcon from '@/components/icons/products.js';
 import PeopleOutlineRounded from '@mui/icons-material/PeopleOutlineRounded';
 import SettingsOutlined from '@mui/icons-material/SettingsOutlined';
 import ShoppingBagOutlined from '@mui/icons-material/ShoppingBagOutlined';
@@ -19,6 +20,12 @@ export default function SearchResultsDefaultTemplate() {
           className={`${styles.link} app-command-palette-item-link`}>
           <ShoppingBagOutlined />
           Customers
+        </NavLink>
+        <NavLink
+          to="/products"
+          className={`${styles.link} app-command-palette-item-link`}>
+          <ProductsIcon />
+          Products
         </NavLink>
         <NavLink
           to="/admin/settings"
