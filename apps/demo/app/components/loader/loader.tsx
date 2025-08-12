@@ -9,7 +9,7 @@ export default function Loader() {
       sx={{
         display: 'grid',
         placeContent: 'center',
-        height: '100vh',
+        height: '100%',
       }}>
       <CircularProgress
         size={100}
