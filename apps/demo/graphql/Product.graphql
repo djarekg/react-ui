@@ -4,6 +4,7 @@ query getProducts {
     name
     description
     price
+    productTypeId
   }
 }
 

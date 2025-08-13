@@ -1,0 +1,21 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+}
+
+.toolbar {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 8px;
+}

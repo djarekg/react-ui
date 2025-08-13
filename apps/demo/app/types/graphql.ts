@@ -5789,6 +5789,7 @@ export type GetProductsQuery = {
     readonly name: string;
     readonly description: string;
     readonly price: string;
+    readonly productTypeId: string;
   }>;
 };
 
@@ -7032,6 +7033,7 @@ export const GetProducts = {
                 { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'description' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'price' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'productTypeId' } },
               ],
             },
           },

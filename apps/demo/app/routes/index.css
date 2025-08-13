@@ -18,11 +18,11 @@
 @keyframes slideInFadeIn {
   0% {
     opacity: 0; /* Start completely transparent */
-    transform: translateY(-20%); /* Start off-screen to the left */
+    transform: scale(0.85); /* Start off-screen to the left */
   }
   70% {
     opacity: 0.2; /* Midway point, semi-transparent */
-    transform: translateT(0); /* End at its original position */
+    transform: scale(1); /* End at its original position */
   }
   100% {
     opacity: 1; /* End fully opaque */

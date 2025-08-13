@@ -3,9 +3,9 @@ import PeopleOutlineRounded from '@mui/icons-material/PeopleOutlineRounded';
 import SettingsOutlined from '@mui/icons-material/SettingsOutlined';
 import ShoppingBagOutlined from '@mui/icons-material/ShoppingBagOutlined';
 import { NavLink } from 'react-router';
-import styles from './search-results-default-template.module.css';
+import styles from './app-search-results-default-template.module.css';
 
-export default function SearchResultsDefaultTemplate() {
+export default function AppSearchResultsDefaultTemplate() {
   return (
     <nav className={styles.nav}>
       <section>
@@ -37,12 +37,18 @@ export default function SearchResultsDefaultTemplate() {
       <section>
         <span>action shortcuts...</span>
         <NavLink
-          to="/users/0?m=new"
+          to={{
+            pathname: '/users/0',
+            search: '?m=new',
+          }}
           className={`${styles.createLink} app-command-palette-item-link`}>
           create user
         </NavLink>
         <NavLink
-          to="/customers/0?m=new"
+          to={{
+            pathname: '/customers/0',
+            search: '?m=new',
+          }}
           className={`${styles.createLink} app-command-palette-item-link`}>
           create customer
         </NavLink>

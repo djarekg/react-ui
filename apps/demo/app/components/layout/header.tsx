@@ -1,5 +1,5 @@
+import AppSearch from '@/components/app-search/app-search.js';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs.js';
-import Search from '@/components/search/search.js';
 import SessionMenu from '@/components/session-menu/session-menu.js';
 import { useSidenavContext } from '@/components/sidenav/sidenav-provider.js';
 import MenuRounded from '@mui/icons-material/MenuRounded';
@@ -41,7 +41,7 @@ export default function Header({ isAuthenticated }: HeaderProps) {
         <>
           <Breadcrumbs />
           <div className="app-header-right-side">
-            <Search />
+            <AppSearch />
             <SessionMenu />
           </div>
         </>

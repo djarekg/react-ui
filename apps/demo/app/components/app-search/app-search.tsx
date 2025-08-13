@@ -7,8 +7,8 @@ import PermContactCalendar from '@mui/icons-material/PermContactCalendar';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagOutlined from '@mui/icons-material/ShoppingBagOutlined';
 import { lazy, useEffect, useState, type ReactNode } from 'react';
-import SearchResultsDefaultTemplate from './search-results-default-template.js';
-import styles from './search.module.css';
+import AppSearchResultsDefaultTemplate from './app-search-results-default-template.js';
+import styles from './app-search.module.css';
 
 const CommandPalette = lazy(() => import('@/components/command-palette/command-palette.js'));
 
@@ -34,7 +34,7 @@ const resultTypeMap: ResultTypeMapType = {
   },
 } as const;
 
-export default function Search() {
+export default function AppSearch() {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [items, setItems] = useState<CommandPaletteItem[]>([]);
@@ -106,7 +106,7 @@ export default function Search() {
         </span>
       </div>
       <CommandPalette
-        defaultResultsTemplate={<SearchResultsDefaultTemplate />}
+        defaultResultsTemplate={<AppSearchResultsDefaultTemplate />}
         items={items}
         loading={loading}
         open={open}
