@@ -89,7 +89,7 @@ export default function ProductList({ products = [] }: ProductListProps) {
             sx={{ width: 350 }}>
             <InputLabel
               id="type-select-label"
-              classes={{ focused: styles.selectLabelFocused }}>
+              classes={{ shrink: styles.selectLabelShrink }}>
               Select types to filter
             </InputLabel>
             <Select
