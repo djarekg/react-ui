@@ -18,6 +18,8 @@ type CardTemplateProps<T extends CardItem> = {
  * Card components are used so there is a consistent look.
  */
 export default function CardTemplate<T extends CardItem>({ item }: CardTemplateProps<T>) {
+  'use memo';
+
   const { id, name, description } = item ?? {};
 
   return (
@@ -32,7 +34,7 @@ export default function CardTemplate<T extends CardItem>({ item }: CardTemplateP
           loading="lazy"
           height="75px"
           alt="tech clothing"
-          src="/public/tech_clothing_black.png"
+          src="/tech_clothing_black.png"
           className={styles.image}
         />
       </CardMedia>

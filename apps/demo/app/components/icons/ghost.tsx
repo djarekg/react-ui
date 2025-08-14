@@ -6,6 +6,8 @@ type GhostProps = {
 } & IconProps;
 
 const GhostIcon: FC<GhostProps> = ({ className, size = 24, strokeWidth = 3 }) => {
+  'use memo';
+
   return (
     <svg
       data-icon="ghost-icon"

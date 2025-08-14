@@ -29,7 +29,7 @@ export default function Header({ isAuthenticated }: HeaderProps) {
         <NavLink to={isAuthenticated ? '/' : '/signin'}>
           <img
             loading="lazy"
-            src="/public/react-logo.svg"
+            src="/react-logo.svg"
             alt="React Logo"
             width="30"
             height="30"

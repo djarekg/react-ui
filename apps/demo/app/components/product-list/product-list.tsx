@@ -1,17 +1,17 @@
 import CardTemplate from '@/components/card-template/card-template.js';
+import Search from '@/components/search/search.js';
+import { isNullOrEmpty } from '@/core/utils/string.js';
 import { GetProductTypes, type Product } from '@/types/graphql.js';
 import { useQuery } from '@apollo/client/react/hooks';
-import Search from '@mui/icons-material/Search';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
-import InputAdornment from '@mui/material/InputAdornment';
+import InputLabel from '@mui/material/InputLabel';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
-import { lazy, useEffect, useState, type ChangeEvent } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import styles from './product-list.module.css';
 
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
@@ -21,9 +21,12 @@ type ProductListProps = {
 };
 
 export default function ProductList({ products = [] }: ProductListProps) {
-  const { data: { productTypes = [] } = {}, error } = useQuery(GetProductTypes);
+  'use memo';
+
   const [selectedProductTypes, setSelectedProductTypes] = useState<string[]>([]);
+  const [filterText, setFilterText] = useState('');
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const { data: { productTypes = [] } = {}, error } = useQuery(GetProductTypes);
 
   const renderItem = (product: Product) => {
     return (
@@ -38,15 +41,15 @@ export default function ProductList({ products = [] }: ProductListProps) {
       <MenuItem
         key={id}
         value={id}>
-        <Checkbox />
+        <Checkbox checked={selectedProductTypes.includes(id)} />
         <ListItemText primary={name} />
       </MenuItem>
     );
   };
 
-  const handleChange = ({ target: { value } }: SelectChangeEvent<string | string[]>) => {
+  const handleSearch = (value: string) => setFilterText(value);
+  const handleChange = ({ target: { value } }: SelectChangeEvent<string | string[]>) =>
     setSelectedProductTypes(Array.isArray(value) ? value : value.split(','));
-  };
 
   const handleRenderValue = (selected: string[]) => {
     return productTypes
@@ -55,13 +58,25 @@ export default function ProductList({ products = [] }: ProductListProps) {
       .join('');
   };
 
-  const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {};
+  const filterProducts = (array: Product[], types: string[], filter: string) => {
+    const filteredByTypes = types.length
+      ? array.filter(({ productTypeId }) => types.includes(productTypeId))
+      : array;
+
+    const filterRegex = new RegExp(filter, 'i');
+    const filtered = isNullOrEmpty(filter)
+      ? filteredByTypes
+      : filteredByTypes.filter(
+          ({ name, description }) => filterRegex.test(name) || filterRegex.test(description)
+        );
+
+    return filtered;
+  };
 
   useEffect(() => {
-    setFilteredProducts(() =>
-      products.filter(({ productTypeId }) => selectedProductTypes.includes(productTypeId))
-    );
-  }, [selectedProductTypes]);
+    const filtered = filterProducts(products, selectedProductTypes, filterText);
+    setFilteredProducts(filtered);
+  }, [selectedProductTypes, filterText]);
 
   if (error) return <ErrorMessage message={error.message} />;
 
@@ -72,9 +87,14 @@ export default function ProductList({ products = [] }: ProductListProps) {
           <FormControl
             size="small"
             sx={{ width: 350 }}>
+            <InputLabel
+              id="type-select-label"
+              classes={{ focused: styles.selectLabelFocused }}>
+              Select types to filter
+            </InputLabel>
             <Select
+              labelId="type-select-label"
               multiple
-              aria-placeholder="Type filter"
               renderValue={handleRenderValue}
               value={selectedProductTypes}
               onChange={handleChange}>
@@ -82,18 +102,11 @@ export default function ProductList({ products = [] }: ProductListProps) {
             </Select>
           </FormControl>
 
-          <OutlinedInput
-            autoFocus
-            fullWidth
-            size="small"
+          <Search
+            minLength={0}
             placeholder="Type to filter..."
-            startAdornment={
-              <InputAdornment position="start">
-                <Search />
-              </InputAdornment>
-            }
-            endAdornment={<InputAdornment position="end"></InputAdornment>}
-            onChange={handleChange}
+            width={220}
+            onSearch={handleSearch}
           />
         </section>
       </header>

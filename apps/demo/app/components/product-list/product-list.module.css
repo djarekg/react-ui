@@ -15,7 +15,12 @@
   display: flex;
   flex: 0 1 auto;
   align-items: center;
+  gap: 2rem;
   padding: 1.5rem 3rem;
   border: 1px solid var(--mui-palette-divider);
   border-radius: 8px;
+}
+
+.selectLabelFocused {
+  display: none;
 }

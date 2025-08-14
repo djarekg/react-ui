@@ -1,15 +1,11 @@
 import Loader from '@/components/loader/loader.js';
-import { useDebounce } from '@/core/hooks/use-debounce.js';
+import Search from '@/components/search/search.js';
 import { closest } from '@/core/utils/dom.js';
-import { isNullOrEmpty } from '@/core/utils/string.js';
-import Search from '@mui/icons-material/Search';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import { useEffect, useState, type ChangeEvent, type MouseEvent, type ReactNode } from 'react';
+import { type MouseEvent, type ReactNode } from 'react';
 import type { CommandPaletteItem } from './command-palette-item.js';
 import CommandPaletteResults from './command-palette-results.js';
 import styles from './command-palette.module.css';
@@ -31,27 +27,13 @@ export default function CommandPalette<T = unknown>({
   onSearch,
   onClose,
 }: CommandPaletteProps) {
-  const [searchTerm, setSearchTerm] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
-
-  const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(value);
-  };
+  'use memo';
 
   const handleClick = ({ target }: MouseEvent) => {
     if (closest(target as Element, '.app-command-palette-item-link')) {
       onClose();
     }
   };
-
-  useEffect(() => {
-    if (isNullOrEmpty(debouncedSearchTerm)) {
-      console.log('Search term is empty.');
-      return;
-    }
-
-    onSearch(debouncedSearchTerm);
-  }, [debouncedSearchTerm]);
 
   return (
     <Dialog
@@ -64,22 +46,11 @@ export default function CommandPalette<T = unknown>({
       open={open}
       onClose={onClose}>
       <DialogTitle sx={{ padding: 1 }}>
-        <OutlinedInput
+        <Search
           autoFocus
-          fullWidth
-          size="small"
+          endIcon={<span className={styles.esc}>esc</span>}
           placeholder="Type to search..."
-          startAdornment={
-            <InputAdornment position="start">
-              <Search />
-            </InputAdornment>
-          }
-          endAdornment={
-            <InputAdornment position="end">
-              <span className={styles.esc}>esc</span>
-            </InputAdornment>
-          }
-          onChange={handleChange}
+          onSearch={onSearch}
         />
       </DialogTitle>
       <DialogContent
@@ -103,7 +74,7 @@ export default function CommandPalette<T = unknown>({
             height="28"
             loading="lazy"
             alt="ghost"
-            src="/public/ghost.svg"
+            src="/ghost.svg"
           />
         </div>
       </DialogActions>

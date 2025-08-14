@@ -4,6 +4,8 @@ import type { IconProps } from './icon-props.ts';
 type LinkedInProps = {} & IconProps;
 
 const LinkedInIcon: FC<LinkedInProps> = ({ className, size = 24 }) => {
+  'use memo';
+
   return (
     <svg
       data-icon="cui-icon"
@@ -12,8 +14,7 @@ const LinkedInIcon: FC<LinkedInProps> = ({ className, size = 24 }) => {
       className={className}
       fill="currentColor"
       width={size}
-      height={size}
-    >
+      height={size}>
       <title>LinkedIn</title>
       <path
         fill="currentColor"

@@ -6,6 +6,8 @@ type ProductsIconProps = {
 } & IconProps;
 
 const ProductsIcon: FC<ProductsIconProps> = ({ className, size = 24 }) => {
+  'use memo';
+
   return (
     <svg
       data-icon="ghost-icon"

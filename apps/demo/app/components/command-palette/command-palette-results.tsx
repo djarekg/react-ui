@@ -2,6 +2,7 @@ import type { CommandPaletteItem } from '@/components/command-palette/command-pa
 import NavListItem from '@/components/nav-list-item/nav-list-item.js';
 import List from '@mui/material/List';
 import type { MouseEvent, ReactNode } from 'react';
+import { Link } from 'react-router';
 
 type CommandPaletteResultsProps = {
   defaultTemplate?: ReactNode;
@@ -14,6 +15,8 @@ export default function CommandPaletteResults({
   items = [],
   onClick,
 }: CommandPaletteResultsProps) {
+  'use memo';
+
   if (items?.length === 0 && defaultTemplate) {
     return <div onClickCapture={onClick}>{defaultTemplate}</div>;
   }
@@ -25,6 +28,19 @@ export default function CommandPaletteResults({
       {items.map(({ icon, label, href }) => (
         <NavListItem
           className="app-command-palette-item-link"
+          endAdornment={
+            <Link
+              to={{
+                pathname: href,
+                search: '?m=edit',
+              }}
+              style={{
+                display: 'flex',
+                justifySelf: 'flex-end',
+              }}>
+              edit
+            </Link>
+          }
           icon={icon}
           label={label}
           to={href}

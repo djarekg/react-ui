@@ -1,9 +1,10 @@
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import type { HTMLAttributes } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 import { Link } from 'react-router';
 
 type NavListItemProps = {
+  endAdornment?: ReactNode;
   to: string;
   icon: React.ReactNode;
   label: string;
@@ -16,6 +17,7 @@ type NavListItemProps = {
  */
 export default function NavListItem({
   className,
+  endAdornment,
   to,
   icon,
   label,
@@ -27,11 +29,13 @@ export default function NavListItem({
     <ListItemButton className={className}>
       <ListItemIcon>{icon}</ListItemIcon>
       <Link
+        prefetch="viewport"
         to={to}
         discover="none"
         viewTransition={viewTransition}>
         {label}
       </Link>
+      {endAdornment}
     </ListItemButton>
   );
 }

@@ -59,6 +59,7 @@
       "request": "launch",
       "cwd": "${workspaceFolder}/apps/demo",
       "webRoot": "${workspaceFolder}/apps/demo",
+      "userDataDir": "${workspaceFolder}/.out/chrome",
       "url": "http://localhost:5173/",
       "internalConsoleOptions": "openOnSessionStart",
       "sourceMaps": true,

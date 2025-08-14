@@ -6,6 +6,8 @@ import { NavLink } from 'react-router';
 import styles from './app-search-results-default-template.module.css';
 
 export default function AppSearchResultsDefaultTemplate() {
+  'use memo';
+
   return (
     <nav className={styles.nav}>
       <section>
@@ -51,6 +53,14 @@ export default function AppSearchResultsDefaultTemplate() {
           }}
           className={`${styles.createLink} app-command-palette-item-link`}>
           create customer
+        </NavLink>
+        <NavLink
+          to={{
+            pathname: '/products/0',
+            search: '?m=new',
+          }}
+          className={`${styles.createLink} app-command-palette-item-link`}>
+          create product
         </NavLink>
       </section>
     </nav>

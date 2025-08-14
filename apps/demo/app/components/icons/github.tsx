@@ -4,6 +4,8 @@ import type { IconProps } from './icon-props.ts';
 type GitHubProps = {} & IconProps;
 
 const GitHubIcon: FC<GitHubProps> = ({ className, size = 24 }) => {
+  'use memo';
+
   return (
     <svg
       data-icon="cui-icon"
@@ -12,8 +14,7 @@ const GitHubIcon: FC<GitHubProps> = ({ className, size = 24 }) => {
       className={className}
       fill="currentColor"
       width={size}
-      height={size}
-    >
+      height={size}>
       <title>GitHub</title>
       <g fill="currentColor">
         <path d="M24 4C12.954 4 4 12.954 4 24s8.954 20 20 20s20-8.954 20-20S35.046 4 24 4M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24s-10.745 24-24 24S0 37.255 0 24" />

@@ -35,6 +35,8 @@ const resultTypeMap: ResultTypeMapType = {
 } as const;
 
 export default function AppSearch() {
+  'use memo';
+
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [items, setItems] = useState<CommandPaletteItem[]>([]);
