@@ -65,6 +65,10 @@ export default function CustomerDetail({ customer, onSave }: CustomerDetailProps
     setSearchParams({ m: mode }, { replace: true });
   };
 
+  const handleInputChange = (field: keyof Customer) => (value: unknown) => {
+    setCustomerCopy(sate => ({ ...sate, [field]: value }));
+  };
+
   const handleCancel = () => {
     // If we are in 'new' mode, navigate back to the customer list
     // Otherwise, reset the form to the original customer data.
@@ -105,7 +109,7 @@ export default function CustomerDetail({ customer, onSave }: CustomerDetailProps
             required
             readonly={isReadonly}
             value={customerCopy?.name}
-            onChange={name => setCustomerCopy(prev => ({ ...prev, name }))}
+            onChange={handleInputChange('name')}
           />
           <FormInput
             label="Phone"
@@ -114,7 +118,7 @@ export default function CustomerDetail({ customer, onSave }: CustomerDetailProps
             required
             readonly={isReadonly}
             value={customerCopy?.phone}
-            onChange={phone => setCustomerCopy(prev => ({ ...prev, phone }))}
+            onChange={handleInputChange('phone')}
           />
         </section>
         <section>
@@ -124,14 +128,14 @@ export default function CustomerDetail({ customer, onSave }: CustomerDetailProps
             required
             readonly={isReadonly}
             value={customerCopy?.streetAddress}
-            onChange={streetAddress => setCustomerCopy(prev => ({ ...prev, streetAddress }))}
+            onChange={handleInputChange('streetAddress')}
           />
           <FormInput
             name="streetAddress2"
             label="Street Address 2"
             readonly={isReadonly}
             value={customerCopy?.streetAddress2}
-            onChange={streetAddress2 => setCustomerCopy(prev => ({ ...prev, streetAddress2 }))}
+            onChange={handleInputChange('streetAddress2')}
           />
           <FormInput
             name="city"
@@ -139,7 +143,7 @@ export default function CustomerDetail({ customer, onSave }: CustomerDetailProps
             required
             readonly={isReadonly}
             value={customerCopy?.city}
-            onChange={city => setCustomerCopy(prev => ({ ...prev, city }))}
+            onChange={handleInputChange('city')}
           />
           <div className={styles.stateZip}>
             {formMode === 'view' ? (
@@ -155,7 +159,7 @@ export default function CustomerDetail({ customer, onSave }: CustomerDetailProps
               <LocationStateSelect
                 readonly={isReadonly}
                 value={customerCopy?.state?.id}
-                onChange={stateId => setCustomerCopy(prev => ({ ...prev, stateId }))}
+                onChange={handleInputChange('stateId')}
               />
             )}
             <FormInput
@@ -165,7 +169,7 @@ export default function CustomerDetail({ customer, onSave }: CustomerDetailProps
               fullWidth
               readonly={isReadonly}
               value={customerCopy?.zip}
-              onChange={zip => setCustomerCopy(prev => ({ ...prev, zip }))}
+              onChange={handleInputChange('zip')}
             />
           </div>
         </section>

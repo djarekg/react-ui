@@ -1,25 +1,22 @@
-import CardTemplate from '@/components/card-template/card-template.js';
 import Search from '@/components/search/search.js';
 import { isNullOrEmpty } from '@/core/utils/string.js';
 import { GetProductTypes, type Product } from '@/types/graphql.js';
 import { useQuery } from '@apollo/client/react/hooks';
 import DoNotDisturbAlt from '@mui/icons-material/DoNotDisturbAlt';
-import EditOutlined from '@mui/icons-material/EditOutlined';
-import OpenInNewOutlined from '@mui/icons-material/OpenInNewOutlined';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
-import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
-import Tooltip from '@mui/material/Tooltip';
 import { lazy, useEffect, useState } from 'react';
+import ProductListItem from './product-list-item.js';
 import styles from './product-list.module.css';
 
+const ProductPreview = lazy(() => import('@/components/product-preview/product-preview.js'));
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
+
 const formControlWidth = { width: 350 };
 const noRecordsIconFontSize = { fontSize: '38px' };
 
@@ -30,38 +27,31 @@ type ProductListProps = {
 export default function ProductList({ products = [] }: ProductListProps) {
   'use memo';
 
+  const [openProductPreview, setOpenProductPreview] = useState(false);
   const [selectedProductTypes, setSelectedProductTypes] = useState<string[]>([]);
   const [filterText, setFilterText] = useState('');
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const { data: { productTypes = [] } = {}, error } = useQuery(GetProductTypes);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  const renderItem = (product: Product) => {
-    return (
-      <ListItem key={product.id}>
-        <CardTemplate
-          className={styles.card}
-          item={product}
-          actions={
-            <>
-              <Tooltip title="Open product">
-                <IconButton
-                  color="primary"
-                  size="small">
-                  <OpenInNewOutlined />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Edit product">
-                <IconButton
-                  color="primary"
-                  size="small">
-                  <EditOutlined />
-                </IconButton>
-              </Tooltip>
-            </>
-          }
-        />
-      </ListItem>
-    );
+  const handleSearch = (value: string) => setFilterText(value);
+  const handleChange = ({ target: { value } }: SelectChangeEvent<string | string[]>) =>
+    setSelectedProductTypes(Array.isArray(value) ? value : value.split(','));
+
+  const handleRenderValue = (selected: string[]) => {
+    return productTypes
+      .filter(({ id }) => selected.includes(id))
+      .map(({ name }) => name)
+      .join('');
+  };
+
+  const handlePreviewProduct = (id: string) => {
+    setSelectedProduct(products.find(({ id: productId }) => productId === id)!);
+    setOpenProductPreview(true);
+  };
+
+  const handleProductPreviewClose = () => {
+    setOpenProductPreview(false);
   };
 
   const renderCheckbox = ({ id, name }: { id: string; name: string }) => {
@@ -75,17 +65,6 @@ export default function ProductList({ products = [] }: ProductListProps) {
         <ListItemText primary={name} />
       </MenuItem>
     );
-  };
-
-  const handleSearch = (value: string) => setFilterText(value);
-  const handleChange = ({ target: { value } }: SelectChangeEvent<string | string[]>) =>
-    setSelectedProductTypes(Array.isArray(value) ? value : value.split(','));
-
-  const handleRenderValue = (selected: string[]) => {
-    return productTypes
-      .filter(({ id }) => selected.includes(id))
-      .map(({ name }) => name)
-      .join('');
   };
 
   const filterProducts = (array: Product[], types: string[], filter: string) => {
@@ -143,7 +122,14 @@ export default function ProductList({ products = [] }: ProductListProps) {
       </header>
 
       {filteredProducts.length ? (
-        <List className={styles.container}>{filteredProducts.map(renderItem)}</List>
+        <List className={styles.container}>
+          {filteredProducts.map(product => (
+            <ProductListItem
+              product={product}
+              onPreview={handlePreviewProduct}
+            />
+          ))}
+        </List>
       ) : (
         <div className={styles.noRecords}>
           <div className={styles.noRecordsMessage}>
@@ -154,6 +140,14 @@ export default function ProductList({ products = [] }: ProductListProps) {
             <div className={styles.noRecordsTip}>Tip: use filter to query products</div>
           </div>
         </div>
+      )}
+
+      {!!selectedProduct && (
+        <ProductPreview
+          product={selectedProduct!}
+          open={openProductPreview}
+          onClose={handleProductPreviewClose}
+        />
       )}
     </>
   );
