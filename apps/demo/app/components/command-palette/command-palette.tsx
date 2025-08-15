@@ -10,6 +10,10 @@ import type { CommandPaletteItem } from './command-palette-item.js';
 import CommandPaletteResults from './command-palette-results.js';
 import styles from './command-palette.module.css';
 
+const DIALOG_TITLE_SX = { padding: 1 };
+const DIALOG_CONTENT_SX = { maxHeight: '350px' };
+const SEARCH_END_ICON = <span className={styles.esc}>esc</span>;
+
 type CommandPaletteProps = {
   defaultResultsTemplate?: ReactNode;
   items: CommandPaletteItem[];
@@ -45,17 +49,17 @@ export default function CommandPalette<T = unknown>({
       }}
       open={open}
       onClose={onClose}>
-      <DialogTitle sx={{ padding: 1 }}>
+      <DialogTitle sx={DIALOG_TITLE_SX}>
         <Search
           autoFocus
-          endIcon={<span className={styles.esc}>esc</span>}
+          endIcon={SEARCH_END_ICON}
           placeholder="Type to search..."
           onSearch={onSearch}
         />
       </DialogTitle>
       <DialogContent
         className={styles.content}
-        sx={{ maxHeight: '350px' }}>
+        sx={DIALOG_CONTENT_SX}>
         {loading ? (
           <Loader />
         ) : (

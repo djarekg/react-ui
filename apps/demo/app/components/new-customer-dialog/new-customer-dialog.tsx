@@ -11,6 +11,7 @@ type NewCustomerDialogProps = {
   onClose: () => void;
 };
 
+const DIALOG_CONTENT_SX = { padding: '2rem' };
 export default function NewCustomerDialog({ open, onClose }: NewCustomerDialogProps) {
   'use memo';
 
@@ -19,7 +20,7 @@ export default function NewCustomerDialog({ open, onClose }: NewCustomerDialogPr
       open={open}
       onClose={onClose}>
       <DialogTitle>New Customer</DialogTitle>
-      <DialogContent sx={{ padding: '2rem' }}>
+      <DialogContent sx={DIALOG_CONTENT_SX}>
         <NewCustomerDetail />
       </DialogContent>
       <DialogActions>

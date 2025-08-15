@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import { lazy } from 'react';
 
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
@@ -25,6 +25,8 @@ export default function LocationStateSelect({
 
   if (error) return <ErrorMessage message={error.message} />;
 
+  const handleChange = ({ target: { value } }: SelectChangeEvent) => onChange?.(value);
+
   return (
     <FormControl fullWidth>
       <InputLabel id="state-select-label">State</InputLabel>
@@ -33,7 +35,7 @@ export default function LocationStateSelect({
         disabled={readonly}
         size="small"
         value={value}
-        onChange={event => onChange?.(event.target.value)}>
+        onChange={handleChange}>
         {states.map(state => (
           <MenuItem
             key={state.id}

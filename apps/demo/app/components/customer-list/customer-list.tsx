@@ -8,6 +8,8 @@ import { columns } from './customer-datagrid-cols.js';
 
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
 
+const INITIAL_STATE = { pagination: { paginationModel: { page: 0, pageSize: 10 } } };
+
 export default function NewCustomerDetail() {
   'use memo';
 
@@ -27,7 +29,7 @@ export default function NewCustomerDetail() {
       rows={customers}
       columns={columns}
       pageSizeOptions={[5, 10, 20]}
-      initialState={{ pagination: { paginationModel: { page: 0, pageSize: 10 } } }}
+      initialState={INITIAL_STATE}
       loading={loading}
       onCellClick={onCellClick}
     />

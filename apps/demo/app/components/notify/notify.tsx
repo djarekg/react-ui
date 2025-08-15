@@ -10,6 +10,7 @@ type NotifyProps = {
   onClose?: () => void;
 };
 
+const SNACKBAR_SLOTS = { transition: Fade };
 export default function Notify({
   duration = 3000,
   message,
@@ -26,7 +27,7 @@ export default function Notify({
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       open={open}
       autoHideDuration={duration}
-      slots={{ transition: Fade }}
+      slots={SNACKBAR_SLOTS}
       onClose={handleClose}>
       <Alert
         severity={severity}

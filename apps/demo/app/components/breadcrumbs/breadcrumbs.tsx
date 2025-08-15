@@ -32,21 +32,23 @@ export default function Breadcrumbs() {
 
   if (pathnames.length === 0) return null;
 
+  const renderLink = (name: string, index: number) => {
+    const route = `/${pathnames.slice(0, index + 1).join('/')}`;
+
+    return (
+      <Link
+        href={route}
+        key={name}
+        color="inherit">
+        {name}
+      </Link>
+    );
+  };
+
   return (
     <MuiBreadcrumbs separator={<NavigateNextOutlined />}>
       <HomeLink />
-      {pathnames.map((name, index) => {
-        const route = `/${pathnames.slice(0, index + 1).join('/')}`;
-
-        return (
-          <Link
-            href={route}
-            key={name}
-            color="inherit">
-            {name}
-          </Link>
-        );
-      })}
+      {pathnames.map(renderLink)}
     </MuiBreadcrumbs>
   );
 }

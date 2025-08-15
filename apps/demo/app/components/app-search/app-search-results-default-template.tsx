@@ -5,6 +5,9 @@ import ShoppingBagOutlined from '@mui/icons-material/ShoppingBagOutlined';
 import { Link } from 'react-router';
 import styles from './app-search-results-default-template.module.css';
 
+const LINK_CLASS_NAME = `${styles.link} app-command-palette-item-link`;
+const CREATE_LINK_CLASS_NAME = `${styles.createLink} app-command-palette-item-link`;
+
 export default function AppSearchResultsDefaultTemplate() {
   'use memo';
 
@@ -13,25 +16,25 @@ export default function AppSearchResultsDefaultTemplate() {
       <section>
         <Link
           to="/users"
-          className={`${styles.link} app-command-palette-item-link`}>
+          className={LINK_CLASS_NAME}>
           <PeopleOutlineRounded />
           Users
         </Link>
         <Link
           to="/customers"
-          className={`${styles.link} app-command-palette-item-link`}>
+          className={LINK_CLASS_NAME}>
           <ShoppingBagOutlined />
           Customers
         </Link>
         <Link
           to="/products"
-          className={`${styles.link} app-command-palette-item-link`}>
+          className={LINK_CLASS_NAME}>
           <ProductsIcon />
           Products
         </Link>
         <Link
           to="/admin/settings"
-          className={`${styles.link} app-command-palette-item-link`}>
+          className={LINK_CLASS_NAME}>
           <SettingsOutlined />
           Admin settings
         </Link>
@@ -43,7 +46,7 @@ export default function AppSearchResultsDefaultTemplate() {
             pathname: '/users/0',
             search: '?m=new',
           }}
-          className={`${styles.createLink} app-command-palette-item-link`}>
+          className={CREATE_LINK_CLASS_NAME}>
           create user
         </Link>
         <Link
@@ -51,7 +54,7 @@ export default function AppSearchResultsDefaultTemplate() {
             pathname: '/customers/0',
             search: '?m=new',
           }}
-          className={`${styles.createLink} app-command-palette-item-link`}>
+          className={CREATE_LINK_CLASS_NAME}>
           create customer
         </Link>
         <Link
@@ -59,7 +62,7 @@ export default function AppSearchResultsDefaultTemplate() {
             pathname: '/products/0',
             search: '?m=new',
           }}
-          className={`${styles.createLink} app-command-palette-item-link`}>
+          className={CREATE_LINK_CLASS_NAME}>
           create product
         </Link>
       </section>

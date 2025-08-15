@@ -6,6 +6,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 
+const DIALOG_CONTENT_SX = { padding: '3rem', paddingBottom: 0 };
+
 type CustomerContactDialogProps = {
   customerContact: CustomerContact | null;
   open?: boolean;
@@ -39,7 +41,7 @@ export default function CustomerContactDialog({
         }}>
         <CloseOutlined />
       </IconButton>
-      <DialogContent sx={{ padding: '3rem', paddingBottom: 0 }}>
+      <DialogContent sx={DIALOG_CONTENT_SX}>
         <CustomerContactDetail
           customerContact={customerContact}
           onSave={onSave}

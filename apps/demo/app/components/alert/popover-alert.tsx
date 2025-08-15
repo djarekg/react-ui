@@ -18,12 +18,15 @@ export default function PopoverAlert({
 }: PopoverAlertProps) {
   'ues memo';
 
+  const handleCloseFalse = () => onConfirm(false);
+  const handleCloseTrue = () => onConfirm(true);
+
   return (
     <Popover
       id={popoverId}
       open={Boolean(anchorEl)}
       anchorEl={anchorEl}
-      onClose={() => onConfirm(false)}>
+      onClose={handleCloseFalse}>
       <Alert
         variant="outlined"
         severity="error"
@@ -38,13 +41,13 @@ export default function PopoverAlert({
               autoFocus
               color="inherit"
               size="small"
-              onClick={() => onConfirm(true)}>
+              onClick={handleCloseTrue}>
               YES
             </Button>
             <Button
               color="inherit"
               size="small"
-              onClick={() => onConfirm(false)}>
+              onClick={handleCloseFalse}>
               NO
             </Button>
           </>

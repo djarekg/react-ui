@@ -26,6 +26,7 @@ export default function Search({
 
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const widthSx = { width: width };
 
   const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(value);
@@ -41,7 +42,7 @@ export default function Search({
   };
 
   useEffect(() => {
-    if (isNull(debouncedSearchTerm) && debouncedSearchTerm.length >= minLength) {
+    if (isNull(debouncedSearchTerm) && debouncedSearchTerm.length < minLength) {
       return;
     }
 
@@ -61,7 +62,7 @@ export default function Search({
       }
       {...endAdornment}
       onChange={handleChange}
-      sx={{ width: width }}
+      sx={widthSx}
     />
   );
 }

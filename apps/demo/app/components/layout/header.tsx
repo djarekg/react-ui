@@ -15,6 +15,7 @@ export default function Header({ isAuthenticated }: HeaderProps) {
   'use memo';
 
   const { toggleOpen } = useSidenavContext();
+  const to = isAuthenticated ? '/' : '/signin';
 
   return (
     <header className="app-header">
@@ -26,7 +27,7 @@ export default function Header({ isAuthenticated }: HeaderProps) {
             <MenuRounded />
           </IconButton>
         )}
-        <NavLink to={isAuthenticated ? '/' : '/signin'}>
+        <NavLink to={to}>
           <img
             loading="lazy"
             src="/react-logo.svg"
