@@ -3,12 +3,11 @@ import { getAuthSession } from '@/auth/auth-session.js';
 import { AuthProvider } from '@/auth/auth.js';
 import { clientConfig, createApolloClient } from '@/client/create-apollo-client.js';
 import Header from '@/components/layout/header.js';
-import Loader from '@/components/loader/loader.js';
 import { SidenavProvider } from '@/components/sidenav/sidenav-provider.js';
 import { ApolloProvider } from '@apollo/client/react';
 import { CacheProvider } from '@emotion/react';
 import Box from '@mui/material/Box';
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import {
   createSearchParams,
   isRouteErrorResponse,
@@ -97,9 +96,7 @@ const AppContent = () => {
               <Header isAuthenticated={isAuthenticated} />
               <main>
                 <Sidenav />
-                <Suspense fallback={<Loader />}>
-                  <Outlet />
-                </Suspense>
+                <Outlet />
               </main>
             </SidenavProvider>
           </AuthProvider>
