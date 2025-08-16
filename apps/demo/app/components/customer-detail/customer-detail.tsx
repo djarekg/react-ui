@@ -1,47 +1,11 @@
 import FormInput from '@/components/form-input/form-input.js';
+import ItemDetailTemplate from '@/components/item-detail-template/item-detail-template.js';
 import LocationStateSelect from '@/components/location-state-select/location-state-select.js';
 import { FormMode, type FormModeType } from '@/core/constants/form-mode.js';
 import type { Customer } from '@/types/graphql.js';
-import Button from '@mui/material/Button';
 import { useState, type HTMLAttributes } from 'react';
-import { useFormStatus } from 'react-dom';
 import { useNavigate, useSearchParams } from 'react-router';
 import styles from './customer-detail.module.css';
-
-type ActionsProps = {
-  isEditing: boolean;
-  onCancel?: () => void;
-  onEdit?: () => void;
-  onSave?: () => void;
-};
-
-function Actions({ isEditing, onCancel, onEdit, onSave }: ActionsProps) {
-  'use memo';
-
-  const { pending } = useFormStatus();
-
-  if (isEditing) {
-    return (
-      <>
-        <Button onClick={onCancel}>Cancel</Button>
-        <Button
-          variant="outlined"
-          disabled={pending}
-          onClick={onSave}>
-          Save
-        </Button>
-      </>
-    );
-  }
-
-  return (
-    <Button
-      variant="outlined"
-      onClick={onEdit}>
-      Edit
-    </Button>
-  );
-}
 
 type CustomerDetailProps = {
   customer: Customer;
@@ -78,111 +42,103 @@ export default function CustomerDetail({ customer, onSave }: CustomerDetailProps
     }
 
     setCustomerCopy(customer); // Reset to original customer data
-    setFormModeFn(FormMode.VIEW);
+    setFormModeFn(FormMode.View);
     setIsReadonly(true);
   };
 
   const handleEdit = () => {
-    setFormModeFn(FormMode.EDIT);
+    setFormModeFn(FormMode.Edit);
     setIsReadonly(false);
   };
 
   const handleSave = () => {
     onSave?.(customerCopy);
-    setFormModeFn(FormMode.VIEW);
+    setFormModeFn(FormMode.View);
     setIsReadonly(true);
   };
 
-  return (
-    <>
-      <header className={styles.header}>
-        {!isCreating && (
-          <span>Created: {new Date(customerCopy?.dateCreated as string).toLocaleDateString()}</span>
-        )}
-      </header>
+  const header = !isCreating && (
+    <span>Created: {new Date(customerCopy?.dateCreated as string).toLocaleDateString()}</span>
+  );
 
-      <form className={styles.form}>
-        <section>
-          <FormInput
-            label="Name"
-            name="name"
-            required
-            readonly={isReadonly}
-            value={customerCopy?.name}
-            onChange={handleInputChange('name')}
-          />
-          <FormInput
-            label="Phone"
-            name="phone"
-            type="tel"
-            required
-            readonly={isReadonly}
-            value={customerCopy?.phone}
-            onChange={handleInputChange('phone')}
-          />
-        </section>
-        <section>
-          <FormInput
-            name="streetAddress"
-            label="Street Address"
-            required
-            readonly={isReadonly}
-            value={customerCopy?.streetAddress}
-            onChange={handleInputChange('streetAddress')}
-          />
-          <FormInput
-            name="streetAddress2"
-            label="Street Address 2"
-            readonly={isReadonly}
-            value={customerCopy?.streetAddress2}
-            onChange={handleInputChange('streetAddress2')}
-          />
-          <FormInput
-            name="city"
-            label="City"
-            required
-            readonly={isReadonly}
-            value={customerCopy?.city}
-            onChange={handleInputChange('city')}
-          />
-          <div className={styles.stateZip}>
-            {formMode === 'view' ? (
-              <FormInput
-                name="state"
-                label="State"
-                required
-                fullWidth
-                readonly
-                value={customerCopy?.state?.name}
-              />
-            ) : (
-              <LocationStateSelect
-                readonly={isReadonly}
-                value={customerCopy?.state?.id}
-                onChange={handleInputChange('stateId')}
-              />
-            )}
+  return (
+    <ItemDetailTemplate
+      header={header}
+      isReadonly={isReadonly}
+      onCancel={handleCancel}
+      onEdit={handleEdit}
+      onSave={handleSave}>
+      <section>
+        <FormInput
+          label="Name"
+          name="name"
+          required
+          readonly={isReadonly}
+          value={customerCopy?.name}
+          onChange={handleInputChange('name')}
+        />
+        <FormInput
+          label="Phone"
+          name="phone"
+          type="tel"
+          required
+          readonly={isReadonly}
+          value={customerCopy?.phone}
+          onChange={handleInputChange('phone')}
+        />
+      </section>
+      <section>
+        <FormInput
+          name="streetAddress"
+          label="Street Address"
+          required
+          readonly={isReadonly}
+          value={customerCopy?.streetAddress}
+          onChange={handleInputChange('streetAddress')}
+        />
+        <FormInput
+          name="streetAddress2"
+          label="Street Address 2"
+          readonly={isReadonly}
+          value={customerCopy?.streetAddress2}
+          onChange={handleInputChange('streetAddress2')}
+        />
+        <FormInput
+          name="city"
+          label="City"
+          required
+          readonly={isReadonly}
+          value={customerCopy?.city}
+          onChange={handleInputChange('city')}
+        />
+        <div className={styles.stateZip}>
+          {formMode === 'view' ? (
             <FormInput
-              name="zip"
-              label="Zip Code"
+              name="state"
+              label="State"
               required
               fullWidth
-              readonly={isReadonly}
-              value={customerCopy?.zip}
-              onChange={handleInputChange('zip')}
+              readonly
+              value={customerCopy?.state?.name}
             />
-          </div>
-        </section>
-      </form>
-
-      <footer className={styles.footer}>
-        <Actions
-          isEditing={!isReadonly}
-          onCancel={handleCancel}
-          onEdit={handleEdit}
-          onSave={handleSave}
-        />
-      </footer>
-    </>
+          ) : (
+            <LocationStateSelect
+              readonly={isReadonly}
+              value={customerCopy?.state?.id}
+              onChange={handleInputChange('stateId')}
+            />
+          )}
+          <FormInput
+            name="zip"
+            label="Zip Code"
+            required
+            fullWidth
+            readonly={isReadonly}
+            value={customerCopy?.zip}
+            onChange={handleInputChange('zip')}
+          />
+        </div>
+      </section>
+    </ItemDetailTemplate>
   );
 }

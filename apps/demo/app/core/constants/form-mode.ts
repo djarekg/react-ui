@@ -1,6 +1,6 @@
 export const FormMode = {
-  NEW: 'new',
-  VIEW: 'view',
-  EDIT: 'edit',
+  New: 'new',
+  Edit: 'edit',
+  View: 'view',
 } as const;
 export type FormModeType = (typeof FormMode)[keyof typeof FormMode];
