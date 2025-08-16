@@ -1,5 +1,5 @@
 import NavListItem from '@/components/nav-list-item/nav-list-item.js';
-import { useSidenavContext } from '@/components/sidenav/sidenav-provider.js';
+import { useSidenav } from '@/components/sidenav/sidenav-provider.js';
 import HomeOutlined from '@mui/icons-material/HomeOutlined';
 import PeopleOutlineRounded from '@mui/icons-material/PeopleOutlineRounded';
 import SettingsOutlined from '@mui/icons-material/SettingsOutlined';
@@ -27,7 +27,7 @@ const DRAWER_SX = {
 export default function Sidenav() {
   'use memo';
 
-  const { open, setOpenFalse } = useSidenavContext();
+  const { open, setOpenFalse } = useSidenav();
 
   return (
     <Drawer

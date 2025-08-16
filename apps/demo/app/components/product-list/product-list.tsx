@@ -14,11 +14,10 @@ import { lazy, useEffect, useState } from 'react';
 import ProductListItem from './product-list-item.js';
 import styles from './product-list.module.css';
 
-const ProductPreview = lazy(() => import('@/components/product-preview/product-preview.js'));
 const ErrorMessage = lazy(() => import('@/components/error/error-message.js'));
 
-const formControlWidth = { width: 350 };
-const noRecordsIconFontSize = { fontSize: '38px' };
+const FORM_CONTROL_WIDTH = { width: 350 };
+const NO_RECORDS_ICON_FONT_SIZE = { fontSize: '38px' };
 
 type ProductListProps = {
   products: Product[];
@@ -31,8 +30,10 @@ export default function ProductList({ products = [] }: ProductListProps) {
   const [selectedProductTypes, setSelectedProductTypes] = useState<string[]>([]);
   const [filterText, setFilterText] = useState('');
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null | undefined>(null);
   const { data: { productTypes = [] } = {}, error } = useQuery(GetProductTypes);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  if (error) return <ErrorMessage message={error.message} />;
 
   const handleSearch = (value: string) => setFilterText(value);
   const handleChange = ({ target: { value } }: SelectChangeEvent<string | string[]>) =>
@@ -46,7 +47,8 @@ export default function ProductList({ products = [] }: ProductListProps) {
   };
 
   const handlePreviewProduct = (id: string) => {
-    setSelectedProduct(products.find(({ id: productId }) => productId === id)!);
+    const product = products.find(({ id: productId }) => productId === id);
+    setSelectedProduct(product);
     setOpenProductPreview(true);
   };
 
@@ -88,15 +90,13 @@ export default function ProductList({ products = [] }: ProductListProps) {
     setFilteredProducts(filtered);
   }, [selectedProductTypes, filterText]);
 
-  if (error) return <ErrorMessage message={error.message} />;
-
   return (
     <>
       <header className={styles.header}>
         <section className={styles.toolbar}>
           <FormControl
             size="small"
-            sx={formControlWidth}>
+            sx={FORM_CONTROL_WIDTH}>
             <InputLabel
               id="type-select-label"
               classes={{ shrink: styles.selectLabelShrink }}>
@@ -124,10 +124,7 @@ export default function ProductList({ products = [] }: ProductListProps) {
       {filteredProducts.length ? (
         <List className={styles.container}>
           {filteredProducts.map(product => (
-            <ProductListItem
-              product={product}
-              onPreview={handlePreviewProduct}
-            />
+            <ProductListItem product={product} />
           ))}
         </List>
       ) : (
@@ -135,19 +132,11 @@ export default function ProductList({ products = [] }: ProductListProps) {
           <div className={styles.noRecordsMessage}>
             <div>
               No records
-              <DoNotDisturbAlt sx={noRecordsIconFontSize} />
+              <DoNotDisturbAlt sx={NO_RECORDS_ICON_FONT_SIZE} />
             </div>
             <div className={styles.noRecordsTip}>Tip: use filter to query products</div>
           </div>
         </div>
-      )}
-
-      {!!selectedProduct && (
-        <ProductPreview
-          product={selectedProduct!}
-          open={openProductPreview}
-          onClose={handleProductPreviewClose}
-        />
       )}
     </>
   );

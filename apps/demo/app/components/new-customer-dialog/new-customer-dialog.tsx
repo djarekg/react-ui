@@ -5,13 +5,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
+const DIALOG_CONTENT_SX = { padding: '2rem' };
+
 type NewCustomerDialogProps = {
   open: boolean;
   onCreate: (name: string) => void;
   onClose: () => void;
 };
 
-const DIALOG_CONTENT_SX = { padding: '2rem' };
 export default function NewCustomerDialog({ open, onClose }: NewCustomerDialogProps) {
   'use memo';
 

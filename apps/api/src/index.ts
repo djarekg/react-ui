@@ -5,7 +5,6 @@
  */
 import 'reflect-metadata';
 
-import http from 'node:http';
 import { ApolloServer } from '@apollo/server';
 import { ApolloServerPluginUsageReportingDisabled } from '@apollo/server/plugin/disabled';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
@@ -15,6 +14,7 @@ import cors from '@koa/cors';
 import { resolvers } from '@prisma/generated/type-graphql/index.js';
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
+import http from 'node:http';
 import { buildSchemaSync } from 'type-graphql';
 import type { Context } from './client/context.ts';
 import { prisma } from './client/index.ts';
@@ -52,7 +52,7 @@ app.use(
   cors({
     allowMethods: ['POST', 'OPTIONS'],
     origin: corsOrigin,
-  }),
+  })
 );
 app.use(bodyParser());
 
@@ -66,9 +66,9 @@ app.use(
 
       return { prisma };
     },
-  }),
+  })
 );
 
-await new Promise<void>(resolve => httpServer.listen({ port }, resolve));
+await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
 
 export const viteNodeApp = app;

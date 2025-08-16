@@ -2,7 +2,6 @@ import CardTemplate from '@/components/card-template/card-template.js';
 import type { Product } from '@/types/graphql.js';
 import EditOutlined from '@mui/icons-material/EditOutlined';
 import OpenInNewOutlined from '@mui/icons-material/OpenInNewOutlined';
-import PreviewOutlined from '@mui/icons-material/PreviewOutlined';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import Tooltip from '@mui/material/Tooltip';
@@ -11,13 +10,10 @@ import styles from './product-list-item.module.css';
 
 type ProductListItemProps = {
   product: Product;
-  onPreview: (id: string) => void;
 };
 
-const ProductListItem: FC<ProductListItemProps> = ({ product, onPreview }) => {
-  const handlePreviewClick = () => {
-    onPreview(product.id);
-  };
+const ProductListItem: FC<ProductListItemProps> = ({ product }) => {
+  'use memo';
 
   return (
     <ListItem key={product.id}>
@@ -26,13 +22,6 @@ const ProductListItem: FC<ProductListItemProps> = ({ product, onPreview }) => {
         item={product}
         actions={
           <>
-            <Tooltip title="Open product">
-              <IconButton
-                size="small"
-                onClick={handlePreviewClick}>
-                <PreviewOutlined />
-              </IconButton>
-            </Tooltip>
             <Tooltip title="Open product">
               <IconButton
                 size="small"

@@ -29,7 +29,7 @@ export function SidenavProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useSidenavContext() {
+export function useSidenav() {
   'use memo';
 
   const context = use(SidenavContext);

@@ -1,7 +1,7 @@
 import AppSearch from '@/components/app-search/app-search.js';
 import Breadcrumbs from '@/components/breadcrumbs/breadcrumbs.js';
 import SessionMenu from '@/components/session-menu/session-menu.js';
-import { useSidenavContext } from '@/components/sidenav/sidenav-provider.js';
+import { useSidenav } from '@/components/sidenav/sidenav-provider.js';
 import MenuRounded from '@mui/icons-material/MenuRounded';
 import IconButton from '@mui/material/IconButton';
 import { NavLink } from 'react-router';
@@ -14,7 +14,7 @@ type HeaderProps = {
 export default function Header({ isAuthenticated }: HeaderProps) {
   'use memo';
 
-  const { toggleOpen } = useSidenavContext();
+  const { toggleOpen } = useSidenav();
   const to = isAuthenticated ? '/' : '/signin';
 
   return (
