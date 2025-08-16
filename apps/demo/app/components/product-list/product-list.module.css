@@ -21,10 +21,6 @@
   border-radius: 8px;
 }
 
-.selectLabelShrink {
-  display: none;
-}
-
 .noRecords {
   display: grid;
   place-content: center;
@@ -33,30 +29,12 @@
   font-weight: 300;
 }
 
-.noRecordsMessage {
-  flex-direction: column;
-  color: var(--mui-palette-grey-400);
-  gap: 2rem;
-
-  &,
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  > div:first-child {
-    gap: 1rem;
-    font-size: 1.2em;
-  }
-}
-
 .noRecordsTip {
   --_color: var(--mui-palette-primary-main);
 
   border: 1px solid var(--_color);
   border-radius: 8px;
   padding: 4px 16px;
-  font-size: 0.6em;
+  font-size: 0.7em;
   color: var(--_color);
 }
